@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 const Portfolio = ({ isActive, onClick }) => {
+  
   const [formData, setFormData] = useState({
     title: "",
     productName: "",
@@ -173,14 +175,23 @@ const Portfolio = ({ isActive, onClick }) => {
   return (
     <div className="w-full max-w-6xl mx-auto p-8 bg-white rounded-lg shadow-lg">
       <ToastContainer />
-      <button
-        className={`w-full p-3 mb-6 rounded-lg transition-all font-semibold text-lg ${
-          isActive ? "bg-blue-600 text-white" : "bg-gray-200 text-gray-600"
-        }`}
-        onClick={onClick}
-      >
-        Add portfolio
-      </button>
+      <div className="flex justify-between mb-6">
+         <Link to="/dashboard/view-portfolio" ><button
+         
+          className="p-3 rounded-lg bg-green-600 text-white hover:bg-green-700 font-semibold"
+        >
+          View Portfolio
+        </button>
+        </Link>
+        <button
+          className={`p-3 rounded-lg transition-all font-semibold text-lg ${
+            isActive ? "bg-blue-600 text-white" : "bg-gray-200 text-gray-600"
+          }`}
+          onClick={onClick}
+        >
+          Add Portfolio
+        </button>
+      </div>
       <form onSubmit={handleSubmit} className="space-y-8">
         <div className="p-6 bg-gray-50 rounded-lg shadow-md">
           <h2 className="text-xl font-bold text-gray-700 mb-4">Project Details</h2>

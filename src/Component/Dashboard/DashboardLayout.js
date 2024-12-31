@@ -8,6 +8,7 @@ import Settings from '../Pages/Setting';
 import Help from '../Pages/Help';
 import TopBar from './Top';
 import Portfolio from '../Pages/Portfolio';
+import ViewPortfolio from '../Pages/ViewPortfolio';
 
 const Dashboard = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -34,6 +35,7 @@ const Dashboard = () => {
             <Route path="settings" element={<Settings />} />
             <Route path="help" element={<Help />} />
             <Route path="/portfolio" element={<Portfolio/>} />
+            <Route path="/view-portfolio" element={<ViewPortfolio />} />
             <Route path="*" element={<Navigate to="home" />} />
           </Routes>
         </div>
