@@ -5,7 +5,7 @@ This project is a React.js-based frontend for an e-commerce dashboard, designed 
 ## Figma Design
 
 The design for this dashboard is available in the following Figma link:  
-[Figma Design Link]- (    )
+[Figma Design Link]- ( https://www.figma.com/design/kCJ9MTtZqifiqPGxt2RthJ/FREE-e-commerce-website-for-travel-agency-(Community)?node-id=403-29784&t=LI0J1J2LXEE55Rl3-1   )
 
 This link includes a detailed layout of the dashboard UI, including page structures, components, and styling guidelines.
 
