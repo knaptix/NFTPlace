@@ -1,5 +1,3 @@
-import Home from "./Component/Home"
-import Profile from "./Component/Profile"
 import Navbar from "./Component/Navbar"
 import HeroSection from "./Component/HeroSection"
 import ProductsSection from "./Component/ProductsSection"
@@ -10,8 +8,6 @@ import Testimonials from "./Component/Testimonials";
 const App = () => {
   return (
     <div>
-      {/* <Home/> */}
-      {/* <Profile/> */}
       <Navbar/>
       <HeroSection />
       <ProductsSection />
