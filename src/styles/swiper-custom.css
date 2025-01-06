@@ -1,0 +1,61 @@
+/* Navigation Arrows Styling */
+.swiper-button-next,
+.swiper-button-prev {
+  color: #f97316 !important;
+  background: rgba(255, 255, 255, 0.9);
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.swiper-button-next {
+  right: -5px !important;
+}
+
+.swiper-button-prev {
+  left: -5px !important;
+}
+
+.swiper-button-next:after,
+.swiper-button-prev:after {
+  font-size: 20px !important;
+}
+
+/* Pagination Dots Styling */
+.swiper-pagination {
+  position: relative !important;
+  bottom: -10px !important;
+  margin-top: 20px !important;
+}
+
+.swiper-pagination-bullet {
+  background: #f97316 !important;
+  width: 10px !important;
+  height: 10px !important;
+  margin: 0 6px !important;
+}
+
+.swiper-pagination-bullet-active {
+  background: #f97316 !important;
+}
+
+/* Container Spacing */
+.swiper-container {
+  position: relative;
+  padding: 0 40px;
+}
+
+/* Disabled state */
+.swiper-button-disabled {
+  opacity: 0.5 !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .swiper-button-next,
+  .swiper-button-prev {
+    display: none !important;
+  }
+}
+
