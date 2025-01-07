@@ -1,17 +1,18 @@
 import Navbar from "./Component/Navbar";
-import HeroSection from "./Component/HeroSection";
-import ProductsSection from "./Component/ProductsSection";
+
 import './styles/swiper-custom.css';
-import Testimonials from "./Component/Testimonials";
-import Footer from "./Component/Footer";
-import BulkProductSearch from "./Component/BulkProductSearch";
+
+
 import CartSidebar from "./Component/CartSidebar";
-import OrderCheckout from "./Component/OrderCheckout";
+
 import React, { useState } from "react";
+import Home from "./Component/Home";
+import { Route, Routes } from "react-router-dom";
+import OrderCheckout from "./Component/OrderCheckout";
 
 const App = () => {
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [showCheckout, setShowCheckout] = useState(false);
+  const [setShowCheckout] = useState(false);
 
   return (
     <div>
@@ -24,15 +25,12 @@ const App = () => {
           setIsCartOpen(false); // Close cart when proceeding to checkout
         }}
       />
-      <OrderCheckout 
-        isVisible={showCheckout}
-        onClose={() => setShowCheckout(false)}
-      />
-      <HeroSection />
-      <ProductsSection />
-      <BulkProductSearch />
-      <Testimonials />
-      <Footer />
+      
+      <Routes>
+        <Route path="/checkout" element={<OrderCheckout/>}/>
+        <Route path="/" element={<Home/>}/>
+      </Routes>
+      
     </div>
   );
 };

@@ -3,6 +3,7 @@ import { FaShoppingCart } from "react-icons/fa";
 import CartSidebar from "./CartSidebar";
 import OrderCheckout from "./OrderCheckout";
 
+
 const Navbar = () => {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [showCheckout, setShowCheckout] = useState(false);
@@ -32,7 +33,7 @@ const Navbar = () => {
             <ul className="mx-auto flex items-center">
               <li className="p-5 xl:p-8">
                 <a
-                  href="#home"
+                  href="/"
                   className="text-white hover:text-gray-300 transition-colors"
                 >
                   <span>Home</span>

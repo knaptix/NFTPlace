@@ -1,5 +1,6 @@
 import React from 'react';
 import { IoCloseOutline } from "react-icons/io5"; // Using react-icons instead
+import { Link } from 'react-router-dom';
 
 const products = [
   {
@@ -94,12 +95,12 @@ const CartSidebar = ({ isOpen, onClose, onCheckout }) => {
             <p>Subtotal</p>
             <p>$122.00</p>
           </div>
-          <button
+          <Link to="/checkout"> <button
             onClick={onCheckout}
             className="w-full bg-orange-500 text-white hover:bg-white hover:text-orange-500 px-6 py-3 border hover:border-orange-500 rounded-md transition-colors"
           >
             Checkout
-          </button>
+          </button></Link>
         </div>
       </div>
     </div>
