@@ -18,7 +18,7 @@ const Footer = () => {
             <p>
               <span className="text-base uppercase tracking-wide text-orange-500">Call us</span>
               <a
-                href="#"
+                href="/"
                 className="block text-2xl font-medium text-gray-900 hover:text-orange-500 sm:text-3xl"
               >
                 0123456789
@@ -65,17 +65,17 @@ const Footer = () => {
               {
                 title: "Services",
                 links: [
-                  { name: "Product Comparison", link: "#" },
-                  { name: "Products Review", link: "#" },
-                  { name: "Quality Product Buying", link: "#" },
-                  { name: "Support 24/7", link: "#" },
+                  { name: "Product Comparison", link: "/" },
+                  { name: "Products Review", link: "/" },
+                  { name: "Quality Product Buying", link: "/" },
+                  { name: "Support 24/7", link: "/" },
                 ],
               },
               {
                 title: "Company",
                 links: [
-                  { name: "About Us", link: "#" },
-                  { name: "Meet the Team", link: "#" },
+                  { name: "About Us", link: "/" },
+                  { name: "Meet the Team", link: "/" },
                 ],
               },
             ].map(({ title, links }, idx) => (
@@ -99,9 +99,9 @@ const Footer = () => {
           <div className="sm:flex sm:items-center sm:justify-between">
             <ul className="flex flex-wrap gap-4 text-xs">
               {[
-                { name: "Terms & Conditions", link: "#" },
-                { name: "Privacy Policy", link: "#" },
-                { name: "Cookies", link: "#" },
+                { name: "Terms & Conditions", link: "/" },
+                { name: "Privacy Policy", link: "/" },
+                { name: "Cookies", link: "/" },
               ].map(({ name, link }, idx) => (
                 <li key={idx}>
                   <a href={link} className="text-gray-500 transition hover:text-orange-500">

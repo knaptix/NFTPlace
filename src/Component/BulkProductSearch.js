@@ -160,13 +160,13 @@ const BulkProductSearch = () => {
           <ul className="space-y-2">
             <li className="flex items-center space-x-2">
               <span className="w-2 h-2 bg-green-500 rounded-full"></span>
-              <a href="#" className="text-sm text-orange-500 hover:text-gray-800">
+              <a href="/" className="text-sm text-orange-500 hover:text-gray-800">
                 Similar product with 15% more discount
               </a>
             </li>
             <li className="flex items-center space-x-2">
               <span className="w-2 h-2 bg-green-500 rounded-full"></span>
-              <a href="#" className="text-sm text-orange-500 hover:text-gray-800">
+              <a href="/" className="text-sm text-orange-500 hover:text-gray-800">
                 Bulk deal: Buy 5 get 1 free
               </a>
             </li>
