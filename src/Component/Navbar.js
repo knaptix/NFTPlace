@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import CartSidebar from "./CartSidebar";
+import OrderCheckout from "./OrderCheckout";
 
 const Navbar = () => {
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [showCheckout, setShowCheckout] = useState(false);
+
+  
 
   return (
     <>
@@ -80,6 +84,7 @@ const Navbar = () => {
               <button
                 className="p-2 text-white hover:text-gray-300 transition-colors"
                 onClick={() => setIsCartOpen(true)}
+                
               >
                 <FaShoppingCart className="text-2xl" />
                 <span className="absolute -top-1 -right-1 bg-orange-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
@@ -90,9 +95,22 @@ const Navbar = () => {
           </div>
         </div>
       </header>
-      
+
       {/* Cart Sidebar */}
-      <CartSidebar isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
+      <CartSidebar 
+        isOpen={isCartOpen} 
+        onClose={() => setIsCartOpen(false)}
+        onCheckout={() => {
+          setIsCartOpen(false);  // Close cart
+          setShowCheckout(true); // Show checkout
+        }}
+      />
+
+      {/* Order Checkout */}
+      <OrderCheckout 
+        isVisible={showCheckout}
+        onClose={() => setShowCheckout(false)}
+      />
     </>
   );
 };

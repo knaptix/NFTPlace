@@ -24,37 +24,37 @@ const products = [
   },
 ];
 
-const CartSidebar = ({ isOpen, onClose }) => {
+const CartSidebar = ({ isOpen, onClose, onCheckout }) => {
   return (
     <>
-      {/* Backdrop */}
-      <div 
-        className={`fixed inset-0 bg-black bg-opacity-50 transition-opacity duration-300 z-40 ${
-          isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
-        }`}
-        onClick={onClose}
-      />
+    {/* Backdrop */}
+    <div 
+      className={`fixed inset-0 bg-black bg-opacity-50 transition-opacity duration-300 z-40 ${
+        isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
+      }`}
+      onClick={onClose}
+    />
 
-      {/* Sidebar */}
-      <div 
-        className={`fixed top-0 right-0 h-full w-full sm:w-96 bg-white shadow-lg transform transition-transform duration-300 ease-in-out z-50 ${
-          isOpen ? 'translate-x-0' : 'translate-x-full'
-        }`}
-      >
-        <div className="flex flex-col h-full">
-          {/* Header */}
-          <div className="flex items-center justify-between p-4 border-b">
-            <h2 className="text-lg font-medium text-gray-900">Shopping Cart</h2>
-            <button
-              onClick={onClose}
-              className="p-2 text-gray-400 hover:text-gray-500"
-            >
-              <IoCloseOutline className="h-6 w-6" />
-            </button>
-          </div>
+    {/* Sidebar */}
+    <div 
+      className={`fixed top-0 right-0 h-full w-full sm:w-96 bg-white shadow-lg transform transition-transform duration-300 ease-in-out z-50 ${
+        isOpen ? 'translate-x-0' : 'translate-x-full'
+      }`}
+    >
+      <div className="flex flex-col h-full">
+        {/* Header */}
+        <div className="flex items-center justify-between p-4 border-b">
+          <h2 className="text-lg font-medium text-gray-900">Shopping Cart</h2>
+          <button
+            onClick={onClose}
+            className="p-2 text-gray-400 hover:text-gray-500"
+          >
+            <IoCloseOutline className="h-6 w-6" />
+          </button>
+        </div>
 
-          {/* Cart Items */}
-          <div className="flex-1 overflow-y-auto p-4">
+        {/* Cart Items */}
+        <div className="flex-1 overflow-y-auto p-4">
             <ul className="divide-y divide-gray-200">
               {products.map((product) => (
                 <li key={product.id} className="flex py-6">
@@ -88,21 +88,22 @@ const CartSidebar = ({ isOpen, onClose }) => {
             </ul>
           </div>
 
-          {/* Footer */}
-          <div className="border-t border-gray-200 p-4">
-            <div className="flex justify-between text-base font-medium text-gray-900 mb-4">
-              <p>Subtotal</p>
-              <p>Rs 122.00</p>
-            </div>
-            <button
-              className="w-full bg-orange-500 text-white hover:bg-white hover:text-orange-500 px-6 py-3 border hover:border-orange-500 rounded-md transition-colors"
-            >
-              Checkout
-            </button>
+        {/* Footer */}
+        <div className="border-t border-gray-200 p-4">
+          <div className="flex justify-between text-base font-medium text-gray-900 mb-4">
+            <p>Subtotal</p>
+            <p>$122.00</p>
           </div>
+          <button
+            onClick={onCheckout}
+            className="w-full bg-orange-500 text-white hover:bg-white hover:text-orange-500 px-6 py-3 border hover:border-orange-500 rounded-md transition-colors"
+          >
+            Checkout
+          </button>
         </div>
       </div>
-    </>
+    </div>
+  </>
   );
 };
 

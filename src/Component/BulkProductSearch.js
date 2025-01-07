@@ -10,7 +10,7 @@ const BulkProductSearch = () => {
       {/* Title outside the white box */}
       <div className="text-center mb-8">
         <h1 className="text-4xl font-bold text-gray-800 mb-2">
-          Bulk Shopping, Simplified.
+          Bulk Shopping, Simplified
         </h1>
         <p className="text-gray-600 text-lg">
           Find the best bulk deals across multiple platforms
@@ -137,7 +137,7 @@ const BulkProductSearch = () => {
             />
             <div className="flex justify-between text-sm text-gray-600">
               <span>₹0</span>
-              <span className="font-medium text-indigo-600">₹{budget}</span>
+              <span className="font-medium text-orange-500">₹{budget}</span>
               <span>₹5000</span>
             </div>
           </div>
