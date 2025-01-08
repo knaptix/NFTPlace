@@ -8,6 +8,12 @@ const Navbar = () => {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [showCheckout, setShowCheckout] = useState(false);
 
+  // Handler for back to home
+  const handleBackToHome = () => {
+    setShowCheckout(false); // This will hide the OrderCheckout component
+    setIsCartOpen(false);   // Ensure cart is closed
+  };
+
   
 
   return (
@@ -108,10 +114,13 @@ const Navbar = () => {
       />
 
       {/* Order Checkout */}
-      <OrderCheckout 
-        isVisible={showCheckout}
-        onClose={() => setShowCheckout(false)}
-      />
+      {showCheckout && (
+        <OrderCheckout 
+          isVisible={showCheckout}
+          onClose={() => setShowCheckout(false)}
+          onBackToHome={handleBackToHome}
+        />
+      )}
     </>
   );
 };
