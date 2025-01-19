@@ -9,7 +9,7 @@ const TrackOrder = () => {
         <div className="py-4">
           <Link
             to="/"
-            className="inline-flex items-center text-gray-700 hover:text-blue-600"
+            className="inline-flex items-center text-gray-700 hover:text-orange-500"
           >
             <svg
               className="w-5 h-5 mr-2"
@@ -28,9 +28,32 @@ const TrackOrder = () => {
             Back to Home
           </Link>
         </div>
-        <h2 className="text-xl font-semibold text-gray-900 sm:text-2xl">
-          Track the delivery of order #957684673
-        </h2>
+        {/* Heading with Icon */}
+        <div className="flex items-center mb-6">
+          <svg
+            className="w-8 h-8 mr-2 text-orange-500"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z"
+            />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0"
+            />
+          </svg>
+          <h1 className="text-2xl font-bold text-orange-500">
+            Track Your Order
+          </h1>
+        </div>
 
         <div className="mt-6 sm:mt-8 lg:flex lg:gap-8">
           <div className="w-full divide-y divide-gray-200 overflow-hidden rounded-lg border border-gray-200 dark:divide-orange-500 dark:border-orange-500 lg:max-w-xl xl:max-w-2xl">

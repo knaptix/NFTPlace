@@ -216,7 +216,7 @@ const InventoryManagement = () => {
     <div className="p-4">
       {/* Back to Home Button */}
       <div className="mb-6">
-        <Link to="/" className="inline-flex items-center text-gray-700 hover:text-blue-600">
+        <Link to="/" className="inline-flex items-center text-gray-700 hover:text-orange-500">
           <svg
             className="w-5 h-5 mr-2"
             fill="none"
@@ -232,6 +232,25 @@ const InventoryManagement = () => {
           </svg>
           Back to Home
         </Link>
+      </div>
+
+      {/* Heading with Icon */}
+      <div className="flex items-center mb-6">
+        <svg
+          className="w-8 h-8 mr-2 text-orange-500"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            d="M16 15v-1a4 4 0 00-4-4H8m0 0l3 3m-3-3l3-3m9 14V5a2 2 0 00-2-2H6a2 2 0 00-2 2v16l4-2 4 2 4-2 4 2z"
+          />
+        </svg>
+        <h1 className="text-2xl font-bold text-orange-500">Inventory</h1>
       </div>
 
       {/* Search and Actions Row */}
