@@ -2,19 +2,18 @@ import React, { useState } from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import CartSidebar from "./CartSidebar";
 import OrderCheckout from "./OrderCheckout";
+import { Link } from "react-router-dom";
+import { BsBoxSeam } from "react-icons/bs";
 
-
-const Navbar = () => {
+const Navbar = ({ onCartClick }) => {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [showCheckout, setShowCheckout] = useState(false);
 
   // Handler for back to home
   const handleBackToHome = () => {
     setShowCheckout(false); // This will hide the OrderCheckout component
-    setIsCartOpen(false);   // Ensure cart is closed
+    setIsCartOpen(false); // Ensure cart is closed
   };
-
-  
 
   return (
     <>
@@ -53,20 +52,21 @@ const Navbar = () => {
                   <span>About Us</span>
                 </a>
               </li>
+              
               <li className="p-5 xl:p-8">
-                <a
-                  href="#projects"
+                <Link
+                  to="/track-order"
                   className="text-white hover:text-gray-300 transition-colors"
                 >
-                  <span>Services</span>
-                </a>
+                  <span>Track Order</span>
+                </Link>
               </li>
               <li className="p-5 xl:p-8">
                 <a
-                  href="#services"
+                  href="/return-order"
                   className="text-white hover:text-gray-300 transition-colors"
                 >
-                  <span>Contact Us</span>
+                  <span>Return Order</span>
                 </a>
               </li>
             </ul>
@@ -80,18 +80,18 @@ const Navbar = () => {
             >
               Login
             </a>
-            <a
-              href="#signup"
-              className="bg-white text-gray-800 rounded-full px-4 py-1 md:px-8 md:py-2 text-sm md:text-base font-bold hover:bg-gray-200 transition-colors"
+            <Link
+              to="/inventory"
+              className="flex items-center space-x-2 text-white hover:text-gray-300 transition-colors"
             >
-              Sign Up
-            </a>
+              <BsBoxSeam className="text-2xl" />
+              <span className="hidden md:inline">Inventory</span>
+            </Link>
             {/* Cart Icon with Counter */}
             <div className="relative">
               <button
                 className="p-2 text-white hover:text-gray-300 transition-colors"
                 onClick={() => setIsCartOpen(true)}
-                
               >
                 <FaShoppingCart className="text-2xl" />
                 <span className="absolute -top-1 -right-1 bg-orange-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
@@ -104,18 +104,18 @@ const Navbar = () => {
       </header>
 
       {/* Cart Sidebar */}
-      <CartSidebar 
-        isOpen={isCartOpen} 
+      <CartSidebar
+        isOpen={isCartOpen}
         onClose={() => setIsCartOpen(false)}
         onCheckout={() => {
-          setIsCartOpen(false);  // Close cart
+          setIsCartOpen(false); // Close cart
           setShowCheckout(true); // Show checkout
         }}
       />
 
       {/* Order Checkout */}
       {showCheckout && (
-        <OrderCheckout 
+        <OrderCheckout
           isVisible={showCheckout}
           onClose={() => setShowCheckout(false)}
           onBackToHome={handleBackToHome}
