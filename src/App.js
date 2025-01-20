@@ -5,8 +5,10 @@ import CartSidebar from "./Component/CartSidebar";
 import Home from "./Component/Home";
 import OrderCheckout from "./Component/OrderCheckout";
 import TrackOrder from "./Component/TrackOrder";
-import InventoryManagement from "./Component/InventoryManagement";
+
 import ReturnOrder from "./Component/ReturnOrder";
+import SalesPage from "./Component/SalesPage";
+import InventoryManagement from "./Component/InventoryManagement";
 
 const App = () => {
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -30,6 +32,7 @@ const App = () => {
         <Route path="/checkout" element={<OrderCheckout />} />
         <Route path="/track-order" element={<TrackOrder />} />
         <Route path="/inventory" element={<InventoryManagement />} />
+        <Route path="/sales-page" element={<SalesPage />} />
         <Route path="/return" element={<ReturnOrder />} /> 
       </Routes>
     </div>

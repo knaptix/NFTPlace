@@ -69,6 +69,14 @@ const Navbar = ({ onCartClick }) => {
                   <span>Return Order</span>
                 </a>
               </li>
+              <li className="p-5 xl:p-8">
+                <a
+                  href="/sales-page"
+                  className="text-white hover:text-gray-300 transition-colors"
+                >
+                  <span>Sales page</span>
+                </a>
+              </li>
             </ul>
           </nav>
 
