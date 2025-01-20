@@ -30,7 +30,7 @@ const App = () => {
         <Route path="/checkout" element={<OrderCheckout />} />
         <Route path="/track-order" element={<TrackOrder />} />
         <Route path="/inventory" element={<InventoryManagement />} />
-        <Route path="/return-order" element={<ReturnOrder />} /> 
+        <Route path="/return" element={<ReturnOrder />} /> 
       </Routes>
     </div>
   );

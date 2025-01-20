@@ -63,7 +63,7 @@ const Navbar = ({ onCartClick }) => {
               </li>
               <li className="p-5 xl:p-8">
                 <a
-                  href="/return-order"
+                  href="/return"
                   className="text-white hover:text-gray-300 transition-colors"
                 >
                   <span>Return Order</span>
