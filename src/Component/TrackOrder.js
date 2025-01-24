@@ -177,61 +177,83 @@ const TrackOrder = () => {
                     date: "March 24, 2024",
                     time: "11:32 AM",
                     description: "Package delivered to recipient address",
+                    icon: (
+                      <svg className="h-4 w-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" 
+                          d="M5 13l4 4L19 7" />
+                      </svg>
+                    )
                   },
                   {
                     status: "Out for Delivery",
                     date: "March 24, 2024",
                     time: "8:00 AM",
                     description: "Package is out for delivery",
+                    icon: (
+                      <svg className="h-4 w-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" 
+                          d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0" />
+                      </svg>
+                    )
                   },
                   {
                     status: "In Transit",
                     date: "March 23, 2024",
                     time: "2:15 PM",
                     description: "Package arrived at local facility",
+                    icon: (
+                      <svg className="h-4 w-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" 
+                          d="M13 10V3L4 14h7v7l9-11h-7z" />
+                      </svg>
+                    )
                   },
                   {
                     status: "Shipped",
                     date: "March 22, 2024",
                     time: "9:45 AM",
                     description: "Package has left the warehouse",
+                    icon: (
+                      <svg className="h-4 w-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" 
+                          d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
+                      </svg>
+                    )
                   },
                   {
                     status: "Order Confirmed",
                     date: "March 21, 2024",
                     time: "3:20 PM",
                     description: "Order has been confirmed",
+                    icon: (
+                      <svg className="h-4 w-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" 
+                          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    )
                   },
                 ].map((item, index) => (
-                  <li key={index} className="mb-6 ms-6">
-                    <span className="absolute -start-3 flex h-6 w-6 items-center justify-center rounded-full bg-blue-100 ring-8 ring-white dark:bg-blue-900">
-                      <svg
-                        className="h-2.5 w-2.5 text-blue-800 dark:text-blue-300"
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
-                      </svg>
-                    </span>
-                    <h3 className="mb-1 flex items-center text-lg font-semibold text-gray-900">
-                      {item.status}
-                    </h3>
-                    <time className="mb-2 block text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
-                      {item.date} at {item.time}
-                    </time>
-                    <p className="text-base font-normal text-gray-500 dark:text-gray-400">
-                      {item.description}
-                    </p>
-                  </li>
+                    <li key={index} className="mb-6 ms-6">
+                      <span className="absolute -start-3 flex h-6 w-6 items-center justify-center rounded-full bg-orange-500 ring-8 ring-white">
+                        {item.icon}
+                      </span>
+                      <h3 className="mb-1 flex items-center text-lg font-semibold text-gray-900">
+                        {item.status}
+                      </h3>
+                      <time className="mb-2 block text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
+                        {item.date} at {item.time}
+                      </time>
+                      <p className="text-base font-normal text-gray-500 dark:text-gray-400">
+                        {item.description}
+                      </p>
+                    </li>
                 ))}
               </ol>
 
               <div class="gap-4 sm:flex sm:items-center">
                 <button
                   type="button"
-                  class="w-full rounded-lg  border border-gray-200 bg-white px-5  py-2.5 text-sm font-medium hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600  dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700"
+                  class="w-full rounded-lg  border border-gray-200 bg-white px-5  py-2.5 text-sm font-medium hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600  dark:text-black-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700"
                 >
                   Cancel the order
                 </button>

@@ -2,14 +2,19 @@ import React from "react";
 import HeroBanner from "../assets/HeroBanner.jpg";
 import { FaSearch } from 'react-icons/fa';
 
-const HeroSection = () => {
+const HeroSection = ({ onSearch }) => {
+  const handleSearch = () => {
+    // Add your search logic here
+    onSearch(); // This will show the SearchResults component
+  };
   return (
     <header
       className="relative min-h-screen bg-cover bg-center flex flex-col justify-center items-center text-white mt-24"
       style={{
-        backgroundImage: `url(${HeroBanner})`,
-        height: "calc(100vh - 96px)"
-      }}
+  backgroundImage: `url(${HeroBanner})`,
+  height: "calc(100vh - 96px)"
+}}
+
     >
       <div className="p-8 rounded-lg text-center max-w-3xl w-full mx-4">
         <h1 className="text-4xl md:text-5xl lg:text-5xl font-bold mb-6">
@@ -62,7 +67,8 @@ const HeroSection = () => {
                 />
               </div>
               <div className="pl-2">
-                <button className="bg-orange-500 hover:bg-orange-600 transition-colors text-white px-6 py-2 rounded-full text-base font-semibold flex items-center justify-center gap-2">
+                <button onClick={handleSearch}
+                className="bg-orange-500 hover:bg-orange-600 transition-colors text-white px-6 py-2 rounded-full text-base font-semibold flex items-center justify-center gap-2">
                   <FaSearch className="text-sm" />
                   <span>Search</span>
                 </button>
