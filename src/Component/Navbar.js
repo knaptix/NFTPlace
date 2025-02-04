@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import CartSidebar from "./CartSidebar";
-import OrderCheckout from "./OrderCheckout";
+import OrderCheckout from "./OrderConfirmation";
 import { Link } from "react-router-dom";
 import { BsBoxSeam } from "react-icons/bs";
 
-const Navbar = ({ onCartClick }) => {
+const Navbar = ({ onCartClick, cartItems = [] }) => {  // Initialize cartItems as an empty array
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [showCheckout, setShowCheckout] = useState(false);
 
@@ -82,12 +82,7 @@ const Navbar = ({ onCartClick }) => {
 
           {/* Login, Sign Up, and Cart */}
           <div className="flex items-center space-x-2 md:space-x-4">
-            <a
-              href="#login"
-              className="border border-white text-white rounded-full px-4 py-1 md:px-8 md:py-2 text-sm md:text-base font-bold hover:bg-white hover:text-gray-800 transition-colors"
-            >
-              Login
-            </a>
+            
             <Link
               to="/inventory"
               className="flex items-center space-x-2 text-white hover:text-gray-300 transition-colors"
@@ -103,7 +98,7 @@ const Navbar = ({ onCartClick }) => {
               >
                 <FaShoppingCart className="text-2xl" />
                 <span className="absolute -top-1 -right-1 bg-orange-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                  0
+                  {cartItems?.length || 0} {/* Safely access cartItems length */}
                 </span>
               </button>
             </div>

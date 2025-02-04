@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import HeroBanner from "../assets/HeroBanner.jpg";
 import { FaSearch } from "react-icons/fa";
-import SearchResults from './SearchResults';  // Import the SearchResults component
+import SearchResults from './SearchResults';  // Import SearchResults
+import Spinner from './Spinner';
+import HomeVideo from "../assets/HomeVideo.mp4";
 
-const HeroSection = () => {
+const HeroSection = ({ onAddToCart }) => {  // ✅ Accept onAddToCart as a prop
   const [query, setQuery] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -36,7 +37,7 @@ const HeroSection = () => {
         throw new Error(data.error);
       }
 
-      setProduct(data.product);  // Store the fetched product data
+      setProduct(data.lowest_price_product);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -46,13 +47,26 @@ const HeroSection = () => {
 
   return (
     <header
-      className="relative min-h-screen bg-cover bg-center flex flex-col justify-center items-center text-white mt-24"
+      className="relative min-h-screen flex flex-col justify-center items-center text-white mt-24"
       style={{
-        backgroundImage: `url(${HeroBanner})`,
         height: "calc(100vh - 96px)",
       }}
     >
-      <div className="p-8 rounded-lg text-center max-w-3xl w-full mx-4">
+      {/* Add video background */}
+      <video
+        autoPlay
+        loop
+        muted
+        className="absolute top-0 left-0 w-full h-full object-cover z-0"
+      >
+        <source src={HomeVideo} type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+      
+      {/* Add an overlay to ensure text is readable */}
+      <div className="absolute top-0 left-0 w-full h-full bg-black opacity-50 z-10"></div>
+
+      <div className="p-8 rounded-lg text-center max-w-3xl w-full mx-4 relative z-20">
         <h1 className="text-4xl md:text-5xl lg:text-5xl font-bold mb-6">
           Your one stop go for Bulks!
         </h1>
@@ -99,19 +113,22 @@ const HeroSection = () => {
                 onClick={handleSearch}
                 className="bg-orange-500 hover:bg-orange-600 transition-colors text-white px-6 py-2 rounded-full text-base font-semibold flex items-center justify-center gap-2"
               >
-                <FaSearch className="text-sm" />
-                <span>Search</span>
+                <span>Buy</span>
               </button>
             </div>
           </div>
         </div>
 
-        {loading && <p className="mt-4 text-orange-500">Loading...</p>}
+        {loading && (
+          <div className="mt-4">
+            <Spinner />
+          </div>
+        )}
         {error && <p className="mt-4 text-red-500">{error}</p>}
       </div>
 
-      {/* Render SearchResults component */}
-      {product && <SearchResults product={product} />}
+      {/* ✅ Pass onAddToCart to SearchResults */}
+      {product && <SearchResults product={product} onAddToCart={onAddToCart} />}
     </header>
   );
 };

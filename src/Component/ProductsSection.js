@@ -63,20 +63,20 @@ const ProductsSection = () => {
   ];
 
   return (
-    <section className="py-16 bg-gray-100">
+    <section className="py-16 bg-gray-100 relative">
       <div className="container mx-auto">
         <h2 className="text-3xl font-bold text-center mb-8">
           Explore Our Popular Products
         </h2>
-        <div className="px-12"> {/* Increased padding for arrow spacing */}
+        <div className="px-12 relative"> {/* Added relative positioning */}
           <Swiper
             modules={[Navigation, Pagination, Autoplay]}
             spaceBetween={30}
             slidesPerView={1}
             navigation
-            pagination={{ 
+            pagination={{
               clickable: true,
-              el: '.swiper-pagination'
+              el: '.products-pagination' // Changed pagination element class
             }}
             autoplay={{
               delay: 3000,
@@ -93,7 +93,9 @@ const ProductsSection = () => {
                 slidesPerView: 4,
               },
             }}
-            className="pb-14" // Added bottom padding for pagination dots
+            style={{ 
+              paddingBottom: '3rem' // Add padding to make room for pagination
+            }}
           >
             {products.map((product, index) => (
               <SwiperSlide key={index}>
@@ -105,10 +107,38 @@ const ProductsSection = () => {
                 />
               </SwiperSlide>
             ))}
+            <div className="products-pagination absolute bottom-0 w-full"></div>
           </Swiper>
-          <div className="swiper-pagination"></div> {/* Pagination container */}
         </div>
       </div>
+
+      <style>
+        {`
+          .products-pagination {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 10;
+            display: flex;
+            justify-content: center;
+            padding-top: 1rem;
+          }
+          .products-pagination .swiper-pagination-bullet {
+            width: 8px;
+            height: 8px;
+            margin: 0 4px;
+            background-color: #999;
+            opacity: 0.5;
+            border-radius: 50%;
+            cursor: pointer;
+          }
+          .products-pagination .swiper-pagination-bullet-active {
+            background-color: #f97316;
+            opacity: 1;
+          }
+        `}
+      </style>
     </section>
   );
 };
