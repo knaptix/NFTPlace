@@ -1,120 +1,136 @@
-import React from "react";
-import FooterBanner from "../assets/FooterBanner.jpg";
+import React from 'react';
+import { BiLogoDiscord, BiLogoTelegram, BiRightArrowAlt } from 'react-icons/bi';
 
 const Footer = () => {
   return (
-    <footer className="bg-white lg:grid lg:grid-cols-5">
-      <div className="relative block h-32 lg:col-span-2 lg:h-full">
-        <img
-          src={FooterBanner} 
-          alt="Footer Banner"
-          className="absolute inset-0 h-full w-full object-cover"
-        />
-      </div>
-
-      <div className="px-4 py-16 sm:px-6 lg:col-span-3 lg:px-8">
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
+    <footer className="bg-gray-50 py-16">
+      <div className="max-w-[1440px] mx-auto px-4">
+        {/* First Row */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+          {/* Logo and Description */}
           <div>
-            <p>
-              <span className="text-base uppercase tracking-wide text-orange-500">Call us</span>
-              <a
-                href="/"
-                className="block text-2xl font-medium text-gray-900 hover:text-orange-500 sm:text-3xl"
-              >
-                0123456789
-              </a>
+            <div className="flex items-center space-x-2 mb-4">
+              <div className="w-8 h-8 bg-[#1B1A1E] rounded-lg"></div>
+              <span className="font-semibold">NYWNFT</span>
+            </div>
+            <p className="text-sm text-gray-600 leading-relaxed">
+              Ever dreamt of being part of the New York World? NYWNFT, the bridge between Blockchain and AI, lets you own a piece of the action. Generate and mint NFTs, unlocking the future of creativity in the heart of the world.
             </p>
+          </div>
 
-            <ul className="mt-8 space-y-1 text-sm text-gray-700">
-              <li>Monday to Friday: 10am - 5pm</li>
-              <li>Weekend: 10am - 3pm</li>
-            </ul>
-
-            <ul className="mt-8 flex gap-6">
-              {[
-                { label: "Facebook", iconPath: "M22 ...", link: "#" },
-                { label: "Instagram", iconPath: "M12.315 ...", link: "#" },
-                { label: "Twitter", iconPath: "M8.29 ...", link: "#" },
-                { label: "GitHub", iconPath: "M12 ...", link: "#" },
-                { label: "Dribbble", iconPath: "M12 ...", link: "#" },
-              ].map(({ label, iconPath, link }, idx) => (
-                <li key={idx}>
-                  <a
-                    href={link}
-                    rel="noreferrer"
-                    target="_blank"
-                    className="text-gray-700 transition hover:opacity-75"
-                  >
-                    <span className="sr-only">{label}</span>
-                    <svg
-                      className="size-6"
-                      fill="currentColor"
-                      viewBox="0 0 24 24"
-                      aria-hidden="true"
-                    >
-                      <path fillRule="evenodd" d={iconPath} clipRule="evenodd" />
-                    </svg>
-                  </a>
-                </li>
-              ))}
+          {/* Company Links */}
+          <div>
+            <h3 className="font-semibold mb-4">Company</h3>
+            <ul className="space-y-3">
+              <li><a href="#" className="text-sm text-gray-600 hover:text-gray-900">About</a></li>
+              <li><a href="#" className="text-sm text-gray-600 hover:text-gray-900">Careers</a></li>
+              <li><a href="#" className="text-sm text-gray-600 hover:text-gray-900">Ventures</a></li>
             </ul>
           </div>
 
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            {[
-              {
-                title: "Services",
-                links: [
-                  { name: "Product Comparison", link: "/" },
-                  { name: "Products Review", link: "/" },
-                  { name: "Quality Product Buying", link: "/" },
-                  { name: "Support 24/7", link: "/" },
-                ],
-              },
-              {
-                title: "Company",
-                links: [
-                  { name: "About Us", link: "/" },
-                  { name: "Meet the Team", link: "/" },
-                ],
-              },
-            ].map(({ title, links }, idx) => (
-              <div key={idx}>
-                <p className="font-medium text-orange-500">{title}</p>
-                <ul className="mt-6 space-y-4 text-sm">
-                  {links.map(({ name, link }, idx) => (
-                    <li key={idx}>
-                      <a href={link} className="text-gray-700 transition hover:text-orange-500">
-                        {name}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+          {/* Connect with us */}
+          <div>
+            <h3 className="font-semibold mb-4">Connect with us</h3>
+            <ul className="space-y-3">
+              <li>
+                <a href="#" className="flex items-center space-x-2 text-sm text-gray-600 hover:text-gray-900">
+                  <BiLogoDiscord className="w-5 h-5" />
+                  <span>Discord</span>
+                </a>
+              </li>
+              <li>
+                <a href="#" className="flex items-center space-x-2 text-sm text-gray-600 hover:text-gray-900">
+                  <BiLogoTelegram className="w-5 h-5" />
+                  <span>Telegram</span>
+                </a>
+              </li>
+              <li>
+                <a href="#" className="flex items-center space-x-2 text-sm text-gray-600 hover:text-gray-900">
+                  <span className="w-5 h-5 bg-gray-600 rounded-full flex items-center justify-center text-white text-xs">X</span>
+                  <span>X App</span>
+                </a>
+              </li>
+              <li>
+                <a href="mailto:nywnft@nywnft.xyz" className="text-sm text-gray-600 hover:text-gray-900">
+                  nywnft@nywnft.xyz
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          {/* Stay in loop */}
+          <div>
+            <h3 className="font-semibold mb-4">Stay in loop</h3>
+            <p className="text-sm text-gray-600 mb-4">
+              Join our mailing list to stay in the loop with our newest feature releases, NFT drops, and tips and tricks for navigating NFTs.
+            </p>
+            <div className="relative">
+              <input 
+                type="email" 
+                placeholder="Your email" 
+                className="w-full px-4 py-3 border border-gray-200 rounded-lg pr-12"
+              />
+              <button className="absolute right-2 top-1/2 transform -translate-y-1/2">
+                <BiRightArrowAlt className="w-6 h-6 text-gray-600" />
+              </button>
+            </div>
           </div>
         </div>
 
-        <div className="mt-12 border-t border-gray-100 pt-12">
-          <div className="sm:flex sm:items-center sm:justify-between">
-            <ul className="flex flex-wrap gap-4 text-xs">
-              {[
-                { name: "Terms & Conditions", link: "/" },
-                { name: "Privacy Policy", link: "/" },
-                { name: "Cookies", link: "/" },
-              ].map(({ name, link }, idx) => (
-                <li key={idx}>
-                  <a href={link} className="text-gray-500 transition hover:text-orange-500">
-                    {name}
-                  </a>
-                </li>
-              ))}
+        {/* Second Row */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pb-16">
+          {/* Learn about NFTs */}
+          <div>
+            <h3 className="font-semibold mb-4">Learn about NFTs</h3>
+            <ul className="space-y-3">
+              <li><a href="#" className="text-sm text-gray-600 hover:text-gray-900">What is NFT?</a></li>
+              <li><a href="#" className="text-sm text-gray-600 hover:text-gray-900">How to buy NFTs from NYWNFT?</a></li>
+              <li><a href="#" className="text-sm text-gray-600 hover:text-gray-900">How to create / Mint NFTs on NYWNFT?</a></li>
+              <li><a href="#" className="text-sm text-gray-600 hover:text-gray-900">How to sell NFTs on NYWNFT?</a></li>
+              <li><a href="#" className="text-sm text-gray-600 hover:text-gray-900">What is Crypto wallet?</a></li>
+              <li><a href="#" className="text-sm text-gray-600 hover:text-gray-900">What is NYWNFT Coin?</a></li>
             </ul>
-
-            <p className="mt-8 text-xs text-gray-500 sm:mt-0">
-              &copy; 2024. E-commWebsite. All rights reserved.
-            </p>
           </div>
+
+          {/* Resources */}
+          <div>
+            <h3 className="font-semibold mb-4">Resources</h3>
+            <ul className="space-y-3">
+              <li><a href="#" className="text-sm text-gray-600 hover:text-gray-900">Terms of service</a></li>
+              <li><a href="#" className="text-sm text-gray-600 hover:text-gray-900">Privacy Policy</a></li>
+              <li><a href="#" className="text-sm text-gray-600 hover:text-gray-900">Blogs</a></li>
+              <li><a href="#" className="text-sm text-gray-600 hover:text-gray-900">Partners</a></li>
+              <li><a href="#" className="text-sm text-gray-600 hover:text-gray-900">Community standards</a></li>
+              <li><a href="#" className="text-sm text-gray-600 hover:text-gray-900">NYWNFT Documentation</a></li>
+            </ul>
+          </div>
+
+          {/* Help & Support */}
+          <div>
+            <h3 className="font-semibold mb-4">Help & Support</h3>
+            <p className="text-sm text-gray-600 mb-2">For any queries mail us at -</p>
+            <a href="mailto:nywnftinfo@nywnft.xyz" className="text-sm text-gray-600 hover:text-gray-900 block mb-6">
+              nywnftinfo@nywnft.xyz
+            </a>
+          </div>
+
+          {/* Need more help */}
+          <div>
+            <h3 className="font-semibold mb-4">Need more help</h3>
+            <p className="text-sm text-gray-600 mb-4">
+              Raise a ticket, explain the issues and we are always eager to help you
+            </p>
+            <button className="w-full bg-[#1B1A1E] text-white py-3 rounded-lg hover:bg-black transition-colors">
+              Raise a ticket
+            </button>
+          </div>
+        </div>
+
+        {/* Copyright */}
+        <div className="pt-8 border-t border-gray-200">
+          <p className="text-sm text-gray-500 text-center">
+            Copyright ©2024 NYWNFT. All rights reserved.
+          </p>
         </div>
       </div>
     </footer>
