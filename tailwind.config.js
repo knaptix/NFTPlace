@@ -7,8 +7,10 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["DM Sans", "sans-serif"],
-        serif: ["EB Garamond", "serif"],
+        sans: ['DM Sans', 'sans-serif'],
+      },
+      colors: {
+        silver: '#D3D3D3', // Custom silver color
       },
     },
   },
