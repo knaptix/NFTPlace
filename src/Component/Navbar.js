@@ -32,7 +32,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
           {/* Navigation Links */}
           <div className="hidden md:flex items-center space-x-8">
             <Link to="#" className="text-sm font-medium hover:text-gray-400">MARKETPLACE</Link>
-            <Link to="#" className="text-sm font-medium hover:text-gray-400">CREATE NFTs</Link>
+            <Link to="/CreateNFt" className="text-sm font-medium hover:text-gray-400">CREATE NFTs</Link>
             <Link to="/CurrentBid" className="text-sm font-medium hover:text-gray-400">CURRENT BIDS</Link>
             <Link to="/Cart" className="text-sm font-medium hover:text-gray-400">CART</Link>
           </div>

@@ -8,14 +8,14 @@ const TabSwitcher = () => {
   const filters = ['All', 'Art', 'Music', 'Gaming', 'PFPs', 'Photography'];
 
   return (
-    <div className="w-full max-w-7xl mx-auto px-4">
+    <div className="w-full max-w-8xl mx-auto px-4">
       {/* Main Tabs */}
       <div className="flex space-x-6 border-b border-gray-200">
         {tabs.map((tab) => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
-            className={`py-4 px-1 relative ${
+            className={`py-4 px-1 relative text-2xl ${
               activeTab === tab
                 ? 'text-gray-900 font-semibold'
                 : 'text-gray-500 hover:text-gray-700'

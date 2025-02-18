@@ -5,6 +5,7 @@ import AuctionCards from "./Component/CurrentBid/CurrentBid";
 import Navbar from "./Component/Navbar";
 import Footer from "./Component/Footer";
 import CartSummary from "./Component/Cart/Cart";
+import NFTCreation from "./Component/NFtCreation/Creation";
 
 const App = () => {
   const [darkMode, setDarkMode] = useState(
@@ -27,6 +28,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/CurrentBid" element={<AuctionCards />} />
+        <Route path="/CreateNFt" element={<NFTCreation />} />
         <Route path="/Cart" element={<CartSummary />} />
       </Routes>
       <Footer darkMode={darkMode} setDarkMode={setDarkMode} />
