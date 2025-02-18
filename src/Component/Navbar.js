@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { BiSearch, BiShoppingBag, BiWallet, BiMenu, BiX } from 'react-icons/bi';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -11,11 +12,12 @@ const Navbar = () => {
         <div className="flex items-center justify-between">
           {/* Logo Section */}
           <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-[#1B1A1E] rounded-lg flex items-center justify-center">
-              <span className="text-white text-xs">Logo</span>
-            </div>
-            <span className="font-bold text-lg">NYWNFT</span>
-          </div>
+  <div className="w-8 h-8 bg-[#1B1A1E] rounded-lg flex items-center justify-center">
+    <img src="log.png" alt="Logo" className="w-6 h-6" />
+  </div>
+  <span className="font-extrabold text-[24px] ">NYWNFT</span>
+</div>
+
 
           {/* Search Bar - Hidden on mobile */}
           <div className="hidden md:block flex-1 max-w-[440px] mx-8">
@@ -31,10 +33,10 @@ const Navbar = () => {
 
           {/* Navigation Links - Hidden on mobile */}
           <div className="hidden md:flex items-center space-x-8">
-            <a href="#" className="text-sm font-medium text-gray-700 hover:text-gray-900">MARKETPLACE</a>
-            <a href="#" className="text-sm font-medium text-gray-700 hover:text-gray-900">CREATE NFTs</a>
-            <a href="#" className="text-sm font-medium text-gray-700 hover:text-gray-900">CURRENT BIDS</a>
-            <a href="#" className="text-sm font-medium text-gray-700 hover:text-gray-900">CART</a>
+            <Link to="#" className="text-sm font-medium text-gray-700 hover:text-gray-900">MARKETPLACE</Link>
+            <Link to ="#" className="text-sm font-medium text-gray-700 hover:text-gray-900">CREATE NFTs</Link>
+            <Link to="/CurrentBid" className="text-sm font-medium text-gray-700 hover:text-gray-900">CURRENT BIDS</Link>
+            <Link to ="#" className="text-sm font-medium text-gray-700 hover:text-gray-900">CART</Link>
           </div>
 
           {/* Action Buttons */}
@@ -86,15 +88,15 @@ const Navbar = () => {
       {isMenuOpen && (
         <div className="md:hidden border-t">
           <div className="px-4 py-3 space-y-3">
-            <a href="#" className="block text-sm font-medium text-gray-700 hover:text-gray-900 py-2">
+            <Link to ="#" className="block text-sm font-medium text-gray-700 hover:text-gray-900 py-2">
               MARKETPLACE
-            </a>
-            <a href="#" className="block text-sm font-medium text-gray-700 hover:text-gray-900 py-2">
+            </Link>
+            <Link to ="#" className="block text-sm font-medium text-gray-700 hover:text-gray-900 py-2">
               CREATE NFTs
-            </a>
-            <a href="#" className="block text-sm font-medium text-gray-700 hover:text-gray-900 py-2">
+            </Link>
+            <Link to="/CurrentBid" className="block text-sm font-medium text-gray-700 hover:text-gray-900 py-2">
               CURRENT BIDS
-            </a>
+            </Link>
             <button className="flex items-center space-x-2 bg-[#F3F3F3] text-blackpx-4 py-2 rounded-full  hover:bg-black w-full justify-center">
               <BiWallet className="h-5 w-5" />
               <span className="text-sm ">Buy NYWNFT coins</span>

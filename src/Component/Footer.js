@@ -1,16 +1,17 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { BiLogoDiscord, BiLogoTelegram, BiRightArrowAlt } from 'react-icons/bi';
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-50 py-16">
+    <footer className="bg-white py-16 mt-10">
       <div className="max-w-[1440px] mx-auto px-4">
         {/* First Row */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
           {/* Logo and Description */}
           <div>
             <div className="flex items-center space-x-2 mb-4">
-              <div className="w-8 h-8 bg-[#1B1A1E] rounded-lg"></div>
+              <div className="w-8 h-8 bg-[#1B1A1E] rounded-lg" aria-label="NYWNFT logo"></div>
               <span className="font-semibold">NYWNFT</span>
             </div>
             <p className="text-sm text-gray-600 leading-relaxed">
@@ -22,9 +23,9 @@ const Footer = () => {
           <div>
             <h3 className="font-semibold mb-4">Company</h3>
             <ul className="space-y-3">
-              <li><a href="#" className="text-sm text-gray-600 hover:text-gray-900">About</a></li>
-              <li><a href="#" className="text-sm text-gray-600 hover:text-gray-900">Careers</a></li>
-              <li><a href="#" className="text-sm text-gray-600 hover:text-gray-900">Ventures</a></li>
+              <li><Link to="/about" className="text-sm text-gray-600 hover:text-gray-900">About</Link></li>
+              <li><Link to="/careers" className="text-sm text-gray-600 hover:text-gray-900">Careers</Link></li>
+              <li><Link to="/ventures" className="text-sm text-gray-600 hover:text-gray-900">Ventures</Link></li>
             </ul>
           </div>
 
@@ -33,22 +34,22 @@ const Footer = () => {
             <h3 className="font-semibold mb-4">Connect with us</h3>
             <ul className="space-y-3">
               <li>
-                <a href="#" className="flex items-center space-x-2 text-sm text-gray-600 hover:text-gray-900">
+                <Link to="#" className="flex items-center space-x-2 text-sm text-gray-600 hover:text-gray-900">
                   <BiLogoDiscord className="w-5 h-5" />
                   <span>Discord</span>
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="flex items-center space-x-2 text-sm text-gray-600 hover:text-gray-900">
+                <Link to="#" className="flex items-center space-x-2 text-sm text-gray-600 hover:text-gray-900">
                   <BiLogoTelegram className="w-5 h-5" />
                   <span>Telegram</span>
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="flex items-center space-x-2 text-sm text-gray-600 hover:text-gray-900">
+                <Link to="#" className="flex items-center space-x-2 text-sm text-gray-600 hover:text-gray-900">
                   <span className="w-5 h-5 bg-gray-600 rounded-full flex items-center justify-center text-white text-xs">X</span>
                   <span>X App</span>
-                </a>
+                </Link>
               </li>
               <li>
                 <a href="mailto:nywnft@nywnft.xyz" className="text-sm text-gray-600 hover:text-gray-900">
@@ -83,25 +84,25 @@ const Footer = () => {
           <div>
             <h3 className="font-semibold mb-4">Learn about NFTs</h3>
             <ul className="space-y-3">
-              <li><a href="#" className="text-sm text-gray-600 hover:text-gray-900">What is NFT?</a></li>
-              <li><a href="#" className="text-sm text-gray-600 hover:text-gray-900">How to buy NFTs from NYWNFT?</a></li>
-              <li><a href="#" className="text-sm text-gray-600 hover:text-gray-900">How to create / Mint NFTs on NYWNFT?</a></li>
-              <li><a href="#" className="text-sm text-gray-600 hover:text-gray-900">How to sell NFTs on NYWNFT?</a></li>
-              <li><a href="#" className="text-sm text-gray-600 hover:text-gray-900">What is Crypto wallet?</a></li>
-              <li><a href="#" className="text-sm text-gray-600 hover:text-gray-900">What is NYWNFT Coin?</a></li>
+              <li><Link to="#" className="text-sm text-gray-600 hover:text-gray-900">What is NFT?</Link></li>
+              <li><Link to="#" className="text-sm text-gray-600 hover:text-gray-900">How to buy NFTs from NYWNFT?</Link></li>
+              <li><Link to="#" className="text-sm text-gray-600 hover:text-gray-900">How to create / Mint NFTs on NYWNFT?</Link></li>
+              <li><Link to="#" className="text-sm text-gray-600 hover:text-gray-900">How to sell NFTs on NYWNFT?</Link></li>
+              <li><Link to="#" className="text-sm text-gray-600 hover:text-gray-900">What is Crypto wallet?</Link></li>
+              <li><Link to="#" className="text-sm text-gray-600 hover:text-gray-900">What is NYWNFT Coin?</Link></li>
             </ul>
           </div>
 
           {/* Resources */}
           <div>
-            <h3 className="font-semibold mb-4">Resources</h3>
+            <h3 className="font-semibold mb-4">Resourc es</h3>
             <ul className="space-y-3">
-              <li><a href="#" className="text-sm text-gray-600 hover:text-gray-900">Terms of service</a></li>
-              <li><a href="#" className="text-sm text-gray-600 hover:text-gray-900">Privacy Policy</a></li>
-              <li><a href="#" className="text-sm text-gray-600 hover:text-gray-900">Blogs</a></li>
-              <li><a href="#" className="text-sm text-gray-600 hover:text-gray-900">Partners</a></li>
-              <li><a href="#" className="text-sm text-gray-600 hover:text-gray-900">Community standards</a></li>
-              <li><a href="#" className="text-sm text-gray-600 hover:text-gray-900">NYWNFT Documentation</a></li>
+              <li><Link to="#" className="text-sm text-gray-600 hover:text-gray-900">Terms of service</Link></li>
+              <li><Link to="#" className="text-sm text-gray-600 hover:text-gray-900">Privacy Policy</Link></li>
+              <li><Link to="#" className="text-sm text-gray-600 hover:text-gray-900">Blogs</Link></li>
+              <li><Link to="#" className="text-sm text-gray-600 hover:text-gray-900">Partners</Link></li>
+              <li><Link to="#" className="text-sm text-gray-600 hover:text-gray-900">Community standards</Link></li>
+              <li><Link to="#" className="text-sm text-gray-600 hover:text-gray-900">NYWNFT Documentation</Link></li>
             </ul>
           </div>
 

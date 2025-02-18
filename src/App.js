@@ -1,21 +1,22 @@
 import React from "react";
+
+import Home from "./Component/Home";
+import { Route, Routes } from "react-router-dom";
+import AuctionCards from "./Component/CurrentBid/CurrentBid";
 import Navbar from "./Component/Navbar";
 import Footer from "./Component/Footer";
-import NewYorkWorldSection from "./Component/NewYork";
-import StatsPanel from "./Component/StatsPanel";
-import Swip from "./Component/Swip";
-import NFTMarketplace from "./Component/NFtMarketPlace";
 
 
 const App = () => {
   return (
     <div>
-      <Navbar />
-      <NewYorkWorldSection />
-      <Swip />
-      <NFTMarketplace />
-      <StatsPanel />
+       <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/CurrentBid" element={<AuctionCards />} />
+      </Routes>
       <Footer />
+     
     </div>
   );
 };
