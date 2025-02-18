@@ -5,6 +5,7 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    darkMode: 'class', 
     extend: {
       fontFamily: {
         sans: ['DM Sans', 'sans-serif'],

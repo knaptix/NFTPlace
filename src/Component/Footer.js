@@ -2,9 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { BiLogoDiscord, BiLogoTelegram, BiRightArrowAlt } from 'react-icons/bi';
 
-const Footer = () => {
+const Footer = ({darkMode}) => {
   return (
-    <footer className="bg-white py-16 mt-10">
+    <footer
+  className={`py-16 mt-10 transition-colors ${
+    darkMode ? "bg-gray-900 text-white" : "bg-white text-black"
+  }`}
+>
       <div className="max-w-[1440px] mx-auto px-4">
         {/* First Row */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
@@ -95,7 +99,7 @@ const Footer = () => {
 
           {/* Resources */}
           <div>
-            <h3 className="font-semibold mb-4">Resourc es</h3>
+            <h3 className="font-semibold mb-4">Resources</h3>
             <ul className="space-y-3">
               <li><Link to="#" className="text-sm text-gray-600 hover:text-gray-900">Terms of service</Link></li>
               <li><Link to="#" className="text-sm text-gray-600 hover:text-gray-900">Privacy Policy</Link></li>
