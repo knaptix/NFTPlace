@@ -6,6 +6,10 @@ import Navbar from "./Component/Navbar";
 import Footer from "./Component/Footer";
 import CartSummary from "./Component/Cart/Cart";
 import NFTCreation from "./Component/NFtCreation/Creation";
+import SmartContractForm from "./Component/NFtCreation/Drop";
+import NFTCreationForm from "./Component/NFtCreation/CreationNft";
+import NFTDetailPage from "./Component/Individual/NftBuy";
+import NFTCollectionPage from "./Component/IndividualCollection/Collection";
 
 const App = () => {
   const [darkMode, setDarkMode] = useState(
@@ -29,6 +33,10 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/CurrentBid" element={<AuctionCards />} />
         <Route path="/CreateNFt" element={<NFTCreation />} />
+        <Route path="/drop" element={<SmartContractForm />} />
+        <Route path="/create" element={<NFTCreationForm />} />
+        <Route path="/detail" element={<NFTDetailPage/>}/>
+        <Route path="/collection" element={<NFTCollectionPage/>}/>
         <Route path="/Cart" element={<CartSummary />} />
       </Routes>
       <Footer darkMode={darkMode} setDarkMode={setDarkMode} />

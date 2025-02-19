@@ -1,5 +1,6 @@
 import React from "react";
 import { ArrowRight } from "lucide-react"; // Import Right Arrow Icon
+import { Link } from "react-router-dom";
 
 const NFTCreation = () => {
   return (
@@ -35,7 +36,9 @@ const NFTCreation = () => {
                   </p>
                 </div>
               </div>
+            <Link to="/drop">
               <ArrowRight className="w-10 h-10 text-black" />
+              </Link>
             </div>
 
             {/* Collection or NFT Card */}
@@ -55,7 +58,7 @@ const NFTCreation = () => {
                   </p>
                 </div>
               </div>
-              <ArrowRight className="w-10 h-10 text-black" />
+              <Link to="/create">   <ArrowRight className="w-10 h-10 text-black" /></Link>
             </div>
           </div>
         </div>
