@@ -1,8 +1,10 @@
 import React from "react";
 import { Instagram, Twitter } from "lucide-react";
+import NFTItemsGrid from "./NftItemGrid";
 
 const NFTCollectionPage = () => {
   return (
+    <>
     <div className="min-h-screen bg-[#F8F8F8]">
       <div className="w-full bg-white">
         {/* Header with Back Button */}
@@ -110,7 +112,10 @@ const NFTCollectionPage = () => {
           </button>
         </div> 
       </div>
+      <NFTItemsGrid/>
     </div>
+   
+    </>
   );
 };
 
