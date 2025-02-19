@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ChevronLeft, ChevronRight, Heart } from "lucide-react";
+import { ChevronLeft, ChevronRight, Heart, Filter, ChevronDown } from "lucide-react";
 
 const Pagination = ({ totalPages, currentPage, onPageChange }) => {
   const getPageNumbers = () => {
@@ -56,17 +56,17 @@ const Pagination = ({ totalPages, currentPage, onPageChange }) => {
 
 const NFTCard = ({ data }) => {
   return (
-    <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+    <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow relative">
       <div className="relative aspect-[4/3]">
         <img 
           src={data.image}
           alt={data.title}
           className="w-full h-full object-cover"
         />
-      </div>
-      <button className="absolute top-3 right-3 p-2 rounded-full bg-white/90 hover:bg-white transition-colors">
-          <Heart className="w-5 h-5 text-red-700" />
+        <button className="absolute top-3 right-3 p-2 rounded-full bg-white/90 hover:bg-white transition-colors">
+          <Heart className="w-5 h-5 text-gray-700" />
         </button>
+      </div>
       <div className="p-4 space-y-3">
         <h3 className="text-[20px] font-bold text-gray-900">{data.title}</h3>
         <div className="text-[15px] text-gray-500">Price</div>
@@ -77,7 +77,7 @@ const NFTCard = ({ data }) => {
 };
 
 const NFTCardsGrid = () => {
-  const itemsPerPage = 10;
+  const itemsPerPage = 16;
   const [currentPage, setCurrentPage] = useState(1);
   const totalItems = 32;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
@@ -107,6 +107,20 @@ const NFTCardsGrid = () => {
 
   return (
     <div className="w-full bg-[#F8F8F8]">
+      <div className="mx-8 py-4 flex justify-between items-center">
+        <h2 className=" font-bold text-gray-900 ml-14 text-[28px]">Items</h2>
+        <hr className="bg-white h-3 w-3 mt-3"/>
+        <div className="flex space-x-2 mt-4 ">
+          <button className="px-4 py-2 rounded-full border flex items-center space-x-1  ">
+            <span>Newest first</span>
+            <ChevronDown className="w-4 h-4" />
+          </button>
+          <button className="px-4 py-2 rounded-full border flex items-center space-x-1">
+            <Filter className="w-4 h-4" />
+            <span>Filters</span>
+          </button>
+        </div>
+      </div>
       <div className="mx-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 py-4 ml-12 mr-12">
           {displayedItems.map((item) => (

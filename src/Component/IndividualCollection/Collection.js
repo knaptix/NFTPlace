@@ -45,7 +45,7 @@ const NFTCollectionPage = () => {
           <div className="absolute left-12 bottom-8">
             <div className="h-[100px] w-[100px]  mt-8 rounded-full bg-white border-[4px] border-white flex items-center justify-center overflow-hidden shadow-lg">
               <img
-                src="/path-to-profile.jpg"
+                src="https://cdn.i-scmp.com/sites/default/files/styles/768x768/public/d8/images/canvas/2024/04/24/a94e2d09-2f19-4bd2-a13f-6d6eff58684c_eadcc3b5.jpg?itok=X0MrjxZs&v=1713940582"
                 alt="Profile"
                 className="h-full w-full object-cover rounded-full"
               />
