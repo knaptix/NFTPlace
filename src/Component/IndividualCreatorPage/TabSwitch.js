@@ -23,52 +23,33 @@ const TabSwitch = () => {
   };
 
   return (
-    <div className="mx-8  mt-10 md:mx-16 lg:mx-24">
-      <div className="border-b border-gray-200 mb-4">
-        <div className="flex gap-8">
-          <button
-            onClick={() => setActiveTab('owned')}
-            className={`pb-4 px-1 text-[36px]  font-sans  font-bold ${
-              activeTab === 'owned'
-                ? 'text-black border-b-2 border-black font-semibold'
-                : 'text-gray-500'
-            }`}
-          >
-            Owned
-          </button>
-          <button
-            onClick={() => setActiveTab('created')}
-            className={`pb-4 px-1 text-[36px] font-sans font-bold  ${
-              activeTab === 'created'
-                ? 'text-black border-b-2 border-black font-semibold'
-                : 'text-gray-500'
-            }`}
-          >
-            Created
-          </button>
-          <button
-            onClick={() => setActiveTab('onsale')}
-            className={`pb-4 px-1 text-[36px] font-sans font-bold  ${
-              activeTab === 'onsale'
-                ? 'text-black border-b-2 border-black font-semibold'
-                : 'text-gray-500'
-            }`}
-          >
-            OnSale
-          </button>
-          <button
-            onClick={() => setActiveTab('collections')}
-            className={`pb-4 px-1 text-[36px] font-sans font-bold  ${
-              activeTab === 'collections'
-                ? 'text-black border-b-2 border-black font-semibold'
-                : 'text-gray-500'
-            }`}
-          >
-            Collections
-          </button>  
+    <div className="mx-4 mt-6 md:mx-8 lg:mx-16">
+      {/* Tab Navigation */}
+      <div className="border-b border-gray-200 mb-4 overflow-x-auto">
+        <div className="flex gap-6 md:gap-8 whitespace-nowrap overflow-x-auto scrollbar-hide">
+          {[
+            { id: 'owned', label: 'Owned' },
+            { id: 'created', label: 'Created' },
+            { id: 'onsale', label: 'On Sale' },
+            { id: 'collections', label: 'Collections' },
+          ].map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`pb-3 text-lg md:text-2xl font-bold ${
+                activeTab === tab.id
+                  ? 'text-black border-b-2 border-black'
+                  : 'text-gray-500'
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
         </div>
       </div>
-      {renderTabContent()}
+      
+      {/* Tab Content */}
+      <div className="p-4 sm:p-6 bg-white rounded-lg shadow-md">{renderTabContent()}</div>
     </div>
   );
 };
