@@ -66,9 +66,8 @@ const Navbar = ({ darkMode, setDarkMode }) => {
                 <input
                   type="text"
                   placeholder="Search for NFTs, Collections, creators"
-                  className={`w-full pl-10 pr-4 py-2 rounded-full focus:outline-none ${
-                    darkMode ? "bg-gray-700 text-white focus:ring-gray-500" : "bg-[#F3F3F3] focus:ring-gray-200"
-                  }`}
+                  className={`w-full pl-10 pr-4 py-2 rounded-full focus:outline-none ${darkMode ? "bg-gray-700 text-white focus:ring-gray-500" : "bg-[#F3F3F3] focus:ring-gray-200"
+                    }`}
                 />
               </div>
             </div>
@@ -97,9 +96,8 @@ const Navbar = ({ darkMode, setDarkMode }) => {
 
               {/* Buy Coins Button */}
               <button
-                className={`hidden md:flex items-center space-x-2 px-4 rounded-full py-4 ${
-                  darkMode ? "bg-gray-700 text-white" : "bg-[#F3F3F3] text-black"
-                }`}
+                className={`hidden md:flex items-center space-x-2 px-4 rounded-full py-4 ${darkMode ? "bg-gray-700 text-white" : "bg-[#F3F3F3] text-black"
+                  }`}
               >
                 <BiWallet className="h-5 w-5" />
                 <span className="text-sm">Buy NYWNFT coins</span>
@@ -157,19 +155,27 @@ const Navbar = ({ darkMode, setDarkMode }) => {
 
           {/* Mobile Menu */}
           {isMenuOpen && (
-            <div className="md:hidden mt-4 pb-4">
+            <div className="md:hidden mt-4 pb-4 space-y-4 border-t pt-4">
+              <div className="relative mb-4">
+                <BiSearch className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
+                <input
+                  type="text"
+                  placeholder="Search for NFTs, Collections, creators"
+                  className={`w-full pl-10 pr-4 py-2 rounded-full focus:outline-none ${darkMode ? "bg-gray-700 text-white" : "bg-[#F3F3F3]"
+                    }`}
+                />
+              </div>
               <div className="flex flex-col space-y-4">
-                <Link to="/" className="text-sm font-medium hover:text-gray-400">MARKETPLACE</Link>
-                <Link to="/create-nft" className="text-sm font-medium hover:text-gray-400">CREATE NFTs</Link>
-                <Link to="/current-bids" className="text-sm font-medium hover:text-gray-400">CURRENT BIDS</Link>
-                <Link to="/cart" className="text-sm font-medium hover:text-gray-400">CART</Link>
+                <Link to="/" className="text-base font-medium hover:text-gray-400 px-2">MARKETPLACE</Link>
+                <Link to="/CreateNFt" className="text-base font-medium hover:text-gray-400 px-2">CREATE NFTs</Link>
+                <Link to="/CurrentBid" className="text-base font-medium hover:text-gray-400 px-2">CURRENT BIDS</Link>
+                <Link to="/cart" className="text-base font-medium hover:text-gray-400 px-2">CART</Link>
                 <button
-                  className={`flex items-center space-x-2 px-4 rounded-full py-2 ${
-                    darkMode ? "bg-gray-700 text-white" : "bg-[#F3F3F3] text-black"
-                  }`}
+                  className={`flex items-center justify-center space-x-2 px-4 rounded-full py-3 w-full ${darkMode ? "bg-gray-700" : "bg-[#F3F3F3]"
+                    }`}
                 >
                   <BiWallet className="h-5 w-5" />
-                  <span className="text-sm">Buy NYWNFT coins</span>
+                  <span className="text-base">Buy NYWNFT coins</span>
                 </button>
               </div>
             </div>
