@@ -4,10 +4,12 @@ import { BiX } from "react-icons/bi";
 import { FaWallet, FaEthereum } from "react-icons/fa";
 import { SiCoinbase, SiWalletconnect } from "react-icons/si";
 import { ethers } from "ethers";
+import { useWallet } from "./walletContext";
 
 const WalletLogin = ({ isOpen, onClose }) => {
   const [walletAddress, setWalletAddress] = useState("");
   const [isConnected, setIsConnected] = useState(false);
+  const { authenticateToken } = useWallet(); // Use context to store token
   const navigate = useNavigate();
 
   const connectMetaMask = async () => {
@@ -19,7 +21,27 @@ const WalletLogin = ({ isOpen, onClose }) => {
         const address = await signer.getAddress();
         setWalletAddress(address);
         setIsConnected(true);
-        navigate("/profilepage", { state: { walletAddress: address } });
+        
+        // Call the login API with the wallet address
+        const response = await fetch("https://nywnftbackend-production.up.railway.app/api/user/login-with-wallet", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ walletAddress: address }),
+        });
+
+        const data = await response.json();
+        if (data.success) {
+          // If login is successful, authenticate the token and navigate to the profile page
+          authenticateToken(data.token, address); // Store the token in the context
+          navigate("/profilepage", { state: { walletAddress: address } });
+          
+          // Close the modal after successful login
+          onClose();
+        } else {
+          alert("Login failed: " + data.message);
+        }
       } catch (error) {
         console.error("MetaMask connection failed:", error);
       }
@@ -65,9 +87,7 @@ const WalletLogin = ({ isOpen, onClose }) => {
         <div className="space-y-4">
           <button
             onClick={connectMetaMask}
-            className={`w-full flex items-center justify-between p-3 ${
-              isConnected ? "bg-green-500" : "bg-gray-800 hover:bg-gray-700"
-            } rounded-lg`}
+            className={`w-full flex items-center justify-between p-3 ${isConnected ? "bg-green-500" : "bg-gray-800 hover:bg-gray-700"} rounded-lg`}
             disabled={isConnected}
           >
             <div className="flex items-center">

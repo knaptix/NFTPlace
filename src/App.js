@@ -14,9 +14,12 @@ import ProfilePage from "./Component/IndividualCreatorPage/IndividualCreate";
 import HelpCenter from "./Component/HelpandSupport/Support";
 import Favourite from "./Component/Favourite/Favourite";
 import Settings from "./Component/Settting/Setting";
-import { WalletProvider } from "./Component/walletContext";
+import { useWallet, WalletProvider } from "./Component/walletContext";
 
 const App = () => {
+ 
+  const { walletToken, walletAddress } = useWallet(); // Access the token
+
   const [darkMode, setDarkMode] = useState(
     localStorage.getItem("theme") === "dark"
   );
@@ -33,8 +36,9 @@ const App = () => {
 
   return (
     <div className={darkMode ? "dark bg-gray-900 text-white" : "bg-white text-black"}>
-      <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
       <WalletProvider>
+      <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
+      
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/CurrentBid" element={<AuctionCards />} />
