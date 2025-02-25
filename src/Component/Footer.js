@@ -32,6 +32,7 @@ const Footer = ({ darkMode }) => {
                   <li><Link to="/about" className="text-sm text-gray-600 hover:text-gray-900">About</Link></li>
                   <li><Link to="/careers" className="text-sm text-gray-600 hover:text-gray-900">Careers</Link></li>
                   <li><Link to="/ventures" className="text-sm text-gray-600 hover:text-gray-900">Ventures</Link></li>
+                  <li><Link to="/ventures" className="text-sm text-gray-600 hover:text-gray-900">Documentation</Link></li>
                 </ul>
               </div>
 
