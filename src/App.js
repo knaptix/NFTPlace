@@ -14,6 +14,7 @@ import ProfilePage from "./Component/IndividualCreatorPage/IndividualCreate";
 import HelpCenter from "./Component/HelpandSupport/Support";
 import Favourite from "./Component/Favourite/Favourite";
 import Settings from "./Component/Settting/Setting";
+import { WalletProvider } from "./Component/walletContext";
 
 const App = () => {
   const [darkMode, setDarkMode] = useState(
@@ -33,6 +34,7 @@ const App = () => {
   return (
     <div className={darkMode ? "dark bg-gray-900 text-white" : "bg-white text-black"}>
       <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
+      <WalletProvider>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/CurrentBid" element={<AuctionCards />} />
@@ -47,6 +49,7 @@ const App = () => {
         <Route path="/help" element={<HelpCenter/>}/>
         <Route path="/settings" element={<Settings/>}/>
       </Routes>
+      </WalletProvider>
       <Footer darkMode={darkMode} setDarkMode={setDarkMode} />
     </div>
   );

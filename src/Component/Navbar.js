@@ -2,12 +2,27 @@ import React, { useState, useRef, useEffect } from "react";
 import { BiSearch, BiShoppingBag, BiWallet, BiMenu, BiX, BiMoon, BiSun } from "react-icons/bi";
 import { User, Heart, Globe, Settings, Headphones, LogOut } from 'lucide-react';
 import { Link, useNavigate } from "react-router-dom";
+import WalletLogin from "./WalletModel";
 
 const Navbar = ({ darkMode, setDarkMode }) => {
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
+  const [isWalletModalOpen, setIsWalletModalOpen] = useState(false);
+  const [isWalletConnected, setIsWalletConnected] = useState(false);
+  const [walletAddress, setWalletAddress] = useState('');
   const profileMenuRef = useRef(null);
+
+  // Check if wallet is already connected on component mount
+  useEffect(() => {
+    const connected = localStorage.getItem('walletConnected') === 'true';
+    const address = localStorage.getItem('walletAddress');
+    
+    if (connected && address) {
+      setIsWalletConnected(true);
+      setWalletAddress(address);
+    }
+  }, []);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -31,7 +46,18 @@ const Navbar = ({ darkMode, setDarkMode }) => {
   ];
 
   const handleLogout = () => {
-    // Add logout logic here
+    // If wallet is connected, disconnect it
+    if (isWalletConnected) {
+      setIsWalletConnected(false);
+      setWalletAddress('');
+      
+      // Clear wallet data from localStorage
+      localStorage.removeItem('walletConnected');
+      localStorage.removeItem('walletAddress');
+      localStorage.removeItem('walletBalance');
+    }
+    
+    // Add other logout logic here
     navigate('/');
   };
 
@@ -44,6 +70,25 @@ const Navbar = ({ darkMode, setDarkMode }) => {
       navigate(item.path);
     }
     setIsProfileMenuOpen(false);
+  };
+
+  // Function to handle wallet button click
+  const handleWalletButtonClick = () => {
+    if (isWalletConnected) {
+      // If wallet is already connected, disconnect it
+      handleLogout();
+    } else {
+      // Otherwise open the wallet connection modal
+      setIsWalletModalOpen(true);
+    }
+  };
+
+  // Function to handle successful wallet connection
+  const handleWalletConnect = (address) => {
+    setIsWalletConnected(true);
+    setWalletAddress(address);
+    setIsWalletModalOpen(false);
+    navigate('/profilepage'); // Redirect to profile page after connection
   };
 
   return (
@@ -66,8 +111,11 @@ const Navbar = ({ darkMode, setDarkMode }) => {
                 <input
                   type="text"
                   placeholder="Search for NFTs, Collections, creators"
-                  className={`w-full pl-10 pr-4 py-2 rounded-full focus:outline-none ${darkMode ? "bg-gray-700 text-white focus:ring-gray-500" : "bg-[#F3F3F3] focus:ring-gray-200"
-                    }`}
+                  className={`w-full pl-10 pr-4 py-2 rounded-full focus:outline-none ${
+                    darkMode 
+                      ? "bg-gray-700 text-white focus:ring-gray-500" 
+                      : "bg-[#F3F3F3] focus:ring-gray-200"
+                  }`}
                 />
               </div>
             </div>
@@ -94,17 +142,23 @@ const Navbar = ({ darkMode, setDarkMode }) => {
                 )}
               </button>
 
-              {/* Buy Coins Button */}
+              {/* Wallet Button - Conditional rendering */}
               <button
-                className={`hidden md:flex items-center space-x-2 px-4 rounded-full py-4 ${darkMode ? "bg-gray-700 text-white" : "bg-[#F3F3F3] text-black"
-                  }`}
+                onClick={handleWalletButtonClick}
+                className={`hidden md:flex items-center space-x-2 px-4 rounded-full py-4 ${
+                  darkMode 
+                    ? "bg-gray-700 text-white hover:bg-gray-600" 
+                    : "bg-[#F3F3F3] text-black hover:bg-gray-200"
+                } transition-colors duration-200`}
               >
                 <BiWallet className="h-5 w-5" />
-                <span className="text-sm">Buy NYWNFT coins</span>
+                <span className="text-sm">
+                  {isWalletConnected ? "Disconnect Wallet" : "Connect Wallet"}
+                </span>
               </button>
 
               {/* Cart Icon */}
-              <Link to="/cart" className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
+              <Link to="#" className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
                 <BiShoppingBag className="h-6 w-6" />
               </Link>
 
@@ -161,8 +215,9 @@ const Navbar = ({ darkMode, setDarkMode }) => {
                 <input
                   type="text"
                   placeholder="Search for NFTs, Collections, creators"
-                  className={`w-full pl-10 pr-4 py-2 rounded-full focus:outline-none ${darkMode ? "bg-gray-700 text-white" : "bg-[#F3F3F3]"
-                    }`}
+                  className={`w-full pl-10 pr-4 py-2 rounded-full focus:outline-none ${
+                    darkMode ? "bg-gray-700 text-white" : "bg-[#F3F3F3]"
+                  }`}
                 />
               </div>
               <div className="flex flex-col space-y-4">
@@ -171,17 +226,29 @@ const Navbar = ({ darkMode, setDarkMode }) => {
                 <Link to="/CurrentBid" className="text-base font-medium hover:text-gray-400 px-2">CURRENT BIDS</Link>
                 <Link to="/cart" className="text-base font-medium hover:text-gray-400 px-2">CART</Link>
                 <button
-                  className={`flex items-center justify-center space-x-2 px-4 rounded-full py-3 w-full ${darkMode ? "bg-gray-700" : "bg-[#F3F3F3]"
-                    }`}
+                  onClick={handleWalletButtonClick}
+                  className={`flex items-center justify-center space-x-2 px-4 rounded-full py-3 w-full ${
+                    darkMode ? "bg-gray-700 hover:bg-gray-600" : "bg-[#F3F3F3] hover:bg-gray-200"
+                  } transition-colors duration-200`}
                 >
                   <BiWallet className="h-5 w-5" />
-                  <span className="text-base">Buy NYWNFT coins</span>
+                  <span className="text-base">
+                    {isWalletConnected ? "Disconnect Wallet" : "Connect Wallet"}
+                  </span>
                 </button>
               </div>
             </div>
           )}
         </div>
       </nav>
+      
+      {/* Wallet Login Modal */}
+      <WalletLogin 
+        isOpen={isWalletModalOpen} 
+        onClose={() => setIsWalletModalOpen(false)} 
+        darkMode={darkMode}
+        onWalletConnect={handleWalletConnect}
+      />
     </>
   );
 };

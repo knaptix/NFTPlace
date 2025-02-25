@@ -1,8 +1,10 @@
 import React from 'react';
 import { ArrowLeft, Instagram, Plus, Share2 } from 'lucide-react';
 import TabSwitch from './TabSwitch';
-
+import { useLocation } from "react-router-dom";
 const ProfilePage = () => {
+  const location = useLocation();
+  const { walletAddress } = location.state || {};
   return (
     <div className="w-full px-4 sm:px-8 bg-white">
       {/* Header */}
@@ -44,13 +46,16 @@ const ProfilePage = () => {
                 <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" />
                 </svg>
+               
               </span>
             </h1>
-            <p className="text-gray-500 text-sm sm:text-[20px] lg:ml-80">
-              Lorem ipsum dummy text of the <br className="hidden sm:block" />
-              printing and typesetting industry, has <br className="hidden sm:block" />
-              been the industry's standard.
-            </p>
+            <div className="ml-80">
+            {walletAddress ? (
+        <p> {walletAddress}</p>
+      ) : (
+        <p>No wallet connected.</p>
+      )}
+          </div>
             <div className="flex gap-2 lg:ml-80 mt-4 justify-center sm:justify-start">
               <button className="px-4 py-1.5 bg-[#0a0e29] text-white rounded-2xl text-[16px] sm:text-[20px] font-medium flex items-center gap-1">
                 <Plus className="w-6 sm:w-10 h-6 sm:h-10" /> Follow
