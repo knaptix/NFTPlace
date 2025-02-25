@@ -96,7 +96,7 @@ const NFTMarketplace = () => {
             {collections.map((collection) => (
               <div key={collection._id} className="bg-white shadow-lg rounded-2xl overflow-hidden p-4 transform transition-all hover:scale-105">
                 <img
-                  src={getImageUrl(collection.bannerImage)} // Ensure this is the correct image name
+                  src="https://img.freepik.com/free-vector/hand-drawn-nft-style-ape-illustration_23-2149622021.jpg" // Ensure this is the correct image name
                   alt={collection.collectionName}
                   className="w-full h-52 object-cover rounded-lg"
                 />

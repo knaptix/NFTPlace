@@ -40,7 +40,7 @@ const WalletLogin = ({ isOpen, onClose }) => {
           // Close the modal after successful login
           onClose();
         } else {
-          alert("Login failed: " + data.message);
+          alert("Login successfull: " + data.message);
         }
       } catch (error) {
         console.error("MetaMask connection failed:", error);
