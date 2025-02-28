@@ -60,7 +60,7 @@ const Footer = ({ darkMode }) => {
                   </li>
                   <li>
                     <a href="mailto:nywnft@nywnft.com" className="text-sm text-gray-600 hover:text-gray-900">
-                      nywnft@nywnft.com
+                      nywnftinfo@nywnft.com
                     </a>
                   </li>
                 </ul>
@@ -119,8 +119,8 @@ const Footer = ({ darkMode }) => {
           <div>
             <h3 className="font-semibold mb-4">Help & Support</h3>
             <p className="text-sm text-gray-600 mb-2">For any queries mail us at -</p>
-            <a href="mailto:nywnft@nywnft.com" className="text-sm text-gray-600 hover:text-gray-900 block mb-6">
-              nywnft@nywnft.com
+            <a href="mailto:nywnftinfo@nywnft.com" className="text-sm text-gray-600 hover:text-gray-900 block mb-6">
+              nywnftinfo@nywnft.com
             </a>
           </div>
 
@@ -130,6 +130,7 @@ const Footer = ({ darkMode }) => {
             <p className="text-sm text-gray-600 mb-4">
               Raise a ticket, explain the issues and we are always eager to help you
             </p>
+
             <button className="w-full bg-[#1B1A1E] text-white py-3 rounded-lg hover:bg-black transition-colors">
               Raise a ticket
             </button>
