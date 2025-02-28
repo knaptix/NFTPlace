@@ -9,7 +9,7 @@ const NFTCreation = () => {
         {/* Left Section */}
         <div className="p-8 md:p-12 flex flex-col justify-center bg-gradient-to-b from-blue-100 to-white md:rounded-l-3xl">
           <h1 className="text-3xl md:text-[72px] font-sans font-extrabold text-gray-900">
-            <span>LET’S CREATE NFTs</span>
+            <span>CREATE</span>
           </h1>
           <p className="text-gray-600 mt-4 md:mt-6 text-base md:text-lg">
             Lorem Ipsum is simply dummy text of the printing and typesetting
@@ -36,8 +36,8 @@ const NFTCreation = () => {
                   </p>
                 </div>
               </div>
-            <Link to="/drop">
-              <ArrowRight className="w-10 h-10 text-black" />
+              <Link to="/drop">
+                <ArrowRight className="w-10 h-10 text-black" />
               </Link>
             </div>
 
@@ -65,11 +65,11 @@ const NFTCreation = () => {
 
         {/* Right Section */}
         <div className="hidden md:flex flex-col items-center justify-center md:rounded-r-3xl">
-          <img
+          {/* <img
             src="Pic.png"
             alt="NFT"
             className="w-full h-full object-cover rounded-3xl"
-          />
+          /> */}
         </div>
       </div>
     </div>

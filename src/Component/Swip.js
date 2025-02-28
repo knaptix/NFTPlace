@@ -17,8 +17,8 @@ const Swip = () => {
   return (
     <div className="w-full py-10 bg-gray-50">
       <div className="max-w-8xl mx-auto px-3">
-        <h2 className="text-3xl sm:text-4xl font-bold mb-8 text-center text-blue-500">
-          Explore Trending NFTs <span className="inline-block">🔥</span>
+        <h2 className="text-3xl sm:text-4xl font-bold mb-8 text-center">
+          Explore Trending NFTs
         </h2>
 
         {/* Swiper with Larger Cards */}

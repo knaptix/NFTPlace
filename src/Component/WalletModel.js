@@ -21,7 +21,7 @@ const WalletLogin = ({ isOpen, onClose }) => {
         const address = await signer.getAddress();
         setWalletAddress(address);
         setIsConnected(true);
-        
+
         // Call the login API with the wallet address
         const response = await fetch("https://nywnftbackend-production.up.railway.app/api/user/login-with-wallet", {
           method: "POST",
@@ -36,7 +36,7 @@ const WalletLogin = ({ isOpen, onClose }) => {
           // If login is successful, authenticate the token and navigate to the profile page
           authenticateToken(data.token, address); // Store the token in the context
           navigate("/profilepage", { state: { walletAddress: address } });
-          
+
           // Close the modal after successful login
           onClose();
         } else {
@@ -81,8 +81,9 @@ const WalletLogin = ({ isOpen, onClose }) => {
           <BiX className="w-6 h-6" />
         </button>
         <div className="text-center mb-6">
-          <FaWallet className="mx-auto text-4xl text-blue-500 mb-2" />
-          <h2 className="text-2xl font-semibold">Connect to NWYFT</h2>
+          {/* <FaWallet className="mx-auto text-4xl text-blue-500 mb-2" /> */}
+          <img src="log.png" alt="Logo" className="w-28 mb-2 mx-auto" />
+          {/* <h2 className="text-2xl font-semibold">Connect to NWYFT</h2> */}
         </div>
         <div className="space-y-4">
           <button

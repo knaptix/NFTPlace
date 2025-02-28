@@ -11,14 +11,14 @@ const NFTMarketplace = () => {
       try {
         console.log("Fetching data from API...");
         const response = await fetch("https://nywnftbackend-production.up.railway.app/api/collection/all");
-        
+
         if (!response.ok) {
           throw new Error(`API request failed with status: ${response.status}`);
         }
-        
+
         const result = await response.json();
         console.log("API Response Data:", result);
-        
+
         if (result && result.status === true && Array.isArray(result.data)) {
           console.log(`Found ${result.data.length} collections`);
           setCollections(result.data);
@@ -45,11 +45,11 @@ const NFTMarketplace = () => {
       console.warn("No image name provided, using fallback image.");
       return "https://via.placeholder.com/150"; // Fallback image
     }
-  
+
     const basePath = "https://nywnftbackend-production.up.railway.app/api/image?pathName=";
     const pathName = "NFT_IMAGE_PATH_COLLECTION"; // Ensure this is the correct path
     const imageUrl = `${basePath}${pathName}&imageName=${imageName}`;
-    
+
     console.log("Generated Image URL:", imageUrl); // Log the generated URL
     return imageUrl;
   };
@@ -69,7 +69,7 @@ const NFTMarketplace = () => {
       <div className="flex flex-col justify-center items-center min-h-screen">
         <p className="text-xl font-semibold text-red-600">Error: {error}</p>
         <div className="mt-4">
-          <button 
+          <button
             className="px-4 py-2 bg-blue-600 text-white rounded-lg"
             onClick={() => window.location.reload()}
           >
@@ -81,11 +81,12 @@ const NFTMarketplace = () => {
   }
 
   return (
-    <>  
-      <div className="bg-gray-50 min-h-screen py-10 w-full">
+    <>
+      <div className="bg-gray-50  py-10 w-full">
         <div className="max-w-7xl mx-auto px-6">
           <h2 className="text-4xl font-bold my-6 text-center text-gray-900">
-            Welcome to the NFT Marketplace 🎨✨
+            {/* Welcome to the NFT Marketplace */}
+            Discover Marketplace
           </h2>
           <p className="text-center text-gray-600 mb-8">
             Browse, collect, and own digital assets from the best creators around the world.
@@ -105,8 +106,8 @@ const NFTMarketplace = () => {
                   <p className="text-sm text-gray-600">Category: {collection.categoryName}</p>
                   <p className="text-sm text-gray-600">NFT Standard: {collection.nftStandard}</p>
                   <p className="text-sm text-gray-600">Royalty: {collection.royalty.percentage}%</p>
-                  <button className="w-full mt-3 py-2 bg-blue-600 text-white font-medium rounded-full hover:bg-blue-700 transition-all">
-                    View Collection 🚀
+                  <button className="w-full mt-3 py-2 bg-blue-600 text-white font-medium hover:bg-blue-700 transition-all">
+                    View Collection
                   </button>
                 </div>
               </div>
@@ -116,7 +117,7 @@ const NFTMarketplace = () => {
           {/* No NFTs message */}
           {collections.length === 0 && (
             <div className="text-center p-10 bg-gray-100 rounded-lg mt-10">
-              <p className="text-gray-500 text-lg">No collections found. 🧐</p>
+              <p className="text-gray-500 text-lg">No collections found.</p>
             </div>
           )}
         </div>

@@ -30,7 +30,7 @@ const Footer = ({ darkMode }) => {
                 <h3 className="font-semibold mb-4">Company</h3>
                 <ul className="space-y-3">
                   <li><Link to="/about" className="text-sm text-gray-600 hover:text-gray-900">About</Link></li>
-                  <li><Link to="/careers" className="text-sm text-gray-600 hover:text-gray-900">Careers</Link></li>
+                  {/* <li><Link to="/careers" className="text-sm text-gray-600 hover:text-gray-900">Careers</Link></li> */}
                   <li><Link to="/ventures" className="text-sm text-gray-600 hover:text-gray-900">Ventures</Link></li>
                   <li><Link to="/ventures" className="text-sm text-gray-600 hover:text-gray-900">Documentation</Link></li>
                 </ul>
@@ -59,8 +59,8 @@ const Footer = ({ darkMode }) => {
                     </Link>
                   </li>
                   <li>
-                    <a href="mailto:nywnft@nywnft.xyz" className="text-sm text-gray-600 hover:text-gray-900">
-                      nywnft@nywnft.xyz
+                    <a href="mailto:nywnft@nywnft.com" className="text-sm text-gray-600 hover:text-gray-900">
+                      nywnft@nywnft.com
                     </a>
                   </li>
                 </ul>
@@ -119,8 +119,8 @@ const Footer = ({ darkMode }) => {
           <div>
             <h3 className="font-semibold mb-4">Help & Support</h3>
             <p className="text-sm text-gray-600 mb-2">For any queries mail us at -</p>
-            <a href="mailto:nywnftinfo@nywnft.xyz" className="text-sm text-gray-600 hover:text-gray-900 block mb-6">
-              nywnftinfo@nywnft.xyz
+            <a href="mailto:nywnft@nywnft.com" className="text-sm text-gray-600 hover:text-gray-900 block mb-6">
+              nywnft@nywnft.com
             </a>
           </div>
 

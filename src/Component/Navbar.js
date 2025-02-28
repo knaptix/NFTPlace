@@ -17,7 +17,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
   useEffect(() => {
     const connected = localStorage.getItem('walletConnected') === 'true';
     const address = localStorage.getItem('walletAddress');
-    
+
     if (connected && address) {
       setIsWalletConnected(true);
       setWalletAddress(address);
@@ -50,13 +50,13 @@ const Navbar = ({ darkMode, setDarkMode }) => {
     if (isWalletConnected) {
       setIsWalletConnected(false);
       setWalletAddress('');
-      
+
       // Clear wallet data from localStorage
       localStorage.removeItem('walletConnected');
       localStorage.removeItem('walletAddress');
       localStorage.removeItem('walletBalance');
     }
-    
+
     // Add other logout logic here
     navigate('/');
   };
@@ -93,7 +93,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
 
   return (
     <>
-      <nav className={`border-b ${darkMode ? "bg-gray-800 text-white" : "bg-white text-black"}`}>
+      <nav className={` ${darkMode ? "bg-gray-800 text-white" : "bg-white text-black"}`}>
         <div className="max-w-[1440px] mx-auto px-4 py-3">
           <div className="flex items-center justify-between">
             {/* Logo Section */}
@@ -111,21 +111,20 @@ const Navbar = ({ darkMode, setDarkMode }) => {
                 <input
                   type="text"
                   placeholder="Search for NFTs, Collections, creators"
-                  className={`w-full pl-10 pr-4 py-2 rounded-full focus:outline-none ${
-                    darkMode 
-                      ? "bg-gray-700 text-white focus:ring-gray-500" 
-                      : "bg-[#F3F3F3] focus:ring-gray-200"
-                  }`}
+                  className={`w-full pl-10 pr-4 py-2 rounded-full focus:outline-none ${darkMode
+                    ? "bg-gray-700 text-white focus:ring-gray-500"
+                    : "bg-[#F3F3F3] focus:ring-gray-200"
+                    }`}
                 />
               </div>
             </div>
 
             {/* Navigation Links */}
             <div className="hidden md:flex items-center space-x-8">
-              <Link to="/" className="text-sm font-medium hover:text-gray-400">MARKETPLACE</Link>
-              <Link to="/CreateNFt" className="text-sm font-medium hover:text-gray-400">CREATE NFTs</Link>
-              <Link to="/CurrentBid" className="text-sm font-medium hover:text-gray-400">CURRENT BIDS</Link>
-              <Link to="/cart" className="text-sm font-medium hover:text-gray-400">CART</Link>
+              <Link to="/" className="text-sm font-medium hover:text-gray-400 ">Marketplace</Link>
+              <Link to="/CreateNFt" className="text-sm font-medium hover:text-gray-400 ">Create</Link>
+              <Link to="/CurrentBid" className="text-sm font-medium hover:text-gray-400 ">Current Bids</Link>
+              <Link to="/cart" className="text-sm font-medium hover:text-gray-400 ">Cart</Link>
             </div>
 
             {/* Action Buttons */}
@@ -145,11 +144,10 @@ const Navbar = ({ darkMode, setDarkMode }) => {
               {/* Wallet Button - Conditional rendering */}
               <button
                 onClick={handleWalletButtonClick}
-                className={`hidden md:flex items-center space-x-2 px-4 rounded-full py-4 ${
-                  darkMode 
-                    ? "bg-gray-700 text-white hover:bg-gray-600" 
-                    : "bg-[#F3F3F3] text-black hover:bg-gray-200"
-                } transition-colors duration-200`}
+                className={`hidden md:flex items-center space-x-2 px-4 rounded-full py-4 ${darkMode
+                  ? "bg-gray-700 text-white hover:bg-gray-600"
+                  : "bg-[#F3F3F3] text-black hover:bg-gray-200"
+                  } transition-colors duration-200`}
               >
                 <BiWallet className="h-5 w-5" />
                 <span className="text-sm">
@@ -215,21 +213,19 @@ const Navbar = ({ darkMode, setDarkMode }) => {
                 <input
                   type="text"
                   placeholder="Search for NFTs, Collections, creators"
-                  className={`w-full pl-10 pr-4 py-2 rounded-full focus:outline-none ${
-                    darkMode ? "bg-gray-700 text-white" : "bg-[#F3F3F3]"
-                  }`}
+                  className={`w-full pl-10 pr-4 py-2 rounded-full focus:outline-none ${darkMode ? "bg-gray-700 text-white" : "bg-[#F3F3F3]"
+                    }`}
                 />
               </div>
               <div className="flex flex-col space-y-4">
-                <Link to="/" className="text-base font-medium hover:text-gray-400 px-2">MARKETPLACE</Link>
-                <Link to="/CreateNFt" className="text-base font-medium hover:text-gray-400 px-2">CREATE NFTs</Link>
-                <Link to="/CurrentBid" className="text-base font-medium hover:text-gray-400 px-2">CURRENT BIDS</Link>
-                <Link to="/cart" className="text-base font-medium hover:text-gray-400 px-2">CART</Link>
+                <Link to="/" className="text-sm font-medium hover:text-gray-400 ">Marketplace</Link>
+                <Link to="/CreateNFt" className="text-sm font-medium hover:text-gray-400 ">Create</Link>
+                <Link to="/CurrentBid" className="text-sm font-medium hover:text-gray-400 ">Current Bids</Link>
+                <Link to="/cart" className="text-sm font-medium hover:text-gray-400 ">Cart</Link>
                 <button
                   onClick={handleWalletButtonClick}
-                  className={`flex items-center justify-center space-x-2 px-4 rounded-full py-3 w-full ${
-                    darkMode ? "bg-gray-700 hover:bg-gray-600" : "bg-[#F3F3F3] hover:bg-gray-200"
-                  } transition-colors duration-200`}
+                  className={`flex items-center justify-center space-x-2 px-4 rounded-full py-3 w-full ${darkMode ? "bg-gray-700 hover:bg-gray-600" : "bg-[#F3F3F3] hover:bg-gray-200"
+                    } transition-colors duration-200`}
                 >
                   <BiWallet className="h-5 w-5" />
                   <span className="text-base">
@@ -241,11 +237,11 @@ const Navbar = ({ darkMode, setDarkMode }) => {
           )}
         </div>
       </nav>
-      
+
       {/* Wallet Login Modal */}
-      <WalletLogin 
-        isOpen={isWalletModalOpen} 
-        onClose={() => setIsWalletModalOpen(false)} 
+      <WalletLogin
+        isOpen={isWalletModalOpen}
+        onClose={() => setIsWalletModalOpen(false)}
         darkMode={darkMode}
         onWalletConnect={handleWalletConnect}
       />
