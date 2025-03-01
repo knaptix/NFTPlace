@@ -59,7 +59,7 @@ const Footer = ({ darkMode }) => {
                     </Link>
                   </li>
                   <li>
-                    <a href="mailto:nywnft@nywnft.com" className="text-sm text-gray-600 hover:text-gray-900">
+                    <a href="mailto:nywnftinfo@nywnft.com" className="text-sm text-gray-600 hover:text-gray-900">
                       nywnftinfo@nywnft.com
                     </a>
                   </li>

@@ -29,7 +29,7 @@ const NewYorkWorldSection = () => {
                 Join Community
               </button>
             </a>
-            <a href='https://docs.nywnft.xyz/'>
+            <a href='https://nywnft-organization.gitbook.io/nywnft/~/changes/1'>
               <button className="bg-[#EBF2FE] text-[#1A202C] text-[18px] sm:text-[20px] px-6 sm:px-8 py-3 rounded-full font-medium border border-[#E2E8F0] transition-all duration-300 hover:bg-[#DCE6F8]">
                 Whitepaper
               </button>
