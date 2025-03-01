@@ -18,9 +18,6 @@ import { useWallet, WalletProvider } from "./Component/walletContext";
 import ProtectedRoute from "./Component/ProtectedRoute";
 
 const App = () => {
-
-  const { walletToken, walletAddress } = useWallet(); // Access the token
-
   const [darkMode, setDarkMode] = useState(
     localStorage.getItem("theme") === "dark"
   );
@@ -36,43 +33,27 @@ const App = () => {
   }, [darkMode]);
 
   return (
-    <div className={darkMode ? "dark bg-gray-900 text-white" : "bg-white text-black"}>
-      <WalletProvider>
+    <WalletProvider>
+      <div className={darkMode ? "dark bg-gray-900 text-white" : "bg-white text-black"}>
         <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
-
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/CurrentBid" element={<AuctionCards />} />
-          <Route path="/CreateNFt" element={
-            <ProtectedRoute>
-              <NFTCreation />
-            </ProtectedRoute>
-          } />
-          <Route path="/drop" element={
-            <ProtectedRoute>
-              <SmartContractForm />
-            </ProtectedRoute>
-          } />
-          <Route path="/create" element={
-            <ProtectedRoute>
-              <NFTCreationForm />
-            </ProtectedRoute>
-          } />
+          {/* Protected Routes */}
+          <Route path="/CreateNFt" element={<ProtectedRoute><NFTCreation /></ProtectedRoute>} />
+          <Route path="/drop" element={<ProtectedRoute><SmartContractForm /></ProtectedRoute>} />
+          <Route path="/create" element={<ProtectedRoute><NFTCreationForm /></ProtectedRoute>} />
           <Route path="/cart" element={<CartSummary />} />
           <Route path="/detail" element={<NFTDetailPage />} />
           <Route path="/collection" element={<NFTCollectionPage />} />
-          <Route path="/profilepage" element={
-            <ProtectedRoute>
-              <ProfilePage />
-            </ProtectedRoute>
-          } />
-          <Route path="/favourite" element={<Favourite />} />
+          <Route path="/profilepage" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
+          <Route path="/favourite" element={<ProtectedRoute><Favourite /></ProtectedRoute>} />
           <Route path="/help" element={<HelpCenter />} />
           <Route path="/settings" element={<Settings />} />
         </Routes>
-      </WalletProvider>
-      <Footer darkMode={darkMode} setDarkMode={setDarkMode} />
-    </div>
+        <Footer darkMode={darkMode} setDarkMode={setDarkMode} />
+      </div>
+    </WalletProvider>
   );
 };
 

@@ -2,51 +2,52 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { BiX } from "react-icons/bi";
 import { FaWallet, FaEthereum } from "react-icons/fa";
-import { SiCoinbase, SiWalletconnect } from "react-icons/si";
+import { SiCoinbase, SiWalletconnect, SiMeta } from "react-icons/si";
 import { ethers } from "ethers";
 import { useWallet } from "./walletContext";
 
-const WalletLogin = ({ isOpen, onClose }) => {
-  const [walletAddress, setWalletAddress] = useState("");
-  const [isConnected, setIsConnected] = useState(false);
-  const { authenticateToken } = useWallet(); // Use context to store token
+const WalletLogin = ({ isOpen, onClose, darkMode }) => {
+  const [localWalletAddress, setLocalWalletAddress] = useState("");
+  const { authenticateToken, isWalletConnected, walletAddress } = useWallet();
   const navigate = useNavigate();
 
+  // Reset local state when modal opens/closes
+  useEffect(() => {
+    if (!isOpen) {
+      setLocalWalletAddress("");
+    } else if (walletAddress) {
+      setLocalWalletAddress(walletAddress);
+    }
+  }, [isOpen, walletAddress]);
+
   const connectMetaMask = async () => {
-    if (window.ethereum) {
-      try {
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
-        await window.ethereum.request({ method: "eth_requestAccounts" });
-        const signer = provider.getSigner();
-        const address = await signer.getAddress();
-        setWalletAddress(address);
-        setIsConnected(true);
+    try {
+      if (typeof window.ethereum !== 'undefined') {
+        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+        const address = accounts[0];
+        setLocalWalletAddress(address);
 
-        // Call the login API with the wallet address
-        const response = await fetch("https://nywnftbackend-production.up.railway.app/api/user/login-with-wallet", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ walletAddress: address }),
-        });
-
-        const data = await response.json();
-        if (data.success) {
-          // If login is successful, authenticate the token and navigate to the profile page
-          authenticateToken(data.token, address); // Store the token in the context
-          navigate("/profilepage", { state: { walletAddress: address } });
-
-          // Close the modal after successful login
-          onClose();
-        } else {
-          alert("Login successfull: " + data.message);
+        try {
+          const success = await authenticateToken(address);
+          if (success) {
+            onClose();
+            navigate('/profilepage');
+          } else {
+            setLocalWalletAddress("");
+            alert('Failed to register wallet with server');
+          }
+        } catch (error) {
+          setLocalWalletAddress("");
+          console.error('Server authentication error:', error);
+          alert('Failed to register wallet: ' + (error.message || 'Unknown error'));
         }
-      } catch (error) {
-        console.error("MetaMask connection failed:", error);
+      } else {
+        alert('Please install MetaMask!');
       }
-    } else {
-      alert("MetaMask is not installed. Please install it to continue.");
+    } catch (error) {
+      setLocalWalletAddress("");
+      console.error('MetaMask connection error:', error);
+      alert('Failed to connect to MetaMask');
     }
   };
 
@@ -55,18 +56,15 @@ const WalletLogin = ({ isOpen, onClose }) => {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       provider.listAccounts().then((accounts) => {
         if (accounts.length > 0) {
-          setWalletAddress(accounts[0]);
-          setIsConnected(true);
+          setLocalWalletAddress(accounts[0]);
         }
       });
 
       window.ethereum.on("accountsChanged", (accounts) => {
         if (accounts.length > 0) {
-          setWalletAddress(accounts[0]);
-          setIsConnected(true);
+          setLocalWalletAddress(accounts[0]);
         } else {
-          setWalletAddress("");
-          setIsConnected(false);
+          setLocalWalletAddress("");
         }
       });
     }
@@ -88,13 +86,11 @@ const WalletLogin = ({ isOpen, onClose }) => {
         <div className="space-y-4">
           <button
             onClick={connectMetaMask}
-            className={`w-full flex items-center justify-between p-3 ${isConnected ? "bg-green-500" : "bg-gray-800 hover:bg-gray-700"} rounded-lg`}
-            disabled={isConnected}
+            className="flex items-center justify-center space-x-2 w-full p-3 rounded-lg border hover:bg-gray-100 dark:hover:bg-gray-700"
           >
-            <div className="flex items-center">
-              <FaEthereum className="w-8 h-8 mr-3 text-orange-500" />
-              <span className="text-white">{isConnected ? "Connected" : "MetaMask"}</span>
-            </div>
+            {/* <img src="/metamask.png" alt="MetaMask" className="w-8 h-8" /> */}
+            <FaEthereum className="w-8 h-8 mr-3 text-orange-500" />
+            <span>Connect with MetaMask</span>
           </button>
           <button className="w-full flex items-center p-3 bg-gray-800 hover:bg-gray-700 rounded-lg">
             <SiCoinbase className="w-8 h-8 mr-3 text-blue-500" />
@@ -105,8 +101,8 @@ const WalletLogin = ({ isOpen, onClose }) => {
             <span className="text-white">WalletConnect</span>
           </button>
         </div>
-        {walletAddress && (
-          <p className="mt-4 text-green-400 text-center">Connected: {walletAddress}</p>
+        {localWalletAddress && (
+          <p className="mt-4 text-green-400 text-center">Connected: {localWalletAddress}</p>
         )}
         <div className="mt-6 text-center">
           <span className="text-gray-400 text-sm">More wallet options</span>

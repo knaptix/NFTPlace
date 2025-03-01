@@ -7,24 +7,11 @@ import { useWallet } from './walletContext'; // Fix: Import from local wallet co
 
 const Navbar = ({ darkMode, setDarkMode }) => {
   const navigate = useNavigate();
-  const { walletToken, disconnectWallet } = useWallet(); // Destructure walletToken and disconnectWallet from useWallet
+  const { isWalletConnected, walletAddress, disconnectWallet } = useWallet();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const [isWalletModalOpen, setIsWalletModalOpen] = useState(false);
-  const [isWalletConnected, setIsWalletConnected] = useState(false);
-  const [walletAddress, setWalletAddress] = useState('');
   const profileMenuRef = useRef(null);
-
-  // Check if wallet is already connected on component mount
-  useEffect(() => {
-    const connected = localStorage.getItem('walletConnected') === 'true';
-    const address = localStorage.getItem('walletAddress');
-
-    if (connected && address) {
-      setIsWalletConnected(true);
-      setWalletAddress(address);
-    }
-  }, []);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -67,20 +54,17 @@ const Navbar = ({ darkMode, setDarkMode }) => {
   // Function to handle wallet button click
   const handleWalletButtonClick = () => {
     if (isWalletConnected) {
-      // If wallet is already connected, disconnect it
-      handleLogout();
+      disconnectWallet();
+      navigate('/');
     } else {
-      // Otherwise open the wallet connection modal
       setIsWalletModalOpen(true);
     }
   };
 
-  // Function to handle successful wallet connection
-  const handleWalletConnect = (address) => {
-    setIsWalletConnected(true);
-    setWalletAddress(address);
+  // Update the wallet connection handler
+  const handleWalletConnect = () => {
     setIsWalletModalOpen(false);
-    navigate('/profilepage'); // Redirect to profile page after connection
+    // The navigation will happen automatically through ProtectedRoute
   };
 
   return (
@@ -142,8 +126,11 @@ const Navbar = ({ darkMode, setDarkMode }) => {
                   } transition-colors duration-200`}
               >
                 <BiWallet className="h-5 w-5" />
+                {/* <span className="text-sm">
+                  {isWalletConnected ? `Disconnect (${walletAddress.slice(0, 6)}...)` : "Connect Wallet"}
+                </span> */}
                 <span className="text-sm">
-                  {isWalletConnected ? "Disconnect Wallet" : "Connect Wallet"}
+                  {isWalletConnected ? `Disconnect Wallet` : "Connect Wallet"}
                 </span>
               </button>
 
