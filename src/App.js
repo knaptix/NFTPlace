@@ -15,9 +15,10 @@ import HelpCenter from "./Component/HelpandSupport/Support";
 import Favourite from "./Component/Favourite/Favourite";
 import Settings from "./Component/Settting/Setting";
 import { useWallet, WalletProvider } from "./Component/walletContext";
+import ProtectedRoute from "./Component/ProtectedRoute";
 
 const App = () => {
- 
+
   const { walletToken, walletAddress } = useWallet(); // Access the token
 
   const [darkMode, setDarkMode] = useState(
@@ -37,22 +38,38 @@ const App = () => {
   return (
     <div className={darkMode ? "dark bg-gray-900 text-white" : "bg-white text-black"}>
       <WalletProvider>
-      <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
-      
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/CurrentBid" element={<AuctionCards />} />
-        <Route path="/CreateNFt" element={<NFTCreation />} />
-        <Route path="/drop" element={<SmartContractForm />} />
-        <Route path="/create" element={<NFTCreationForm />} />
-        <Route path="/cart" element={<CartSummary />} />
-        <Route path="/detail" element={<NFTDetailPage/>}/>
-        <Route path="/collection" element={<NFTCollectionPage/>}/>
-        <Route path="/profilepage" element={<ProfilePage/>}/>
-        <Route path="/favourite" element={<Favourite/>}/>
-        <Route path="/help" element={<HelpCenter/>}/>
-        <Route path="/settings" element={<Settings/>}/>
-      </Routes>
+        <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
+
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/CurrentBid" element={<AuctionCards />} />
+          <Route path="/CreateNFt" element={
+            <ProtectedRoute>
+              <NFTCreation />
+            </ProtectedRoute>
+          } />
+          <Route path="/drop" element={
+            <ProtectedRoute>
+              <SmartContractForm />
+            </ProtectedRoute>
+          } />
+          <Route path="/create" element={
+            <ProtectedRoute>
+              <NFTCreationForm />
+            </ProtectedRoute>
+          } />
+          <Route path="/cart" element={<CartSummary />} />
+          <Route path="/detail" element={<NFTDetailPage />} />
+          <Route path="/collection" element={<NFTCollectionPage />} />
+          <Route path="/profilepage" element={
+            <ProtectedRoute>
+              <ProfilePage />
+            </ProtectedRoute>
+          } />
+          <Route path="/favourite" element={<Favourite />} />
+          <Route path="/help" element={<HelpCenter />} />
+          <Route path="/settings" element={<Settings />} />
+        </Routes>
       </WalletProvider>
       <Footer darkMode={darkMode} setDarkMode={setDarkMode} />
     </div>

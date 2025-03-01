@@ -34,8 +34,15 @@ export const WalletProvider = ({ children }) => {
     setWalletAddress(null);
   };
 
+  const disconnectWallet = () => {
+    setWalletAddress(null);
+    setWalletToken(null);
+    localStorage.removeItem('walletToken');
+    localStorage.removeItem('walletAddress');
+  };
+
   return (
-    <WalletContext.Provider value={{ walletToken, walletAddress, authenticateToken, logout }}>
+    <WalletContext.Provider value={{ walletToken, walletAddress, authenticateToken, logout, disconnectWallet }}>
       {children}
     </WalletContext.Provider>
   );

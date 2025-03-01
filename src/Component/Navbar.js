@@ -3,9 +3,11 @@ import { BiSearch, BiShoppingBag, BiWallet, BiMenu, BiX, BiMoon, BiSun } from "r
 import { User, Heart, Globe, Settings, Headphones, LogOut } from 'lucide-react';
 import { Link, useNavigate } from "react-router-dom";
 import WalletLogin from "./WalletModel";
+import { useWallet } from './walletContext'; // Fix: Import from local wallet context
 
 const Navbar = ({ darkMode, setDarkMode }) => {
   const navigate = useNavigate();
+  const { walletToken, disconnectWallet } = useWallet(); // Destructure walletToken and disconnectWallet from useWallet
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const [isWalletModalOpen, setIsWalletModalOpen] = useState(false);
@@ -46,19 +48,9 @@ const Navbar = ({ darkMode, setDarkMode }) => {
   ];
 
   const handleLogout = () => {
-    // If wallet is connected, disconnect it
-    if (isWalletConnected) {
-      setIsWalletConnected(false);
-      setWalletAddress('');
-
-      // Clear wallet data from localStorage
-      localStorage.removeItem('walletConnected');
-      localStorage.removeItem('walletAddress');
-      localStorage.removeItem('walletBalance');
-    }
-
-    // Add other logout logic here
-    navigate('/');
+    disconnectWallet(); // Use the disconnectWallet function from useWallet
+    // If you're using react-router, you might want to redirect to home
+    window.location.href = '/';
   };
 
   const handleMenuItemClick = (item) => {
