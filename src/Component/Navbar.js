@@ -99,7 +99,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
               <Link to="/" className="text-sm font-medium hover:text-gray-400 ">Marketplace</Link>
               <Link to="/CreateNFt" className="text-sm font-medium hover:text-gray-400 ">Create</Link>
               <Link to="/CurrentBid" className="text-sm font-medium hover:text-gray-400 ">Current Bids</Link>
-              <Link to="https://pancakeswap.finance/?chain=eth&outputCurrency=0x26cafcfc1b820a74b0e069c2c65b816d2af241cd" className="text-sm font-medium hover:text-gray-400 ">NYWNFT/WETH</Link>
+
               <Link to="/cart" className="text-sm font-medium hover:text-gray-400 ">Cart</Link>
             </div>
 
@@ -116,6 +116,16 @@ const Navbar = ({ darkMode, setDarkMode }) => {
                   <BiMoon className="h-6 w-6 text-gray-900" />
                 )}
               </button>
+
+
+              <Link to="https://pancakeswap.finance/?chain=eth&outputCurrency=0x26cafcfc1b820a74b0e069c2c65b816d2af241cd" className="text-sm font-medium hover:text-gray-400 ">
+                <button className={`hidden md:flex items-center space-x-2 px-4 rounded-full py-4 ${darkMode
+                  ? "bg-gray-700 text-white hover:bg-gray-600"
+                  : "text-[#F3F3F3] bg-black hover:bg-gray-200 hover:text-black"
+                  } transition-colors duration-200`}>
+                  NYWNFT/WETH
+                </button>
+              </Link>
 
               {/* Wallet Button - Conditional rendering */}
               <button
