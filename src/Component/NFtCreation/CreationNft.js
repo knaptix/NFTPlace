@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ArrowLeft, Upload } from 'lucide-react';
+import CollectionDropdown from './CreateCollectionDropDown';
 
 const NFTCreationForm = () => {
   const [formData, setFormData] = useState({
@@ -41,22 +42,25 @@ const NFTCreationForm = () => {
           <label className="block font-medium">Choose your collection *</label>
           <div className="grid grid-cols-2 gap-4">
             <div
-              className={`p-4 border rounded-lg cursor-pointer text-center ${
-                formData.collection === 'create' ? 'border-blue-500 bg-blue-50' : 'border-gray-200'
-              }`}
+              className={`p-4 border rounded-lg cursor-pointer text-center ${formData.collection === 'create' ? 'border-blue-500 bg-blue-50' : 'border-gray-200'
+                }`}
               onClick={() => setFormData({ ...formData, collection: 'create' })}
             >
               Create ERC-1155
             </div>
             <div
-              className={`p-4 border rounded-lg cursor-pointer text-center ${
-                formData.collection === 'bluewaves' ? 'border-blue-500 bg-blue-50' : 'border-gray-200'
-              }`}
+              className={`p-4 border rounded-lg cursor-pointer text-center ${formData.collection === 'bluewaves' ? 'border-blue-500 bg-blue-50' : 'border-gray-200'
+                }`}
               onClick={() => setFormData({ ...formData, collection: 'bluewaves' })}
             >
               Blue Waves ETH
             </div>
           </div>
+
+          <div>
+            <CollectionDropdown />
+          </div>
+
 
           <input type="text" placeholder="Name *" className="w-full p-2 border rounded-md" />
           <textarea placeholder="Description *" className="w-full p-2 border rounded-md"></textarea>
@@ -85,7 +89,7 @@ const NFTCreationForm = () => {
             <input type="checkbox" className="toggle" />
           </div>
           <input type="text" placeholder="Digital key code or link" className="w-full p-2 border rounded-md" />
-          
+
           <input type="text" placeholder="Date of listing's expiration" className="w-full p-2 border rounded-md" />
           <input type="text" placeholder="Royalties (e.g., 10%)" className="w-full p-2 border rounded-md" />
 

@@ -31,12 +31,11 @@ const Navbar = ({ darkMode, setDarkMode }) => {
     { icon: Globe, label: 'Language', path: '/language' },
     { icon: Settings, label: 'Settings', path: '/settings' },
     { icon: Headphones, label: 'Help & Support', path: '/help' },
-    { icon: LogOut, label: 'Logout', path: '/logout' }
+    { icon: LogOut, label: 'Logout', path: '/logout' },
   ];
 
   const handleLogout = () => {
-    disconnectWallet(); // Use the disconnectWallet function from useWallet
-    // If you're using react-router, you might want to redirect to home
+    disconnectWallet();
     window.location.href = '/';
   };
 
@@ -100,6 +99,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
               <Link to="/" className="text-sm font-medium hover:text-gray-400 ">Marketplace</Link>
               <Link to="/CreateNFt" className="text-sm font-medium hover:text-gray-400 ">Create</Link>
               <Link to="/CurrentBid" className="text-sm font-medium hover:text-gray-400 ">Current Bids</Link>
+              <Link to="https://pancakeswap.finance/?chain=eth&outputCurrency=0x26cafcfc1b820a74b0e069c2c65b816d2af241cd" className="text-sm font-medium hover:text-gray-400 ">NYWNFT/WETH</Link>
               <Link to="/cart" className="text-sm font-medium hover:text-gray-400 ">Cart</Link>
             </div>
 
@@ -200,6 +200,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
                 <Link to="/" className="text-sm font-medium hover:text-gray-400 ">Marketplace</Link>
                 <Link to="/CreateNFt" className="text-sm font-medium hover:text-gray-400 ">Create</Link>
                 <Link to="/CurrentBid" className="text-sm font-medium hover:text-gray-400 ">Current Bids</Link>
+                <Link to="https://pancakeswap.finance/?chain=eth&outputCurrency=0x26cafcfc1b820a74b0e069c2c65b816d2af241cd" className="text-sm font-medium hover:text-gray-400 ">NYWNFT/WETH</Link>
                 <Link to="/cart" className="text-sm font-medium hover:text-gray-400 ">Cart</Link>
                 <button
                   onClick={handleWalletButtonClick}
