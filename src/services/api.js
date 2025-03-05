@@ -43,3 +43,15 @@ export const getUserProfile = async (token) => {
         throw error.response?.data || error.message;
     }
 };
+
+
+export const getAllCategory = async (token) => {
+    try {
+        const response = await api.get('/category/get-all', {
+            headers: { Authorization: `Bearer ${token}` }
+        });
+        return response.data;
+    } catch (error) {
+        throw error.response?.data || error.message;
+    }
+};
