@@ -281,7 +281,7 @@ const SmartContractForm = () => {
     formData.append("categoryId", 1);
     formData.append("contractAddress", contract)
     formData.append("description", contractSymbol);
-    formData.append("collectionCreationHash", hash
+    formData.append("collectionCreationHash", hash)
     formData.append("nftStandard", "ERC-1155");
 
     const token = localStorage.getItem("walletToken"); // Get the wallet token from localStorage
