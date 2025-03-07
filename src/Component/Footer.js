@@ -206,10 +206,10 @@ export default function Footer() {
           <p className="text-sm mb-4 sm:mb-0">Copyright ©2024 NYWNFT. All rights reserved.</p>
           <p className="text-sm mb-4 sm:mb-0">Developed With Love ❤️ By Wink Ad Media </p>
           <div className="flex space-x-6">
-            <Link to="#" className="text-sm hover:underline">
+            <Link to="/privacy-polices" className="text-sm hover:underline">
               Privacy Policy
             </Link>
-            <Link to="#" className="text-sm hover:underline">
+            <Link to="terms-services" className="text-sm hover:underline">
               Terms of Service
             </Link>
           </div>

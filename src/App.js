@@ -19,6 +19,8 @@ import ProtectedRoute from "./Component/ProtectedRoute";
 import AboutPage from "./Component/About";
 import Venture from "./Component/Venture";
 import Partnerships from "./Component/Partnerships";
+import PrivacyPolices from "./Component/PrivacyPolices";
+import TermsServices from "./Component/TermsServices";
 
 const App = () => {
   const [darkMode, setDarkMode] = useState(
@@ -56,6 +58,8 @@ const App = () => {
           <Route path="/about" element={<AboutPage />} />
           <Route path="/venture" element={<Venture />} />
           <Route path="/partnerships" element={<Partnerships />} />
+          <Route path="/privacy-polices" element={<PrivacyPolices />} />
+          <Route path="/terms-services" element={<TermsServices />} />
         </Routes>
         <Footer darkMode={darkMode} setDarkMode={setDarkMode} />
       </div>
