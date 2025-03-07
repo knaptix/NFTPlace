@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'https://nywnftbackend-production.up.railway.app/api';
+const API_BASE_URL = 'http://localhost:5000/api';
 
 const api = axios.create({
     baseURL: API_BASE_URL,
@@ -14,7 +14,7 @@ api.interceptors.request.use((config) => {
     }
     return config;
 });
-
+console.log(api,"jjddjdj")
 export const loginWithWallet = async (walletAddress) => {
     try {
         const response = await api.post('/user/login-with-wallet', { walletAddress });
@@ -36,7 +36,7 @@ export const logoutWallet = async () => {
 export const getUserProfile = async (token) => {
     try {
         const response = await api.get('/auth/profile', {
-            headers: { Authorization: `Bearer ${token}` }
+            headers: { Authorization: ` Bearer ${token}` }
         });
         return response.data;
     } catch (error) {
