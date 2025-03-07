@@ -16,6 +16,9 @@ import Favourite from "./Component/Favourite/Favourite";
 import Settings from "./Component/Settting/Setting";
 import { useWallet, WalletProvider } from "./Component/walletContext";
 import ProtectedRoute from "./Component/ProtectedRoute";
+import AboutPage from "./Component/About";
+import Venture from "./Component/Venture";
+import Partnerships from "./Component/Partnerships";
 
 const App = () => {
   const [darkMode, setDarkMode] = useState(
@@ -50,6 +53,9 @@ const App = () => {
           <Route path="/favourite" element={<ProtectedRoute><Favourite /></ProtectedRoute>} />
           <Route path="/help" element={<HelpCenter />} />
           <Route path="/settings" element={<Settings />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/venture" element={<Venture />} />
+          <Route path="/partnerships" element={<Partnerships />} />
         </Routes>
         <Footer darkMode={darkMode} setDarkMode={setDarkMode} />
       </div>
