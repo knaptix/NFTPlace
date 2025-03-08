@@ -25,7 +25,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/user/login-with-wallet",
+							"raw": "https://nywnftbackend-production.up.railway.app/api/user/login-with-wallet",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -56,7 +56,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:5000/api/user/profile",
+							"raw": "https://nywnftbackend-production.up.railway.app/api/user/profile",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -96,7 +96,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/user/logout-user",
+							"raw": "https://nywnftbackend-production.up.railway.app/api/user/logout-user",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -127,7 +127,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:5000/api/user/profile/assets",
+							"raw": "https://nywnftbackend-production.up.railway.app/api/user/profile/assets",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -163,7 +163,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/category/create",
+							"raw": "https://nywnftbackend-production.up.railway.app/api/category/create",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -184,7 +184,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:5000/api/category/get-all",
+							"raw": "https://nywnftbackend-production.up.railway.app/api/category/get-all",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -205,7 +205,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:5000/api/category/get/:categoryId",
+							"raw": "https://nywnftbackend-production.up.railway.app/api/category/get/:categoryId",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -305,7 +305,7 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/collection/create",
+							"raw": "https://nywnftbackend-production.up.railway.app/api/collection/create",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -326,7 +326,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:5000/api/collection/all",
+							"raw": "https://nywnftbackend-production.up.railway.app/api/collection/all",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -366,7 +366,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/collection/checkUniqueName",
+							"raw": "https://nywnftbackend-production.up.railway.app/api/collection/checkUniqueName",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -397,7 +397,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:5000/api/collection/get/:collectionId",
+							"raw": "https://nywnftbackend-production.up.railway.app/api/collection/get/:collectionId",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -522,7 +522,7 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/nft/create",
+							"raw": "https://nywnftbackend-production.up.railway.app/api/nft/create",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -543,7 +543,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:5000/api/nft/get",
+							"raw": "https://nywnftbackend-production.up.railway.app/api/nft/get",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -564,7 +564,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:5000/api/nft/get/:tokenId",
+							"raw": "https://nywnftbackend-production.up.railway.app/api/nft/get/:tokenId",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -611,7 +611,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/nft/buy",
+							"raw": "https://nywnftbackend-production.up.railway.app/api/nft/buy",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -651,7 +651,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/nft/list-for-sale",
+							"raw": "https://nywnftbackend-production.up.railway.app/api/nft/list-for-sale",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -696,7 +696,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/cart/add",
+							"raw": "https://nywnftbackend-production.up.railway.app/api/cart/add",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -727,7 +727,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:5000/api/cart/get",
+							"raw": "https://nywnftbackend-production.up.railway.app/api/cart/get",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -758,7 +758,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:5000/api/cart/get/:id",
+							"raw": "https://nywnftbackend-production.up.railway.app/api/cart/get/:id",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -805,7 +805,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/cart/remove/:id",
+							"raw": "https://nywnftbackend-production.up.railway.app/api/cart/remove/:id",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -857,7 +857,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/bid/place",
+							"raw": "https://nywnftbackend-production.up.railway.app/api/bid/place",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -878,7 +878,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:5000/api/bid/all",
+							"raw": "https://nywnftbackend-production.up.railway.app/api/bid/all",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -899,7 +899,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:5000/api/bid/get/:bidId",
+							"raw": "https://nywnftbackend-production.up.railway.app/api/bid/get/:bidId",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -946,7 +946,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/bid/accept",
+							"raw": "https://nywnftbackend-production.up.railway.app/api/bid/accept",
 							"protocol": "http",
 							"host": [
 								"localhost"

@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Heart } from 'lucide-react';
+import { getNFTByUserID } from '../../services/api';
 
 const NFTCard = ({ image, title, isVerified, price }) => (
   <div className="bg-white rounded-xl overflow-hidden shadow-sm">
@@ -58,7 +59,11 @@ const Owned = () => {
       price: "Not for sale"
     }
   ];
-
+  // useEffect(()=>{
+  //   getNFTByUserID().then((res)=>{
+  //     console.log(res,"res::::")
+  //   })
+  // },[])
   return (
     <div className="w-full mx-auto p-4">
       <div className="flex justify-end gap-4 mb-6">
