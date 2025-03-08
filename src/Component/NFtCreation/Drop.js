@@ -19,7 +19,6 @@ const SmartContractForm = () => {
   const location = useLocation(); // This gives you the current location (URL)
   const queryParams = new URLSearchParams(location.search);
   const type = queryParams.get("type"); // This will give you 'collection' from 'type=collection'
- console.log(type,"type")
   const contractAddress = "0xB136A4aA0334f833C425cba7f05eFE17C85f7d60";
   const contractABI = [
     {
@@ -212,7 +211,6 @@ const SmartContractForm = () => {
       );
 
       console.log("Transaction sent:", tx.hash);
-      setTransactionHash(tx.hash); // Store transaction hash
 
       // Wait for transaction to be mined
       const receipt = await tx.wait();
@@ -281,15 +279,15 @@ const SmartContractForm = () => {
     formData.append("field2", sendImage);
 
     formData.append("collectionName", contractName);
-    formData.append("contractAddress", "ssssssss")
+    formData.append("contractAddress", contract)
     formData.append("description", contractSymbol);
-    formData.append("collectionCreationHash", "sssss")
+    formData.append("collectionCreationHash",hash)
     formData.append("nftStandard", "ERC-1155");
 
     const token = localStorage.getItem("walletToken"); // Get the wallet token from localStorage
 
     try {
-      const response = await fetch("http://localhost:5000/api/collection/create", {
+      const response = await fetch("https://nywnftbackend-production.up.railway.app/api/collection/create", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`, // Add the token to the Authorization header
@@ -311,9 +309,7 @@ const SmartContractForm = () => {
       alert("An error occurred while creating the contract.");
     }
   };
-  const token = localStorage.getItem("walletToken"); // Get the wallet token from localStorage
 
-console.log(token,"token")
   return (
     <div className="min-h-screen bg-white p-6">
       {/* Back Button */}

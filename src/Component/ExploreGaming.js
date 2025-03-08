@@ -10,7 +10,7 @@ const ExploreGaming = () => {
         const fetchCollections = async () => {
             try {
                 console.log("Fetching data from API...");
-                const response = await fetch("http://localhost:5000/api/collection/all");
+                const response = await fetch("https://nywnftbackend-production.up.railway.app/api/collection/all");
 
                 if (!response.ok) {
                     throw new Error(`API request failed with status: ${response.status}`);
@@ -46,7 +46,7 @@ const ExploreGaming = () => {
             return "https://via.placeholder.com/150"; // Fallback image
         }
 
-        const basePath = "http://localhost:5000/api/image?pathName=";
+        const basePath = "https://nywnftbackend-production.up.railway.app/api/image?pathName=";
         const pathName = "NFT_IMAGE_PATH_COLLECTION"; // Ensure this is the correct path
         const imageUrl = `${basePath}${pathName}&imageName=${imageName}`;
 
@@ -105,7 +105,7 @@ const ExploreGaming = () => {
                                     <h3 className="text-lg font-semibold text-gray-900">{collection.collectionName}</h3>
                                     <p className="text-sm text-gray-600">Category: {collection.categoryName}</p>
                                     <p className="text-sm text-gray-600">NFT Standard: {collection.nftStandard}</p>
-                                    <p className="text-sm text-gray-600">Royalty: {collection.royalty.percentage}%</p>
+                                    <p className="text-sm text-gray-600">Royalty: {collection?.royalty?.percentage}%</p>
                                     <button className="w-full mt-3 py-2 bg-blue-600 text-white font-medium hover:bg-blue-700 transition-all rounded">
                                         View Collection
                                     </button>
