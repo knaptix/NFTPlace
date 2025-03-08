@@ -12,10 +12,13 @@ const NFTCreationForm = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [contractName, setContractName] = useState("");
   const [collectinName, setCollectionName] = useState("");
+  const [collectinId, setCollectionId] = useState("");
 
   const [contractAddress, setContractAddress] = useState("");
   const [contractSymbol, setContractSymbol] = useState("");
   const [category, setCategory] = useState(""); // Default category
+  const [categoryId, setCategoryId] = useState(1); // Default category
+
   const [price, setPrice] = useState("");
   const [supply, setSupply] = useState("");
   const [royalty, setRoyalty] = useState("");
@@ -48,17 +51,24 @@ const NFTCreationForm = () => {
 
   const handleCreateCollection = async () => {
     // Validation
-    if (!contractAddress || !contractName || !category || !price || !supply || !royalty || !sendImage) {
+    if (
+      !contractAddress ||
+      !contractName ||
+      !category ||
+      !price ||
+      !supply ||
+      !royalty ||
+      !sendImage
+    ) {
       setValidationError("All fields are required.");
       return;
     }
-    
+
     if (!window.ethereum) {
       alert("MetaMask is not installed!");
       return;
     }
-    
-   
+
     try {
       setIsLoading(true);
       const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -66,8 +76,8 @@ const NFTCreationForm = () => {
       const signer = provider.getSigner();
       const signerAddress = await signer.getAddress(); // Get the signer wallet address
 
-      console.log(signerAddress,category,"signerAddress")
-      const contractABI =[
+      console.log(signerAddress, category, "signerAddress");
+      const contractABI = [
         {
           anonymous: false,
           inputs: [
@@ -514,11 +524,15 @@ const NFTCreationForm = () => {
           type: "function",
         },
       ];
-      const contract = new ethers.Contract(contractAddress, contractABI, signer);
+      const contract = new ethers.Contract(
+        contractAddress,
+        contractABI,
+        signer
+      );
       const tx = await contract.createNFT(
         "img1", // Replace with actual image URI
         supply,
-        price * (10 ** 3), // Price (scaling if needed)
+        price * 10 ** 3, // Price (scaling if needed)
         royalty * 10 // Royalties (scaling if needed)
       );
 
@@ -538,7 +552,7 @@ const NFTCreationForm = () => {
 
         // Call the API to store the collection
 
-        await handleApiCall(newId, contractAddress,tx.hash, signerAddress);
+        await handleApiCall(newId, contractAddress, tx.hash, signerAddress);
       } else {
         console.error("NFTCreated event not found in receipt.");
         alert("NFT created, but failed to retrieve token ID.");
@@ -551,32 +565,31 @@ const NFTCreationForm = () => {
     }
   };
 
-  const handleApiCall = async (tokenId, contractAddress,hash, signer) => {
+  const handleApiCall = async (tokenId, contractAddress, hash, signer) => {
     //debugger
     const formData = new FormData();
     formData.append("nftImg", sendImage);
     formData.append("name", contractName);
-    formData.append("contractAddress", "csdhjsad");
-    formData.append("transactionHash", "dcjhsdghkds");
     formData.append("description", contractSymbol);
-    formData.append("category", category);
+    formData.append("collectionId", collectinId);
+
+    formData.append("contractAddress", contractAddress);
+    formData.append("transactionHash", hash);
     formData.append("royalty[percentage]", royalty);
-    formData.append("royalty[recipient]", 'hjsdsgysd'); // Send the signer address
-    formData.append("tokenId", 2);
+    formData.append("royalty[recipient]", signer); // Send the signer address
+    formData.append("categoryId", categoryId);
+    formData.append("tokenId", tokenId);
     formData.append("quantity", supply);
     const token = localStorage.getItem("walletToken");
 
     try {
-      const response = await fetch(
-        "http://localhost:5000/api/collection/create",
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          body: formData,
-        }
-      );
+      const response = await fetch("https://nywnftbackend-production.up.railway.app/api/nft/create", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
+      });
 
       if (!response.ok) {
         const errorText = await response.text();
@@ -643,13 +656,16 @@ const NFTCreationForm = () => {
                 className="w-full p-4 border rounded-md text-black flex justify-between items-center"
                 onClick={() => setIsOpen(!isOpen)}
               >
-               {!collectinName?"Collection":collectinName }  
+                {!collectinName ? "Collection" : collectinName}
                 <span>{isOpen ? <SlArrowUp /> : <SlArrowDown />}</span>
               </button>
               {isOpen && (
                 <div className="absolute w-full bg-gray-800 text-white border border-gray-700 rounded-md mt-2">
                   <Link to="/drop?type=collection">
-                    <button className="w-full text-left p-4 hover:bg-blue-500 flex justify-between items-center border-b-[1px]" onClick={() => setIsOpen(false)}>
+                    <button
+                      className="w-full text-left p-4 hover:bg-blue-500 flex justify-between items-center border-b-[1px]"
+                      onClick={() => setIsOpen(false)}
+                    >
                       + Create a new collection
                     </button>
                   </Link>
@@ -658,7 +674,8 @@ const NFTCreationForm = () => {
                       key={item._id}
                       className="w-full text-left p-4 hover:bg-blue-500 flex justify-between items-center border-b-[1px]"
                       onClick={() => {
-                        setCollectionName(item.collectionName)
+                        setCollectionId(item?.collectionId);
+                        setCollectionName(item.collectionName);
                         setContractAddress(item.contractAddress);
                         setIsOpen(false); // Close the dropdown after selection
                       }}
@@ -689,7 +706,15 @@ const NFTCreationForm = () => {
           <select
             className="w-full p-2 border rounded-md"
             value={category} // Set default value to the selected category
-            onChange={(e) => setCategory(e.target.value)}
+            onChange={(e) => {
+              const selectedCategory = categories.find(
+                (cat) => cat.name.toLowerCase() === e.target.value.toLowerCase()
+              );
+              if (selectedCategory) {
+                setCategory(selectedCategory.name);
+                setCategoryId(selectedCategory.categoryId);
+              }
+            }}
           >
             {categories.map((category) => (
               <option key={category._id} value={category.name.toLowerCase()}>
@@ -718,12 +743,13 @@ const NFTCreationForm = () => {
           />
 
           <button
-            className={`w-full ${isLoading ? "bg-gray-500" : "bg-blue-900"} text-white py-3 rounded-md hover:bg-blue-800`}
-            onClick={handleApiCall}
-            // disabled={isLoading}
+            className={`w-full ${
+              isLoading ? "bg-gray-500" : "bg-blue-900"
+            } text-white py-3 rounded-md hover:bg-blue-800`}
+            onClick={handleCreateCollection}
+            disabled={isLoading}
           >
-            {/* {isLoading ? "Creating..." : "Create NFT"} */}
-            Calll
+            {isLoading ? "Creating..." : "Create NFT"}
           </button>
         </div>
       </div>
@@ -743,8 +769,8 @@ export default NFTCreationForm;
             <input type="checkbox" className="toggle" />
           </div> */
 
-
-            {/* <div className="flex justify-between items-center">
+  {
+    /* <div className="flex justify-between items-center">
             <span>Unlock after purchase</span>
             <input type="checkbox" className="toggle" />
           </div>
@@ -758,9 +784,11 @@ export default NFTCreationForm;
             type="text"
             placeholder="Date of listing's expiration"
             className="w-full p-2 border rounded-md"
-          /> */}
+          /> */
+  }
 }
-{/* <div className="grid grid-cols-2 gap-4">
+{
+  /* <div className="grid grid-cols-2 gap-4">
               <div
                 className={`p-4 border rounded-lg cursor-pointer text-center ${
                   formData.collection === "create"
@@ -783,4 +811,5 @@ export default NFTCreationForm;
               >
                 Blue Waves ETH
               </div>
-            </div> */}
+            </div> */
+}

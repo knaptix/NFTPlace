@@ -104,9 +104,9 @@ const NFTMarketplace = () => {
                 />
                 <div className="mt-4 text-center">
                   <h3 className="text-lg font-semibold text-gray-900">{collection.collectionName}</h3>
-                  <p className="text-sm text-gray-600">Category: {collection.categoryName}</p>
+                  {/* <p className="text-sm text-gray-600">Category: {collection.categoryName}</p> */}
                   <p className="text-sm text-gray-600">NFT Standard: {collection.nftStandard}</p>
-                  <p className="text-sm text-gray-600">Royalty: {collection?.royalty?.percentage}%</p>
+                  {/* <p className="text-sm text-gray-600">Royalty: {collection?.royalty?.percentage}%</p> */}
                   <button className="w-full mt-3 py-2 bg-blue-600 text-white font-medium hover:bg-blue-700 transition-all rounded">
                     View Collection
                   </button>
