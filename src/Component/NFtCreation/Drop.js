@@ -9,13 +9,17 @@ const SmartContractForm = () => {
   const [contractSymbol, setContractSymbol] = useState("");
   const [blockchain, setBlockchain] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);
+  const [sendImage, setSendImage] = useState(null);
+
   const [error, setError] = useState("");
   const [startTime, setStartTime] = useState(""); // New state for start time
   const [transactionHash, setTransactionHash] = useState(null); // Store transaction hash
   const [isLoading, setIsLoading] = useState(false); // State to track loading status
 
   const location = useLocation(); // This gives you the current location (URL)
-
+  const queryParams = new URLSearchParams(location.search);
+  const type = queryParams.get("type"); // This will give you 'collection' from 'type=collection'
+ console.log(type,"type")
   const contractAddress = "0xB136A4aA0334f833C425cba7f05eFE17C85f7d60";
   const contractABI = [
     {
@@ -203,7 +207,7 @@ const SmartContractForm = () => {
       const tx = await contract.createCollection(
         contractName,
         contractSymbol,
-        true,
+        type==="collection"?true:false,
         startTimeUnix // Ensure startTime is passed as an integer
       );
 
@@ -224,7 +228,7 @@ const SmartContractForm = () => {
         console.log("New contract address:", newContractAddress);
         handleApiCall(tx.hash, newContractAddress);
 
-        alert("Collection created successfully!");
+       // alert("Collection created successfully!");
       } else {
         console.error("CollectionCreated event not found in receipt.");
         alert("Collection created, but failed to retrieve contract address.");
@@ -239,13 +243,12 @@ const SmartContractForm = () => {
   };
 
   // Extract the query parameters from the URL
-  const queryParams = new URLSearchParams(location.search);
-  const type = queryParams.get("type"); // This will give you 'collection' from 'type=collection'
 
   // Handle image selection
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
+      setSendImage(file)
       const reader = new FileReader();
       reader.onloadend = () => {
         setSelectedImage(reader.result);
@@ -255,7 +258,7 @@ const SmartContractForm = () => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+
 
     // Validate required fields
     if (!contractName || !contractSymbol || !blockchain || !startTime) {
@@ -274,14 +277,13 @@ const SmartContractForm = () => {
   const handleApiCall = async (hash, contract) => {
     // Prepare FormData to handle both image and text fields
     const formData = new FormData();
-    formData.append("field1", selectedImage);
-    formData.append("field2", selectedImage);
+    formData.append("field1", sendImage);
+    formData.append("field2", sendImage);
 
     formData.append("collectionName", contractName);
-    formData.append("categoryId", 1);
-    formData.append("contractAddress", contract)
+    formData.append("contractAddress", "ssssssss")
     formData.append("description", contractSymbol);
-    formData.append("collectionCreationHash", hash)
+    formData.append("collectionCreationHash", "sssss")
     formData.append("nftStandard", "ERC-1155");
 
     const token = localStorage.getItem("walletToken"); // Get the wallet token from localStorage
@@ -302,7 +304,7 @@ const SmartContractForm = () => {
       }
 
       const data = await response.json(); // Parse the JSON response
-      console.log("Contract created successfully:", data);
+      console.log("Collection created successfully:", data);
       alert("Contract created successfully!");
     } catch (error) {
       console.error("Error creating contract:", error);
@@ -443,12 +445,14 @@ console.log(token,"token")
           <button
             onClick={handleSubmit}
             className={`bg-blue-900 text-white px-8 py-3 rounded-md hover:bg-blue-800 transition-colors ${isLoading ? "cursor-wait" : ""}`}
+            disabled={isLoading}
           >
             {isLoading ? (
               <div className="w-6 h-6 border-4 border-t-transparent border-blue-500 rounded-full animate-spin"></div>
             ) : (
               "Continue"
             )}
+          
           </button>
         </div>
         </div>
