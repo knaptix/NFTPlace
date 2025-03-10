@@ -21,6 +21,7 @@ import Venture from "./Component/Venture";
 import Partnerships from "./Component/Partnerships";
 import PrivacyPolices from "./Component/PrivacyPolices";
 import TermsServices from "./Component/TermsServices";
+import NFTDetailsSale from "./Component/Individual/NFTSale";
 
 const App = () => {
   const [darkMode, setDarkMode] = useState(
@@ -48,10 +49,13 @@ const App = () => {
           <Route path="/CreateNFt" element={<ProtectedRoute><NFTCreation /></ProtectedRoute>} />
           <Route path="/drop" element={<ProtectedRoute><SmartContractForm /></ProtectedRoute>} />
           <Route path="/create" element={<ProtectedRoute><NFTCreationForm /></ProtectedRoute>} />
-          <Route path="/cart" element={<CartSummary />} />
+          <Route path="/cart" element={<ProtectedRoute><CartSummary /></ProtectedRoute>} />
+
+          <Route path="/buy" element={<NFTDetailPage />} />
+          <Route path="/sale" element={<NFTDetailsSale />} />
           <Route path="/detail" element={<NFTDetailPage />} />
           <Route path="/collection" element={<NFTCollectionPage />} />
-          <Route path="/profilepage" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
+          <Route path="/profilepage" element={<ProfilePage />} />
           <Route path="/favourite" element={<ProtectedRoute><Favourite /></ProtectedRoute>} />
           <Route path="/help" element={<HelpCenter />} />
           <Route path="/settings" element={<Settings />} />
