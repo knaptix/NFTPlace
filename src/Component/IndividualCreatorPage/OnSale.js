@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Heart, ShoppingCart } from 'lucide-react';
+import { getOnSale } from '../../services/api';
 
 const NFTCard = ({ image, title, isVerified, price }) => (
   <div className="bg-white rounded-xl overflow-hidden shadow-md border">
@@ -63,7 +64,22 @@ const OnSale = () => {
       price: "1.2"
     }
   ];
+  const [nftList, setNftList] = useState([]);
 
+
+  useEffect(() => {
+    const fetchNfts = async () => {
+      try {
+        const response = await getOnSale();
+        console.log(response);
+        setNftList(response?.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchNfts();
+  }, []);
   return (
     <div className="w-full mx-auto p-4">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">

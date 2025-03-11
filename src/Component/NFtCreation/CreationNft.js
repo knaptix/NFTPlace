@@ -568,7 +568,7 @@ const NFTCreationForm = () => {
 
     try {
       const response = await fetch(
-        "https://nywnftbackend-production.up.railway.app/api/nft/create",
+        "http://localhost:5000/api/nft/create",
         {
           method: "POST",
           headers: {

@@ -425,7 +425,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://nywnftbackend-production.up.railway.app/api/image?pathName=NFT_IMAGE_PATH_COLLECTION&imageName=collection-1740499237370.png",
+							"raw": "http://localhost:5000/api/image?pathName=NFT_IMAGE_PATH_COLLECTION&imageName=collection-1740499237370.png",
 							"protocol": "https",
 							"host": [
 								"nywnftbackend-production",

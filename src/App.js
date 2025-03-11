@@ -40,23 +40,62 @@ const App = () => {
 
   return (
     <WalletProvider>
-      <div className={darkMode ? "dark bg-gray-900 text-white" : "bg-white text-black"}>
+      <div
+        className={
+          darkMode ? "dark bg-gray-900 text-white" : "bg-white text-black"
+        }
+      >
         <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/CurrentBid" element={<AuctionCards />} />
           {/* Protected Routes */}
-          <Route path="/CreateNFt" element={<ProtectedRoute><NFTCreation /></ProtectedRoute>} />
-          <Route path="/drop" element={<ProtectedRoute><SmartContractForm /></ProtectedRoute>} />
-          <Route path="/create" element={<ProtectedRoute><NFTCreationForm /></ProtectedRoute>} />
-          <Route path="/cart" element={<ProtectedRoute><CartSummary /></ProtectedRoute>} />
+          <Route
+            path="/CreateNFt"
+            element={
+              <ProtectedRoute>
+                <NFTCreation />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/drop"
+            element={
+              <ProtectedRoute>
+                <SmartContractForm />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/create"
+            element={
+              <ProtectedRoute>
+                <NFTCreationForm />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/cart"
+            element={
+              <ProtectedRoute>
+                <CartSummary />
+              </ProtectedRoute>
+            }
+          />
 
           <Route path="/buy" element={<NFTDetailPage />} />
           <Route path="/sale" element={<NFTDetailsSale />} />
           <Route path="/detail" element={<NFTDetailPage />} />
           <Route path="/collection" element={<NFTCollectionPage />} />
           <Route path="/profilepage" element={<ProfilePage />} />
-          <Route path="/favourite" element={<ProtectedRoute><Favourite /></ProtectedRoute>} />
+          <Route
+            path="/favourite"
+            element={
+              <ProtectedRoute>
+                <Favourite />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/help" element={<HelpCenter />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/about" element={<AboutPage />} />
@@ -66,6 +105,7 @@ const App = () => {
           <Route path="/terms-services" element={<TermsServices />} />
         </Routes>
         <Footer darkMode={darkMode} setDarkMode={setDarkMode} />
+ 
       </div>
     </WalletProvider>
   );

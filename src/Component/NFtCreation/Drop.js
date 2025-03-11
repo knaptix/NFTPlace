@@ -4,7 +4,6 @@ import { useLocation } from "react-router-dom";
 import { ethers } from "ethers";
 
 const SmartContractForm = () => {
-  const [selectedType, setSelectedType] = useState(null);
   const [contractName, setContractName] = useState("");
   const [contractSymbol, setContractSymbol] = useState("");
   const [blockchain, setBlockchain] = useState("");
@@ -13,7 +12,6 @@ const SmartContractForm = () => {
 
   const [error, setError] = useState("");
   const [startTime, setStartTime] = useState(""); // New state for start time
-  const [transactionHash, setTransactionHash] = useState(null); // Store transaction hash
   const [isLoading, setIsLoading] = useState(false); // State to track loading status
 
   const location = useLocation(); // This gives you the current location (URL)
@@ -201,7 +199,7 @@ const SmartContractForm = () => {
 
       // Convert startTime to Unix timestamp
       const startTimeUnix = new Date(startTime).getTime();
-      console.log(startTimeUnix, "startTimeUnix");
+
 
       const tx = await contract.createCollection(
         contractName,
@@ -287,7 +285,7 @@ const SmartContractForm = () => {
     const token = localStorage.getItem("walletToken"); // Get the wallet token from localStorage
 
     try {
-      const response = await fetch("https://nywnftbackend-production.up.railway.app/api/collection/create", {
+      const response = await fetch("http://localhost:5000/api/collection/create", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`, // Add the token to the Authorization header
