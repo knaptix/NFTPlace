@@ -4,6 +4,7 @@
   "private": true,
   "proxy": "https://nywnftbackend-production.up.railway.app/",
   "dependencies": {
+    "@fontsource/overpass": "^5.2.5",
     "@heroicons/react": "^2.2.0",
     "axios": "^1.8.1",
     "cra-template": "1.2.0",
@@ -13,6 +14,7 @@
     "magic-sdk": "^28.21.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-hot-toast": "^2.5.2",
     "react-icons": "^5.4.0",
     "react-router-dom": "^6.28.1",
     "react-scripts": "5.0.1",

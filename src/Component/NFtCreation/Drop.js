@@ -2,9 +2,9 @@ import { ArrowLeft } from "lucide-react";
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { ethers } from "ethers";
+import { NftFactory, NftFactory_Abi } from "../../services/config";
 
 const SmartContractForm = () => {
-  const [selectedType, setSelectedType] = useState(null);
   const [contractName, setContractName] = useState("");
   const [contractSymbol, setContractSymbol] = useState("");
   const [blockchain, setBlockchain] = useState("");
@@ -13,172 +13,13 @@ const SmartContractForm = () => {
 
   const [error, setError] = useState("");
   const [startTime, setStartTime] = useState(""); // New state for start time
-  const [transactionHash, setTransactionHash] = useState(null); // Store transaction hash
   const [isLoading, setIsLoading] = useState(false); // State to track loading status
 
   const location = useLocation(); // This gives you the current location (URL)
   const queryParams = new URLSearchParams(location.search);
   const type = queryParams.get("type"); // This will give you 'collection' from 'type=collection'
-  const contractAddress = "0xB136A4aA0334f833C425cba7f05eFE17C85f7d60";
-  const contractABI = [
-    {
-      inputs: [
-        { internalType: "address", name: "_collectionImpl", type: "address" },
-        { internalType: "address", name: "_dropImpl", type: "address" },
-        { internalType: "address", name: "_marketplace", type: "address" },
-      ],
-      stateMutability: "nonpayable",
-      type: "constructor",
-    },
-    {
-      anonymous: false,
-      inputs: [
-        {
-          indexed: true,
-          internalType: "address",
-          name: "collection",
-          type: "address",
-        },
-        {
-          indexed: true,
-          internalType: "address",
-          name: "owner",
-          type: "address",
-        },
-        { indexed: false, internalType: "bool", name: "isDrop", type: "bool" },
-      ],
-      name: "CollectionCreated",
-      type: "event",
-    },
-    {
-      anonymous: false,
-      inputs: [
-        {
-          indexed: true,
-          internalType: "address",
-          name: "newMarketplace",
-          type: "address",
-        },
-      ],
-      name: "MarketplaceUpdated",
-      type: "event",
-    },
-    {
-      anonymous: false,
-      inputs: [
-        {
-          indexed: true,
-          internalType: "address",
-          name: "previousOwner",
-          type: "address",
-        },
-        {
-          indexed: true,
-          internalType: "address",
-          name: "newOwner",
-          type: "address",
-        },
-      ],
-      name: "OwnershipTransferred",
-      type: "event",
-    },
-    {
-      inputs: [],
-      name: "collectionImplementation",
-      outputs: [{ internalType: "address", name: "", type: "address" }],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [
-        { internalType: "string", name: "name", type: "string" },
-        { internalType: "string", name: "description", type: "string" },
-        { internalType: "bool", name: "isDrop", type: "bool" },
-        { internalType: "uint256", name: "startTime", type: "uint256" },
-      ],
-      name: "createCollection",
-      outputs: [{ internalType: "address", name: "", type: "address" }],
-      stateMutability: "nonpayable",
-      type: "function",
-    },
-    {
-      inputs: [],
-      name: "dropImplementation",
-      outputs: [{ internalType: "address", name: "", type: "address" }],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [{ internalType: "address", name: "user", type: "address" }],
-      name: "getUserCollections",
-      outputs: [{ internalType: "address[]", name: "", type: "address[]" }],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [{ internalType: "address", name: "", type: "address" }],
-      name: "isCollectionCreatedByUs",
-      outputs: [{ internalType: "bool", name: "", type: "bool" }],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [],
-      name: "marketplace",
-      outputs: [{ internalType: "address", name: "", type: "address" }],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [],
-      name: "owner",
-      outputs: [{ internalType: "address", name: "", type: "address" }],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [],
-      name: "renounceOwnership",
-      outputs: [],
-      stateMutability: "nonpayable",
-      type: "function",
-    },
-    {
-      inputs: [
-        { internalType: "address", name: "_marketplace", type: "address" },
-      ],
-      name: "setMarketplace",
-      outputs: [],
-      stateMutability: "nonpayable",
-      type: "function",
-    },
-    {
-      inputs: [{ internalType: "address", name: "newOwner", type: "address" }],
-      name: "transferOwnership",
-      outputs: [],
-      stateMutability: "nonpayable",
-      type: "function",
-    },
-    {
-      inputs: [
-        { internalType: "address", name: "", type: "address" },
-        { internalType: "uint256", name: "", type: "uint256" },
-      ],
-      name: "userCollections",
-      outputs: [{ internalType: "address", name: "", type: "address" }],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [
-        { internalType: "address", name: "collection", type: "address" },
-      ],
-      name: "verifyCollection",
-      outputs: [{ internalType: "bool", name: "", type: "bool" }],
-      stateMutability: "view",
-      type: "function",
-    },
-  ];
+  const contractAddress = NftFactory;                                        
+  const contractABI = NftFactory_Abi;
 
   const handleCreateCollection = async () => {
     console.log("call:::");
@@ -197,17 +38,20 @@ const SmartContractForm = () => {
       const signer = provider.getSigner();
 
       // Connect to the contract
-      const contract = new ethers.Contract(contractAddress, contractABI, signer);
+      const contract = new ethers.Contract(
+        contractAddress,
+        contractABI,
+        signer
+      );
 
       // Convert startTime to Unix timestamp
       const startTimeUnix = new Date(startTime).getTime();
-      console.log(startTimeUnix, "startTimeUnix");
 
       const tx = await contract.createCollection(
         contractName,
         contractSymbol,
-        type==="collection"?true:false,
-        startTimeUnix // Ensure startTime is passed as an integer
+        type === "collection" ? true : false,
+        type === "collection" ? 0: startTimeUnix 
       );
 
       console.log("Transaction sent:", tx.hash);
@@ -226,7 +70,7 @@ const SmartContractForm = () => {
         console.log("New contract address:", newContractAddress);
         handleApiCall(tx.hash, newContractAddress);
 
-       // alert("Collection created successfully!");
+        // alert("Collection created successfully!");
       } else {
         console.error("CollectionCreated event not found in receipt.");
         alert("Collection created, but failed to retrieve contract address.");
@@ -240,13 +84,10 @@ const SmartContractForm = () => {
     }
   };
 
-  // Extract the query parameters from the URL
-
-  // Handle image selection
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setSendImage(file)
+      setSendImage(file);
       const reader = new FileReader();
       reader.onloadend = () => {
         setSelectedImage(reader.result);
@@ -256,8 +97,6 @@ const SmartContractForm = () => {
   };
 
   const handleSubmit = (e) => {
-
-
     // Validate required fields
     if (!contractName || !contractSymbol || !blockchain || !startTime) {
       setError("All fields are required.");
@@ -279,21 +118,24 @@ const SmartContractForm = () => {
     formData.append("field2", sendImage);
 
     formData.append("collectionName", contractName);
-    formData.append("contractAddress", contract)
+    formData.append("contractAddress", contract);
     formData.append("description", contractSymbol);
-    formData.append("collectionCreationHash",hash)
+    formData.append("collectionCreationHash", hash);
     formData.append("nftStandard", "ERC-1155");
 
     const token = localStorage.getItem("walletToken"); // Get the wallet token from localStorage
 
     try {
-      const response = await fetch("https://nywnftbackend-production.up.railway.app/api/collection/create", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`, // Add the token to the Authorization header
-        },
-        body: formData, // Send FormData as body (not JSON)
-      });
+      const response = await fetch(
+        "http://localhost:5000/api/collection/create",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`, // Add the token to the Authorization header
+          },
+          body: formData, // Send FormData as body (not JSON)
+        }
+      );
 
       if (!response.ok) {
         const errorText = await response.text(); // Log detailed error text
@@ -325,7 +167,6 @@ const SmartContractForm = () => {
 
       {/* Main Content */}
       <div className="max-w-2xl mx-auto">
-
         <div className="max-w-2xl mx-auto">
           <h1 className="text-2xl font-bold mb-2">
             Let's create a smart contract for your drop
@@ -336,12 +177,12 @@ const SmartContractForm = () => {
           </p>
 
           {/* Logo Upload */}
-          <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
+          <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 flex flex-col items-center justify-center ">
             {selectedImage ? (
               <img
                 src={selectedImage}
                 alt="Selected"
-                className="w-40 h-40 object-cover rounded-lg mb-2"
+                className="w-40 h-40 object-cover text rounded-lg mb-2"
               />
             ) : (
               <div className="mb-4">
@@ -438,19 +279,20 @@ const SmartContractForm = () => {
 
           {/* Submit Button */}
           <div className="text-center">
-          <button
-            onClick={handleSubmit}
-            className={`bg-blue-900 text-white px-8 py-3 rounded-md hover:bg-blue-800 transition-colors ${isLoading ? "cursor-wait" : ""}`}
-            disabled={isLoading}
-          >
-            {isLoading ? (
-              <div className="w-6 h-6 border-4 border-t-transparent border-blue-500 rounded-full animate-spin"></div>
-            ) : (
-              "Continue"
-            )}
-          
-          </button>
-        </div>
+            <button
+              onClick={handleSubmit}
+              className={`bg-blue-900 text-white px-8 py-3 rounded-md hover:bg-blue-800 transition-colors ${
+                isLoading ? "cursor-wait" : ""
+              }`}
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <div className="w-6 h-6 border-4 border-t-transparent border-blue-500 rounded-full animate-spin"></div>
+              ) : (
+                "Continue"
+              )}
+            </button>
+          </div>
         </div>
 
         {/* Contract Types */}

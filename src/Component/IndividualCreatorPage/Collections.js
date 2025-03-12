@@ -22,6 +22,7 @@ const Collections = () => {
   useEffect(() => {
     getCollectionByUserID().then((res) => {
       if (res?.data) {
+        console.log(res.data);
         setCollections(res.data); // Dynamically set collections from API response
       }
     });
@@ -51,7 +52,7 @@ const Collections = () => {
       </div>
 
       {/* Table Content */}
-      <div className="px-4">
+      <div className="px-4 text-black">
         {collections.map((collection, index) => (
           <TableRow
             key={collection.collectionId} // Use collectionId as key for unique identification

@@ -14,13 +14,15 @@ import ProfilePage from "./Component/IndividualCreatorPage/IndividualCreate";
 import HelpCenter from "./Component/HelpandSupport/Support";
 import Favourite from "./Component/Favourite/Favourite";
 import Settings from "./Component/Settting/Setting";
-import { useWallet, WalletProvider } from "./Component/walletContext";
+import {  WalletProvider } from "./Component/walletContext";
 import ProtectedRoute from "./Component/ProtectedRoute";
 import AboutPage from "./Component/About";
 import Venture from "./Component/Venture";
 import Partnerships from "./Component/Partnerships";
 import PrivacyPolices from "./Component/PrivacyPolices";
 import TermsServices from "./Component/TermsServices";
+import NFTDetailsSale from "./Component/Individual/NFTSale";
+import toast, { Toaster } from "react-hot-toast";
 
 const App = () => {
   const [darkMode, setDarkMode] = useState(
@@ -39,20 +41,62 @@ const App = () => {
 
   return (
     <WalletProvider>
-      <div className={darkMode ? "dark bg-gray-900 text-white" : "bg-white text-black"}>
+      <div
+        className={
+          darkMode ? "dark bg-gray-900 text-white" : "bg-white text-black"
+        }
+      >
         <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/CurrentBid" element={<AuctionCards />} />
+          <Route path="/CurrentBid" element={<ProtectedRoute> <AuctionCards /></ProtectedRoute>} />
           {/* Protected Routes */}
-          <Route path="/CreateNFt" element={<ProtectedRoute><NFTCreation /></ProtectedRoute>} />
-          <Route path="/drop" element={<ProtectedRoute><SmartContractForm /></ProtectedRoute>} />
-          <Route path="/create" element={<ProtectedRoute><NFTCreationForm /></ProtectedRoute>} />
-          <Route path="/cart" element={<CartSummary />} />
+          <Route
+            path="/CreateNFt"
+            element={
+              <ProtectedRoute>
+                <NFTCreation />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/drop"
+            element={
+              <ProtectedRoute>
+                <SmartContractForm />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/create"
+            element={
+              <ProtectedRoute>
+                <NFTCreationForm />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/cart"
+            element={
+              <ProtectedRoute>
+                <CartSummary />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route path="/buy/:id" element={<NFTDetailPage />} />
+          <Route path="/sale" element={<NFTDetailsSale />} />
           <Route path="/detail" element={<NFTDetailPage />} />
           <Route path="/collection" element={<NFTCollectionPage />} />
-          <Route path="/profilepage" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
-          <Route path="/favourite" element={<ProtectedRoute><Favourite /></ProtectedRoute>} />
+          <Route path="/profilepage" element={<ProfilePage />} />
+          <Route
+            path="/favourite"
+            element={
+              <ProtectedRoute>
+                <Favourite />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/help" element={<HelpCenter />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/about" element={<AboutPage />} />
@@ -62,6 +106,7 @@ const App = () => {
           <Route path="/terms-services" element={<TermsServices />} />
         </Routes>
         <Footer darkMode={darkMode} setDarkMode={setDarkMode} />
+     <Toaster />
       </div>
     </WalletProvider>
   );

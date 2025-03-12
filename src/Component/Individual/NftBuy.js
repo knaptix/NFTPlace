@@ -3,6 +3,7 @@ import { Share2 } from 'lucide-react';
 import NFTCollection from './NFtCard';
 
 import TabSwitchers from './TabSwitcher';
+import { Link } from 'react-router-dom';
 
 const NFTDetailsPage = () => {
   return (
@@ -12,11 +13,11 @@ const NFTDetailsPage = () => {
         {/* Left Column - Media Player */}
         <div className="relative">
           {/* Timer Overlay */}
-          <div className="absolute top-4 left-0 right-0 z-10 flex justify-center">
+          {/* <div className="absolute top-4 left-0 right-0 z-10 flex justify-center">
             <div className="bg-black/50 text-white px-4 py-2 rounded-full backdrop-blur-sm">
               02 : 12 : 56
             </div>
-          </div>
+          </div> */}
           
           {/* Main Image */}
           <div className="rounded-xl overflow-hidden">
@@ -90,9 +91,11 @@ const NFTDetailsPage = () => {
 
           {/* Action Buttons */}
           <div className="flex gap-4">
-            <button className="flex-1 bg-blue-600 text-white py-3 rounded-xl font-medium">
-              Buy now
-            </button>
+          <Link to="/profilepage">
+  <button className="w-64 bg-blue-600 text-white py-3 rounded-xl font-medium">
+    Buy now
+  </button>
+</Link>
             <button className="flex-1 border border-gray-300 py-3 rounded-xl font-medium">
               Make offer
             </button>

@@ -1,18 +1,81 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 
 const Swip = () => {
-  const nfts = [
-    { id: 1, creator: "Felly Sweets", image: "https://cdn.prod.website-files.com/6615636a03a6003b067c36dd/661ffd0dbe9673d914edca2d_6423fc9ca8b5e94da1681a70_Screenshot%25202023-03-29%2520at%252010.53.43.jpeg", verified: true },
-    { id: 2, creator: "Felly Sweets", image: "https://cdn.prod.website-files.com/6615636a03a6003b067c36dd/661ffd0dbe9673d914edca2d_6423fc9ca8b5e94da1681a70_Screenshot%25202023-03-29%2520at%252010.53.43.jpeg", verified: true },
-    { id: 3, creator: "Felly Sweets", image: "https://cdn.prod.website-files.com/6615636a03a6003b067c36dd/661ffd0dbe9673d914edca2d_6423fc9ca8b5e94da1681a70_Screenshot%25202023-03-29%2520at%252010.53.43.jpeg", verified: true },
-    { id: 4, creator: "Felly Sweets", image: "https://cdn.prod.website-files.com/6615636a03a6003b067c36dd/661ffd0dbe9673d914edca2d_6423fc9ca8b5e94da1681a70_Screenshot%25202023-03-29%2520at%252010.53.43.jpeg", verified: true },
-    { id: 5, creator: "Felly Sweets", image: "https://cdn.prod.website-files.com/6615636a03a6003b067c36dd/661ffd0dbe9673d914edca2d_6423fc9ca8b5e94da1681a70_Screenshot%25202023-03-29%2520at%252010.53.43.jpeg", verified: true },
-    { id: 6, creator: "Felly Sweets", image: "https://cdn.prod.website-files.com/6615636a03a6003b067c36dd/661ffd0dbe9673d914edca2d_6423fc9ca8b5e94da1681a70_Screenshot%25202023-03-29%2520at%252010.53.43.jpeg", verified: true },
-  ];
+  // const nfts = [
+  //   { id: 1, creator: "Felly Sweets", image: "https://cdn.prod.website-files.com/6615636a03a6003b067c36dd/661ffd0dbe9673d914edca2d_6423fc9ca8b5e94da1681a70_Screenshot%25202023-03-29%2520at%252010.53.43.jpeg", verified: true },
+  //   { id: 2, creator: "Felly Sweets", image: "https://cdn.prod.website-files.com/6615636a03a6003b067c36dd/661ffd0dbe9673d914edca2d_6423fc9ca8b5e94da1681a70_Screenshot%25202023-03-29%2520at%252010.53.43.jpeg", verified: true },
+  //   { id: 3, creator: "Felly Sweets", image: "https://cdn.prod.website-files.com/6615636a03a6003b067c36dd/661ffd0dbe9673d914edca2d_6423fc9ca8b5e94da1681a70_Screenshot%25202023-03-29%2520at%252010.53.43.jpeg", verified: true },
+  //   { id: 4, creator: "Felly Sweets", image: "https://cdn.prod.website-files.com/6615636a03a6003b067c36dd/661ffd0dbe9673d914edca2d_6423fc9ca8b5e94da1681a70_Screenshot%25202023-03-29%2520at%252010.53.43.jpeg", verified: true },
+  //   { id: 5, creator: "Felly Sweets", image: "https://cdn.prod.website-files.com/6615636a03a6003b067c36dd/661ffd0dbe9673d914edca2d_6423fc9ca8b5e94da1681a70_Screenshot%25202023-03-29%2520at%252010.53.43.jpeg", verified: true },
+  //   { id: 6, creator: "Felly Sweets", image: "https://cdn.prod.website-files.com/6615636a03a6003b067c36dd/661ffd0dbe9673d914edca2d_6423fc9ca8b5e94da1681a70_Screenshot%25202023-03-29%2520at%252010.53.43.jpeg", verified: true },
+  // ];
+const [collections, setCollections] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchCollections = async () => {
+      try {
+        console.log("Fetching data from API...");
+        const response = await fetch(
+          "http://localhost:5000/api/nft/get"
+        );
+
+        if (!response.ok) {
+          throw new Error(`API request failed with status: ${response.status}`);
+        }
+
+        const result = await response.json();
+        console.log("API Response Data:", result);
+
+        if (result?.status === true && Array.isArray(result.data)) {
+          console.log(`Found ${result.data.length} collections`);
+          setCollections(result.data);
+        } else {
+          console.warn("API did not return expected data format:", result);
+          setError("Invalid data format received from API");
+          setCollections([]);
+        }
+      } catch (error) {
+        console.error("Error fetching collections:", error);
+        setError(`Failed to fetch collections: ${error.message}`);
+        setCollections([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCollections();
+  }, []);
+
+  // Loading state
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen w-screen">
+        <p className="text-xl font-semibold">Loading collections...</p>
+      </div>
+    );
+  }
+
+  // Error state
+  if (error) {
+    return (
+      <div className="flex flex-col justify-center items-center min-h-screen w-screen">
+        <p className="text-xl font-semibold text-red-600">Error: {error}</p>
+        <button
+          className="px-4 py-2 bg-blue-600 text-white rounded-lg mt-4"
+          onClick={() => window.location.reload()}
+        >
+          Retry
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full py-10 bg-gray-50">
@@ -41,16 +104,17 @@ const Swip = () => {
           loop={true}
           className="relative w-full"
         >
-          {nfts.map((nft, index) => (
+             {collections.map((collection,index) => (
+
             <SwiperSlide key={index} className="w-auto mt-6">
               <div className="rounded-3xl overflow-hidden aspect-square relative shadow-lg max-w-[320px] sm:max-w-[350px] md:max-w-[400px] mx-auto">
                 <img
-                  src={nft.image}
-                  alt={nft.creator}
+                  src={collection.imageUrl}
+                  alt={collection.name}
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 to-transparent">
-                  <span className="text-white text-lg font-semibold">{nft.creator}</span>
+                  <span className="text-white text-lg font-semibold">{collection.name}</span>
                 </div>
               </div>
             </SwiperSlide>
