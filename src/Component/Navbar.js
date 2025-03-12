@@ -27,7 +27,6 @@ const Navbar = ({ darkMode, setDarkMode }) => {
   const menuItems = [
     { icon: User, label: 'Profile', path: '/profilepage' },
     { icon: Heart, label: 'Favourites', path: '/favourite' },
-    { icon: BiMoon, label: 'Dark Mode', toggle: true },
     { icon: Globe, label: 'Language', path: '/language' },
     { icon: Settings, label: 'Settings', path: '/settings' },
     { icon: Headphones, label: 'Help & Support', path: '/help' },
@@ -106,16 +105,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
             {/* Action Buttons */}
             <div className="flex items-center space-x-4">
               {/* Dark Mode Toggle Button */}
-              <button
-                onClick={() => setDarkMode(!darkMode)}
-                className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg"
-              >
-                {darkMode ? (
-                  <BiSun className="h-6 w-6 text-yellow-500" />
-                ) : (
-                  <BiMoon className="h-6 w-6 text-gray-900" />
-                )}
-              </button>
+              
 
 
               <Link to="https://pancakeswap.finance/?chain=eth&outputCurrency=0x26cafcfc1b820a74b0e069c2c65b816d2af241cd" className="text-sm font-medium hover:text-gray-400 ">

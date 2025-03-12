@@ -7,7 +7,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['DM Sans', 'sans-serif'],
+        sans: ['Overpass', 'sans-serif'], // Use Overpass instead of DM Sans
       },
       colors: {
         silver: '#D3D3D3', // Custom silver color

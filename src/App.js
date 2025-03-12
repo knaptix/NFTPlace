@@ -44,7 +44,7 @@ const App = () => {
         <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/CurrentBid" element={<AuctionCards />} />
+          <Route path="/CurrentBid" element={<ProtectedRoute> <AuctionCards /></ProtectedRoute>} />
           {/* Protected Routes */}
           <Route path="/CreateNFt" element={<ProtectedRoute><NFTCreation /></ProtectedRoute>} />
           <Route path="/drop" element={<ProtectedRoute><SmartContractForm /></ProtectedRoute>} />
