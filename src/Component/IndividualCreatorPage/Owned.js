@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import { Heart, X } from "lucide-react";
 import ListingModal from "./ListingModal";
@@ -188,3 +189,5 @@ const Owned = () => {
 
 
 export default Owned;
+
+
