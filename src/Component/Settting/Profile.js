@@ -76,7 +76,7 @@ const ProfileSettings = () => {
     setIsLoading(true); // Show loader while submitting the form
 
     try {
-      const response = await axios.put('http://localhost:5000/api/user/update-profile', formData, {
+      const response = await axios.put('https://nywnftbackend-production.up.railway.app/api/user/update-profile', formData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -97,7 +97,7 @@ const ProfileSettings = () => {
     const fetchProfile = async () => {
       try {
         const token = localStorage.getItem("walletToken");
-        const response = await axios.get('http://localhost:5000/api/user/profile', {
+        const response = await axios.get('https://nywnftbackend-production.up.railway.app/api/user/profile', {
           headers: {
             Authorization: `Bearer ${token}`,
           },

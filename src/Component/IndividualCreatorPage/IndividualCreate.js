@@ -14,7 +14,7 @@ const ProfilePage = () => {
       try {
         const token = localStorage.getItem("walletToken");
         const response = await axios.get(
-          "http://localhost:5000/api/user/profile",
+          "https://nywnftbackend-production.up.railway.app/api/user/profile",
           {
             headers: {
               Authorization: `Bearer ${token}`,

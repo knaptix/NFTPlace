@@ -11,7 +11,7 @@ const NFTMarketplace = () => {
     const fetchCollections = async () => {
       try {
         console.log("Fetching data from API...");
-        const response = await fetch("http://localhost:5000/api/nft/get");
+        const response = await fetch("https://nywnftbackend-production.up.railway.app/api/nft/get");
 
         if (!response.ok) {
           throw new Error(`API request failed with status: ${response.status}`);

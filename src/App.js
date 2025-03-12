@@ -88,7 +88,7 @@ const App = () => {
           <Route path="/sale" element={<NFTDetailsSale />} />
           <Route path="/detail" element={<NFTDetailPage />} />
           <Route path="/collection" element={<NFTCollectionPage />} />
-          <Route path="/profilepage" element={<ProfilePage />} />
+          <Route path="/profilepage" element={  <ProtectedRoute><ProfilePage /></ProtectedRoute>} />
           <Route
             path="/favourite"
             element={
