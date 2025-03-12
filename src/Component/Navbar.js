@@ -2,6 +2,8 @@ import React, { useState, useRef, useEffect } from "react";
 import { BiSearch, BiShoppingBag, BiWallet, BiMenu, BiX, BiMoon, BiSun } from "react-icons/bi";
 import { User, Heart, Globe, Settings, Headphones, LogOut } from 'lucide-react';
 import { Link, useNavigate } from "react-router-dom";
+import { LuShoppingCart } from "react-icons/lu";
+
 import WalletLogin from "./WalletModel";
 import { useWallet } from './walletContext'; // Fix: Import from local wallet context
 
@@ -27,7 +29,6 @@ const Navbar = ({ darkMode, setDarkMode }) => {
   const menuItems = [
     { icon: User, label: 'Profile', path: '/profilepage' },
     { icon: Heart, label: 'Favourites', path: '/favourite' },
-    { icon: BiMoon, label: 'Dark Mode', toggle: true },
     { icon: Globe, label: 'Language', path: '/language' },
     { icon: Settings, label: 'Settings', path: '/settings' },
     { icon: Headphones, label: 'Help & Support', path: '/help' },
@@ -100,22 +101,16 @@ const Navbar = ({ darkMode, setDarkMode }) => {
               <Link to="/CreateNFt" className="text-sm font-medium hover:text-gray-400 ">Create</Link>
               <Link to="/CurrentBid" className="text-sm font-medium hover:text-gray-400 ">Current Bids</Link>
 
-              <Link to="/cart" className="text-sm font-medium hover:text-gray-400 ">Cart</Link>
+              <Link to="/cart" className="flex items-center text-sm font-medium hover:text-gray-400">
+      <LuShoppingCart className="w-10 h-10 mr-1" />
+     
+    </Link>
             </div>
 
             {/* Action Buttons */}
             <div className="flex items-center space-x-4">
               {/* Dark Mode Toggle Button */}
-              <button
-                onClick={() => setDarkMode(!darkMode)}
-                className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg"
-              >
-                {darkMode ? (
-                  <BiSun className="h-6 w-6 text-yellow-500" />
-                ) : (
-                  <BiMoon className="h-6 w-6 text-gray-900" />
-                )}
-              </button>
+              
 
 
               <Link to="https://pancakeswap.finance/?chain=eth&outputCurrency=0x26cafcfc1b820a74b0e069c2c65b816d2af241cd" className="text-sm font-medium hover:text-gray-400 ">
@@ -135,7 +130,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
                   : "bg-[#F3F3F3] text-black hover:bg-gray-200"
                   } transition-colors duration-200`}
               >
-                <BiWallet className="h-5 w-5" />
+                
                 {/* <span className="text-sm">
                   {isWalletConnected ? `Disconnect (${walletAddress.slice(0, 6)}...)` : "Connect Wallet"}
                 </span> */}
@@ -145,9 +140,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
               </button>
 
               {/* Cart Icon */}
-              <Link to="#" className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
-                <BiShoppingBag className="h-6 w-6" />
-              </Link>
+             
 
               {/* Profile Menu */}
               <div className="relative" ref={profileMenuRef}>
@@ -211,13 +204,16 @@ const Navbar = ({ darkMode, setDarkMode }) => {
                 <Link to="/CreateNFt" className="text-sm font-medium hover:text-gray-400 ">Create</Link>
                 <Link to="/CurrentBid" className="text-sm font-medium hover:text-gray-400 ">Current Bids</Link>
                 <Link to="https://pancakeswap.finance/?chain=eth&outputCurrency=0x26cafcfc1b820a74b0e069c2c65b816d2af241cd" className="text-sm font-medium hover:text-gray-400 ">NYWNFT/WETH</Link>
-                <Link to="/cart" className="text-sm font-medium hover:text-gray-400 ">Cart</Link>
+                <Link to="/cart" className="flex items-center text-sm font-medium hover:text-gray-400">
+      <LuShoppingCart className="w-10 h-10 mr-1" />
+     
+    </Link>
                 <button
                   onClick={handleWalletButtonClick}
                   className={`flex items-center justify-center space-x-2 px-4 rounded-full py-3 w-full ${darkMode ? "bg-gray-700 hover:bg-gray-600" : "bg-[#F3F3F3] hover:bg-gray-200"
                     } transition-colors duration-200`}
                 >
-                  <BiWallet className="h-5 w-5" />
+                  
                   <span className="text-base">
                     {isWalletConnected ? "Disconnect Wallet" : "Connect Wallet"}
                   </span>
