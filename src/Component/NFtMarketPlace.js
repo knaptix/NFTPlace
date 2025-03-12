@@ -11,7 +11,7 @@ const NFTMarketplace = () => {
       try {
         console.log("Fetching data from API...");
         const response = await fetch(
-          "https://nywnftbackend-production.up.railway.app/api/collection/all"
+          "http://localhost:5000/api/collection/all"
         );
 
         if (!response.ok) {

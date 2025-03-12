@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'https://nywnftbackend-production.up.railway.app/api';
+const API_BASE_URL = 'http://localhost:5000/api';
 
 const api = axios.create({
     baseURL: API_BASE_URL,
@@ -66,4 +66,42 @@ export const getCollectionByUserID = async (token) => {
         throw error.response?.data || error.message;
     }
 };
+
+
+export const getOwnedNft = async (token) => {
+  try {
+      const response = await api.get('nft/owned ', {
+          headers: { Authorization: `Bearer ${token}` }
+      });
+      return response.data;
+  } catch (error) {
+      throw error.response?.data || error.message;
+  }
+};
+
+export const getCreatedNft = async (token) => {
+    try {
+        const response = await api.get('nft/get-created', {
+            headers: { Authorization: `Bearer ${token}` }
+        });
+        return response.data;
+    } catch (error) {
+        throw error.response?.data || error.message;
+    }
+  };
+
+  export const getOnSale = async (token) => {
+    try {
+        const response = await api.get('nft/get-on-sale', {
+            headers: { Authorization: `Bearer ${token}` }
+        });
+        return response.data;
+    } catch (error) {
+        throw error.response?.data || error.message;
+    }
+  };
+
+
+
+  
 
