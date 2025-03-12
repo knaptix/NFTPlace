@@ -10,9 +10,7 @@ const NFTMarketplace = () => {
     const fetchCollections = async () => {
       try {
         console.log("Fetching data from API...");
-        const response = await fetch(
-          "http://localhost:5000/api/collection/all"
-        );
+        const response = await fetch("http://localhost:5000/api/nft/get");
 
         if (!response.ok) {
           throw new Error(`API request failed with status: ${response.status}`);
@@ -66,7 +64,7 @@ const NFTMarketplace = () => {
   }
 
   return (
-    <div className="w-screen min-h-screen ">
+    <div className="w-screen min-h-screen">
       <h2 className="text-4xl font-bold my-6 text-center text-gray-900">
         Discover Marketplace
       </h2>
@@ -82,7 +80,7 @@ const NFTMarketplace = () => {
             className="bg-white shadow-lg rounded-2xl overflow-hidden p-4 transform transition-all hover:scale-105"
           >
             <img
-              src={collection.bannerImage}
+              src={collection.imageUrl}
               alt={collection.collectionName}
               className="w-full h-52 object-cover rounded-lg"
             />
@@ -93,16 +91,27 @@ const NFTMarketplace = () => {
               <p className="text-sm text-gray-600">
                 Category: {collection.categoryName}
               </p>
-              {/* <p className="text-sm text-gray-600">
+              <p className="text-sm text-gray-600">
                 NFT Standard: {collection.nftStandard}
               </p>
               <p className="text-sm text-gray-600">
                 Royalty: {collection?.royalty?.percentage}%
-              </p> */}
-             <Link to="/buy"> <button className="w-full mt-3 py-2 bg-blue-600 text-white font-medium hover:bg-blue-700 transition-all rounded">
-                Buy
-              </button>
-              </Link>
+              </p>
+
+              {/* Conditional Rendering */}
+              {!collection.isForSale ? (
+                <Link to={`/buy/${collection.tokenId}`}>
+                  <button className="w-full mt-3 py-2 bg-blue-600 text-white font-medium hover:bg-blue-700 transition-all rounded">
+                    Buy
+                  </button>
+                </Link>
+              ) : (
+                // <Link to={`/details/${collection.tokenId}`}>
+                  <button className="w-full mt-3 py-2 bg-gray-400 text-white font-medium hover:bg-gray-500 transition-all rounded">
+                  Not List
+                  </button>
+                // </Link>
+              )}
             </div>
           </div>
         ))}

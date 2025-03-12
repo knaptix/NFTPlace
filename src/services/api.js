@@ -70,7 +70,7 @@ export const getCollectionByUserID = async (token) => {
 
 export const getOwnedNft = async (token) => {
   try {
-      const response = await api.get('nft/owned ', {
+      const response = await api.get('nft/owned', {
           headers: { Authorization: `Bearer ${token}` }
       });
       return response.data;

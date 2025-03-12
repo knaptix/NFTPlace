@@ -14,7 +14,7 @@ import ProfilePage from "./Component/IndividualCreatorPage/IndividualCreate";
 import HelpCenter from "./Component/HelpandSupport/Support";
 import Favourite from "./Component/Favourite/Favourite";
 import Settings from "./Component/Settting/Setting";
-import { useWallet, WalletProvider } from "./Component/walletContext";
+import {  WalletProvider } from "./Component/walletContext";
 import ProtectedRoute from "./Component/ProtectedRoute";
 import AboutPage from "./Component/About";
 import Venture from "./Component/Venture";
@@ -22,6 +22,7 @@ import Partnerships from "./Component/Partnerships";
 import PrivacyPolices from "./Component/PrivacyPolices";
 import TermsServices from "./Component/TermsServices";
 import NFTDetailsSale from "./Component/Individual/NFTSale";
+import toast, { Toaster } from "react-hot-toast";
 
 const App = () => {
   const [darkMode, setDarkMode] = useState(
@@ -83,7 +84,7 @@ const App = () => {
             }
           />
 
-          <Route path="/buy" element={<NFTDetailPage />} />
+          <Route path="/buy/:id" element={<NFTDetailPage />} />
           <Route path="/sale" element={<NFTDetailsSale />} />
           <Route path="/detail" element={<NFTDetailPage />} />
           <Route path="/collection" element={<NFTCollectionPage />} />
@@ -105,7 +106,7 @@ const App = () => {
           <Route path="/terms-services" element={<TermsServices />} />
         </Routes>
         <Footer darkMode={darkMode} setDarkMode={setDarkMode} />
- 
+     <Toaster />
       </div>
     </WalletProvider>
   );
