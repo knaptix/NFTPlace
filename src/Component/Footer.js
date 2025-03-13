@@ -73,25 +73,46 @@ export default function Footer() {
               NYWNFT bridges Blockchain and AI, allowing you to own a piece of the action. Generate and mint NFTs easily.
             </p>
           </div>
-          
-          {/* Footer Links */}
-          {[
-            { title: "Company", links: ["About", "Ventures", "Documentation"] },
-            { title: "Resources", links: ["Blogs", "Partners", "Community Standards", "NYWNFT Documentation"] },
-            { title: "Help & Support", links: ["Contact Support"] },
-            { title: "Learn about NFTs", links: ["What is NFT?", "How to buy NFTs?", "How to mint NFTs?", "What is NYWNFT Coin?"] }
-          ].map((section, idx) => (
-            <div key={idx}>
-              <h3 className="text-lg font-semibold mb-3">{section.title}</h3>
-              <ul className="space-y-2">
-                {section.links.map((link, i) => (
-                  <li key={i}>
-                    <Link to="/help" className="text-sm hover:underline">{link}</Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+
+          {/* Company */}
+          <div>
+            <h3 className="text-lg font-semibold mb-3">Company</h3>
+            <ul className="space-y-2">
+              <li><Link to="/about" className="text-sm hover:underline">About</Link></li>
+              <li><Link to="/venture" className="text-sm hover:underline">Ventures</Link></li>
+              <li><Link to="/documentation" className="text-sm hover:underline">Documentation</Link></li>
+            </ul>
+          </div>
+
+          {/* Resources */}
+          <div>
+            <h3 className="text-lg font-semibold mb-3">Resources</h3>
+            <ul className="space-y-2">
+              <li><Link to="/blogs" className="text-sm hover:underline">Blogs</Link></li>
+              <li><Link to="/partnerships" className="text-sm hover:underline">Partners</Link></li>
+              <li><Link to="/community-standards" className="text-sm hover:underline">Community Standards</Link></li>
+              <li><Link to="/nywnft-documentation" className="text-sm hover:underline">NYWNFT Documentation</Link></li>
+            </ul>
+          </div>
+
+          {/* Help & Support */}
+          <div>
+            <h3 className="text-lg font-semibold mb-3">Help & Support</h3>
+            <ul className="space-y-2">
+              <li><Link to="/contact-support" className="text-sm hover:underline">Contact Support</Link></li>
+            </ul>
+          </div>
+
+          {/* Learn about NFTs */}
+          <div>
+            <h3 className="text-lg font-semibold mb-3">Learn about NFTs</h3>
+            <ul className="space-y-2">
+              <li><Link to="/help" className="text-sm hover:underline">What is NFT?</Link></li>
+              <li><Link to="/help" className="text-sm hover:underline">How to buy NFTs?</Link></li>
+              <li><Link to="/help" className="text-sm hover:underline">How to mint NFTs?</Link></li>
+              <li><Link to="/help" className="text-sm hover:underline">What is NYWNFT Coin?</Link></li>
+            </ul>
+          </div>
         </div>
       </div>
 
@@ -99,10 +120,10 @@ export default function Footer() {
       <div className="border-t border-black mx-4 sm:mx-6 lg:mx-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row justify-between items-center text-center">
           <p className="text-sm">&copy; 2024 NYWNFT. All rights reserved.</p>
-          <p className="text-sm"> Wink media</p>
+          <p className="text-sm">Wink Media</p>
           <div className="flex space-x-6">
-            <Link to="/privacy-policy" className="text-sm hover:underline">Privacy Policy</Link>
-            <Link to="/terms-of-service" className="text-sm hover:underline">Terms of Service</Link>
+            <Link to="/privacy-polices" className="text-sm hover:underline">Privacy Policy</Link>
+            <Link to="/terms-services" className="text-sm hover:underline">Terms of Service</Link>
           </div>
         </div>
       </div>
