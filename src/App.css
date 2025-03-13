@@ -4,10 +4,9 @@
 @tailwind components;
 @tailwind utilities;
 
-.dark {
-    background-color: #1a202c;
-    color: white;
-  }
-  html {
-    @apply font-sans;
-  }
+body {
+  background-color: #121212; /* Dark background */
+  color: white; /* Light text */
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
