@@ -99,7 +99,7 @@ export default function Footer() {
       <div className="border-t border-black mx-4 sm:mx-6 lg:mx-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row justify-between items-center text-center">
           <p className="text-sm">&copy; 2024 NYWNFT. All rights reserved.</p>
-          <p className="text-sm">Delve Withrington & Team</p>
+          <p className="text-sm"> Wink media</p>
           <div className="flex space-x-6">
             <Link to="/privacy-policy" className="text-sm hover:underline">Privacy Policy</Link>
             <Link to="/terms-of-service" className="text-sm hover:underline">Terms of Service</Link>
