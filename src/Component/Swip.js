@@ -23,7 +23,7 @@ const [collections, setCollections] = useState([]);
       try {
         console.log("Fetching data from API...");
         const response = await fetch(
-          "http://localhost:5000/api/nft/get"
+          "https://nywnftbackend-production.up.railway.app/api/nft/get"
         );
 
         if (!response.ok) {

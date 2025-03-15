@@ -17,11 +17,11 @@ export const WalletProvider = ({ children }) => {
       localStorage.removeItem('walletToken');
     }
 
-    if (walletAddress) {
-      localStorage.setItem('walletAddress', walletAddress);
-    } else {
-      localStorage.removeItem('walletAddress');
-    }
+    // if (walletAddress) {
+    //   localStorage.setItem('walletAddress', walletAddress);
+    // } else {
+    //   localStorage.removeItem('walletAddress');
+    // }
   }, [walletToken, walletAddress]);
 
   // Add initialization effect

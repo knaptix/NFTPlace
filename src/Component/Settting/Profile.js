@@ -1,19 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { toast } from 'react-hot-toast';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const ProfileSettings = () => {
   const [profile, setProfile] = useState({
-    username: '',
-    email: '',
-    bio: '',
-    walletAddress: '',
+    username: "",
+    email: "",
+    bio: "",
+    walletAddress: "",
     profilePicture: null,
     bannerImage: null,
-    twitterName: '',
-    instagramName: ''
+    twitterName: "",
+    instagramName: "",
   });
-  const [wallet,setWallet] = useState('');
+  const [wallet, setWallet] = useState("");
+  const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -29,10 +31,25 @@ const ProfileSettings = () => {
   // Handle file input changes for profile and banner images
   const handleFileChange = (e) => {
     const { name, files } = e.target;
-    setProfile((prevProfile) => ({
-      ...prevProfile,
-      [name]: files[0],
-    }));
+
+    // Check if file exists
+    if (files[0]) {
+      const file = files[0]; // Get the file
+      const fileType = file.type;
+      const validTypes = ["image/jpeg", "image/png", "image/jpg"];
+
+      // Validate file type
+      if (!validTypes.includes(fileType)) {
+        toast.error("Only JPG, JPEG, and PNG image files are allowed!");
+        return; // Return early to prevent setting invalid file
+      }
+
+      // Set the file if it's valid
+      setProfile((prevProfile) => ({
+        ...prevProfile,
+        [name]: file,
+      }));
+    }
   };
 
   // Handle form submission
@@ -46,7 +63,10 @@ const ProfileSettings = () => {
     }
 
     // Check file size for images (max 2MB)
-    if (profile.profilePicture && profile.profilePicture.size > 2 * 1024 * 1024) {
+    if (
+      profile.profilePicture &&
+      profile.profilePicture.size > 2 * 1024 * 1024
+    ) {
       toast.error("Profile picture must be less than 2MB.");
       return;
     }
@@ -57,18 +77,18 @@ const ProfileSettings = () => {
     }
 
     const formData = new FormData();
-    formData.append('email', profile.email);
-    formData.append('username', profile.username);
-    formData.append('bio', profile.bio);
-    formData.append('twitterName', profile.twitterName);
-    formData.append('instagramName', profile.instagramName);
-    formData.append('walletAddress', profile.walletAddress);
+    formData.append("email", profile.email);
+    formData.append("username", profile.username);
+    formData.append("bio", profile.bio);
+    formData.append("twitterName", profile.twitterName);
+    formData.append("instagramName", profile.instagramName);
+    formData.append("walletAddress", profile.walletAddress);
 
     if (profile.profilePicture) {
-      formData.append('profilePicture', profile.profilePicture);
+      formData.append("field1", profile.profilePicture);
     }
     if (profile.bannerImage) {
-      formData.append('bannerImage', profile.bannerImage);
+      formData.append("field2", profile.bannerImage);
     }
 
     const token = localStorage.getItem("walletToken"); // Get the wallet token from localStorage
@@ -76,32 +96,48 @@ const ProfileSettings = () => {
     setIsLoading(true); // Show loader while submitting the form
 
     try {
-      const response = await axios.put('http://localhost:5000/api/user/update-profile', formData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      setIsLoading(false); // Hide loader
-      toast.success("Profile updated successfully!"); // Show success toast
-      console.log('Profile updated successfully:', response.data);
-    } catch (error) {
-      setIsLoading(false); // Hide loader
-      toast.error("Error updating profile. Please try again!"); // Show error toast
-      console.error('Error updating profile:', error);
-    }
-  };
- 
-
-  useEffect(()=>{
-    const fetchProfile = async () => {
-      try {
-        const token = localStorage.getItem("walletToken");
-        const response = await axios.get('http://localhost:5000/api/user/profile', {
+      const response = await axios.put(
+        "https://nywnftbackend-production.up.railway.app/api/user/update-profile",
+        formData,
+        {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        });
+        }
+      );
+
+      setIsLoading(false); // Hide loader
+
+      console.log("Profile updated successfully:", response.data.status);
+
+      if (response.data.status) {
+        //navigate("/profilepage");
+        toast.error(response.data.message); // Show success toast
+
+      }else{
+        toast.error(response.data.message); // Show success toast
+
+      }
+      // navigate("/profilepage");
+    } catch (error) {
+      setIsLoading(false); // Hide loader
+      toast.error("Error updating profile. Please try again!"); // Show error toast
+      console.error("Error updating profile:", error);
+    }
+  };
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const token = localStorage.getItem("walletToken");
+        const response = await axios.get(
+          "https://nywnftbackend-production.up.railway.app/api/user/profile",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
         console.log(response.data);
         setWallet(response.data?.data);
@@ -111,8 +147,8 @@ const ProfileSettings = () => {
       }
     };
     fetchProfile();
-  },[])
-  console.log(wallet,";dddd");
+  }, []);
+  // console.log(wallet,";dddd");
   return (
     <div className="w-full min-h-screen bg-gray-50 px-4 sm:px-6 lg:px-8">
       <div className="max-w-8xl mx-auto py-8">
@@ -185,7 +221,9 @@ const ProfileSettings = () => {
           <form onSubmit={handleSubmit} className="mt-6 space-y-6">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700">Username</label>
+                <label className="block text-sm font-medium text-gray-700">
+                  Username
+                </label>
                 <input
                   type="text"
                   name="username"
@@ -196,7 +234,9 @@ const ProfileSettings = () => {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">E-mail Address</label>
+                <label className="block text-sm font-medium text-gray-700">
+                  E-mail Address
+                </label>
                 <input
                   type="email"
                   name="email"
@@ -209,7 +249,9 @@ const ProfileSettings = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700">Bio</label>
+              <label className="block text-sm font-medium text-gray-700">
+                Bio
+              </label>
               <textarea
                 name="bio"
                 value={profile.bio}
@@ -222,7 +264,9 @@ const ProfileSettings = () => {
 
             {/* Social Media Integration */}
             <div>
-              <h3 className="text-lg font-medium mb-4">Integrate social media accounts</h3>
+              <h3 className="text-lg font-medium mb-4">
+                Integrate social media accounts
+              </h3>
               <div className="flex flex-wrap gap-6">
                 <div className="flex items-center space-x-3">
                   <div className="w-8 h-8 bg-black rounded-full flex items-center justify-center">
@@ -255,7 +299,9 @@ const ProfileSettings = () => {
 
             {/* Wallet Address */}
             <div>
-              <label className="block text-sm font-medium text-gray-700">Wallet address</label>
+              <label className="block text-sm font-medium text-gray-700">
+                Wallet address
+              </label>
               <div className="mt-1 flex rounded-md shadow-sm">
                 <input
                   type="text"
@@ -271,8 +317,8 @@ const ProfileSettings = () => {
 
             {/* Submit Button */}
             <div className="mt-8 flex justify-center">
-              <button 
-                type="submit" 
+              <button
+                type="submit"
                 className="px-6 py-3.5 bg-[#02082B] text-white rounded-2xl font-medium shadow-sm hover:bg-[#02082B]/90 transition-colors"
                 disabled={isLoading}
               >

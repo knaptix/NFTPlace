@@ -39,30 +39,30 @@ const NFTCard = ({ image, title, isVerified, price }) => (
 
 const OnSale = () => {
   const nfts = [
-    {
-      image: "https://image-cdn.hypb.st/https%3A%2F%2Fhypebeast.com%2Fimage%2F2021%2F10%2Fbored-ape-yacht-club-nft-3-4-million-record-sothebys-metaverse-0.jpg?w=960&cbr=1&q=90&fit=max",
-      title: "Corrupted angel",
-      isVerified: true,
-      price: "1.2"
-    },
-    {
-      image: "https://image-cdn.hypb.st/https%3A%2F%2Fhypebeast.com%2Fimage%2F2021%2F10%2Fbored-ape-yacht-club-nft-3-4-million-record-sothebys-metaverse-0.jpg?w=960&cbr=1&q=90&fit=max",
-      title: "Corrupted angel",
-      isVerified: true,
-      price: "1.2"
-    },
-    {
-      image: "https://image-cdn.hypb.st/https%3A%2F%2Fhypebeast.com%2Fimage%2F2021%2F10%2Fbored-ape-yacht-club-nft-3-4-million-record-sothebys-metaverse-0.jpg?w=960&cbr=1&q=90&fit=max",
-      title: "Corrupted angel",
-      isVerified: true,
-      price: "1.2"
-    },
-    {
-      image: "https://image-cdn.hypb.st/https%3A%2F%2Fhypebeast.com%2Fimage%2F2021%2F10%2Fbored-ape-yacht-club-nft-3-4-million-record-sothebys-metaverse-0.jpg?w=960&cbr=1&q=90&fit=max",
-      title: "Corrupted angel",
-      isVerified: true,
-      price: "1.2"
-    }
+    // {
+    //   image: "https://image-cdn.hypb.st/https%3A%2F%2Fhypebeast.com%2Fimage%2F2021%2F10%2Fbored-ape-yacht-club-nft-3-4-million-record-sothebys-metaverse-0.jpg?w=960&cbr=1&q=90&fit=max",
+    //   title: "Corrupted angel",
+    //   isVerified: true,
+    //   price: "1.2"
+    // },
+    // {
+    //   image: "https://image-cdn.hypb.st/https%3A%2F%2Fhypebeast.com%2Fimage%2F2021%2F10%2Fbored-ape-yacht-club-nft-3-4-million-record-sothebys-metaverse-0.jpg?w=960&cbr=1&q=90&fit=max",
+    //   title: "Corrupted angel",
+    //   isVerified: true,
+    //   price: "1.2"
+    // },
+    // {
+    //   image: "https://image-cdn.hypb.st/https%3A%2F%2Fhypebeast.com%2Fimage%2F2021%2F10%2Fbored-ape-yacht-club-nft-3-4-million-record-sothebys-metaverse-0.jpg?w=960&cbr=1&q=90&fit=max",
+    //   title: "Corrupted angel",
+    //   isVerified: true,
+    //   price: "1.2"
+    // },
+    // {
+    //   image: "https://image-cdn.hypb.st/https%3A%2F%2Fhypebeast.com%2Fimage%2F2021%2F10%2Fbored-ape-yacht-club-nft-3-4-million-record-sothebys-metaverse-0.jpg?w=960&cbr=1&q=90&fit=max",
+    //   title: "Corrupted angel",
+    //   isVerified: true,
+    //   price: "1.2"
+    // }
   ];
   const [nftList, setNftList] = useState([]);
 

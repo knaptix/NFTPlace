@@ -11,7 +11,7 @@ const NFTMarketplace = () => {
     const fetchCollections = async () => {
       try {
         console.log("Fetching data from API...");
-        const response = await fetch("http://localhost:5000/api/nft/get");
+        const response = await fetch("https://nywnftbackend-production.up.railway.app/api/nft/get");
 
         if (!response.ok) {
           throw new Error(`API request failed with status: ${response.status}`);
@@ -93,14 +93,14 @@ const NFTMarketplace = () => {
                 Category: {collection.categoryName}
               </p>
               <p className="text-sm text-gray-600">
-                NFT Standard: {collection.nftStandard}
+                NFT Standard: ERC-1155
               </p>
-              <p className="text-sm text-gray-600">
+              {/* <p className="text-sm text-gray-600">
                 Royalty: {collection?.royalty?.percentage}%
-              </p>
+              </p> */}
 
               {/* Conditional Rendering */}
-              {!collection.isForSale ? (
+              {collection.onSale ? (
                 <Link to={`/buy/${collection.tokenId}`}>
                   <button className="w-full mt-3 py-2 bg-blue-600 text-white font-medium hover:bg-blue-700 transition-all rounded">
                     Buy

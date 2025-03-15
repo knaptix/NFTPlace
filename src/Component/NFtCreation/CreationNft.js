@@ -1,19 +1,23 @@
-
 import React, { useEffect, useState } from "react";
 import { ArrowLeft, Upload } from "lucide-react";
 import { getAllCategory, getCollectionByUserID } from "../../services/api";
 import { ethers } from "ethers";
 import { SlArrowDown, SlArrowUp } from "react-icons/sl";
 import { Link } from "react-router-dom";
+import { nftDrop_Abi } from "../../services/config";
+import { toast } from "react-hot-toast";
+import axios from "axios";
 
 const NFTCreationForm = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [collection, setCollection] = useState([]);
+  const [collectionid, setColletionId] = useState();
+  const [categoryId, setCategoryId] = useState(1);
+
   const [sendImage, setSendImage] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
   const [contractName, setContractName] = useState("");
   const [collectinName, setCollectionName] = useState("");
-
   const [contractAddress, setContractAddress] = useState("");
   const [contractSymbol, setContractSymbol] = useState("");
   const [category, setCategory] = useState(""); // Default category
@@ -37,7 +41,17 @@ const NFTCreationForm = () => {
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
+
+    // Check if file is provided and it's an image (jpg, jpeg, png)
     if (file) {
+      const fileType = file.type;
+      const validTypes = ["image/jpeg", "image/png", "image/jpg"];
+
+      if (!validTypes.includes(fileType)) {
+        toast.error("Only JPG, JPEG, and PNG image files are allowed!");
+        return; // Return early to prevent setting invalid file
+      }
+
       setSendImage(file);
       const reader = new FileReader();
       reader.onloadend = () => {
@@ -47,480 +61,77 @@ const NFTCreationForm = () => {
     }
   };
 
+  const PINATA_API_KEY = "71104b4fafb0e1ceff45"; // Replace with your Pinata API Key
+  const PINATA_SECRET_KEY =
+    "6ca7cdaf040946de76a5b6e258c3d95c53b9d778955eea85c31c5f48ca5d98e2"; // Replace with your Pinata Secret Key
+  const PINATA_API_URL = "https://api.pinata.cloud/pinning/pinFileToIPFS";
+
   const handleCreateCollection = async () => {
     // Validation
-    if (!contractAddress || !contractName || !category || !price || !supply || !royalty || !sendImage) {
+    if (
+      !contractAddress ||
+      !contractName ||
+      !category ||
+      !price ||
+      !supply ||
+      !sendImage
+    ) {
       setValidationError("All fields are required.");
       return;
     }
-    
+
     if (!window.ethereum) {
-      alert("MetaMask is not installed!");
+      toast.error("MetaMask is not installed!");
       return;
     }
-    
-   
+    // if (royalty > 10) {
+    //   toast.error("royalty cannot be greater than 10!");
+    //   return;
+    // }
+
     try {
       setIsLoading(true);
+
+      // Upload image to Pinata
+      const imageURI = await uploadImageToPinata(sendImage); // sendImage is the image file selected by the user
+
+      if (!imageURI) {
+        toast.error("Failed to upload image to Pinata.");
+        return;
+      }
+      const metadata = {
+        name: contractName,
+        description: contractSymbol,
+        image: imageURI, // The IPFS URL of the uploaded image
+        attributes: [
+          { trait_type: "Category", value: category },
+          { trait_type: "Supply", value: supply },
+        ],
+      };
+
+      const metadataURI = await uploadMetadataToPinata(metadata);
+      if (!metadataURI) {
+        toast.error("Failed to upload metadata to Pinata.");
+        return;
+      }
+      // Interact with Ethereum blockchain
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       await provider.send("eth_requestAccounts", []);
       const signer = provider.getSigner();
       const signerAddress = await signer.getAddress(); // Get the signer wallet address
 
-      console.log(signerAddress,category,"signerAddress")
-      const contractABI =[
-        {
-          anonymous: false,
-          inputs: [
-            {
-              indexed: true,
-              internalType: "address",
-              name: "account",
-              type: "address",
-            },
-            {
-              indexed: true,
-              internalType: "address",
-              name: "operator",
-              type: "address",
-            },
-            {
-              indexed: false,
-              internalType: "bool",
-              name: "approved",
-              type: "bool",
-            },
-          ],
-          name: "ApprovalForAll",
-          type: "event",
-        },
-        {
-          anonymous: false,
-          inputs: [
-            {
-              indexed: false,
-              internalType: "uint8",
-              name: "version",
-              type: "uint8",
-            },
-          ],
-          name: "Initialized",
-          type: "event",
-        },
-        {
-          anonymous: false,
-          inputs: [
-            {
-              indexed: true,
-              internalType: "uint256",
-              name: "tokenId",
-              type: "uint256",
-            },
-            {
-              indexed: true,
-              internalType: "address",
-              name: "creator",
-              type: "address",
-            },
-            {
-              indexed: false,
-              internalType: "uint256",
-              name: "maxSupply",
-              type: "uint256",
-            },
-            {
-              indexed: false,
-              internalType: "uint256",
-              name: "price",
-              type: "uint256",
-            },
-          ],
-          name: "NFTCreated",
-          type: "event",
-        },
-        {
-          anonymous: false,
-          inputs: [
-            {
-              indexed: true,
-              internalType: "uint256",
-              name: "tokenId",
-              type: "uint256",
-            },
-            {
-              indexed: true,
-              internalType: "address",
-              name: "buyer",
-              type: "address",
-            },
-            {
-              indexed: false,
-              internalType: "uint256",
-              name: "quantity",
-              type: "uint256",
-            },
-          ],
-          name: "NFTMinted",
-          type: "event",
-        },
-        {
-          anonymous: false,
-          inputs: [
-            {
-              indexed: true,
-              internalType: "address",
-              name: "previousOwner",
-              type: "address",
-            },
-            {
-              indexed: true,
-              internalType: "address",
-              name: "newOwner",
-              type: "address",
-            },
-          ],
-          name: "OwnershipTransferred",
-          type: "event",
-        },
-        {
-          anonymous: false,
-          inputs: [
-            {
-              indexed: false,
-              internalType: "uint256",
-              name: "newStartTime",
-              type: "uint256",
-            },
-          ],
-          name: "StartTimeUpdated",
-          type: "event",
-        },
-        {
-          anonymous: false,
-          inputs: [
-            {
-              indexed: true,
-              internalType: "address",
-              name: "operator",
-              type: "address",
-            },
-            {
-              indexed: true,
-              internalType: "address",
-              name: "from",
-              type: "address",
-            },
-            {
-              indexed: true,
-              internalType: "address",
-              name: "to",
-              type: "address",
-            },
-            {
-              indexed: false,
-              internalType: "uint256[]",
-              name: "ids",
-              type: "uint256[]",
-            },
-            {
-              indexed: false,
-              internalType: "uint256[]",
-              name: "values",
-              type: "uint256[]",
-            },
-          ],
-          name: "TransferBatch",
-          type: "event",
-        },
-        {
-          anonymous: false,
-          inputs: [
-            {
-              indexed: true,
-              internalType: "address",
-              name: "operator",
-              type: "address",
-            },
-            {
-              indexed: true,
-              internalType: "address",
-              name: "from",
-              type: "address",
-            },
-            {
-              indexed: true,
-              internalType: "address",
-              name: "to",
-              type: "address",
-            },
-            {
-              indexed: false,
-              internalType: "uint256",
-              name: "id",
-              type: "uint256",
-            },
-            {
-              indexed: false,
-              internalType: "uint256",
-              name: "value",
-              type: "uint256",
-            },
-          ],
-          name: "TransferSingle",
-          type: "event",
-        },
-        {
-          anonymous: false,
-          inputs: [
-            {
-              indexed: false,
-              internalType: "string",
-              name: "value",
-              type: "string",
-            },
-            {
-              indexed: true,
-              internalType: "uint256",
-              name: "id",
-              type: "uint256",
-            },
-          ],
-          name: "URI",
-          type: "event",
-        },
-        {
-          inputs: [
-            { internalType: "address", name: "account", type: "address" },
-            { internalType: "uint256", name: "id", type: "uint256" },
-          ],
-          name: "balanceOf",
-          outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [
-            { internalType: "address[]", name: "accounts", type: "address[]" },
-            { internalType: "uint256[]", name: "ids", type: "uint256[]" },
-          ],
-          name: "balanceOfBatch",
-          outputs: [{ internalType: "uint256[]", name: "", type: "uint256[]" }],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [
-            { internalType: "string", name: "_tokenURI", type: "string" },
-            { internalType: "uint256", name: "maxSupply", type: "uint256" },
-            { internalType: "uint256", name: "price", type: "uint256" },
-            {
-              internalType: "uint256",
-              name: "royaltyPercentage",
-              type: "uint256",
-            },
-          ],
-          name: "createNFT",
-          outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "description",
-          outputs: [{ internalType: "string", name: "", type: "string" }],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [
-            { internalType: "string", name: "_name", type: "string" },
-            { internalType: "string", name: "_description", type: "string" },
-            { internalType: "address", name: "_owner", type: "address" },
-            { internalType: "address", name: "_marketplace", type: "address" },
-          ],
-          name: "initialize",
-          outputs: [],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
-        {
-          inputs: [
-            { internalType: "string", name: "_name", type: "string" },
-            { internalType: "string", name: "_description", type: "string" },
-            { internalType: "address", name: "_owner", type: "address" },
-            { internalType: "address", name: "_marketplace", type: "address" },
-            { internalType: "uint256", name: "_startTime", type: "uint256" },
-          ],
-          name: "initialize",
-          outputs: [],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
-        {
-          inputs: [
-            { internalType: "address", name: "account", type: "address" },
-            { internalType: "address", name: "operator", type: "address" },
-          ],
-          name: "isApprovedForAll",
-          outputs: [{ internalType: "bool", name: "", type: "bool" }],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "marketplace",
-          outputs: [{ internalType: "address", name: "", type: "address" }],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [
-            { internalType: "uint256", name: "tokenId", type: "uint256" },
-            { internalType: "uint256", name: "quantity", type: "uint256" },
-          ],
-          name: "mintNFT",
-          outputs: [],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "name",
-          outputs: [{ internalType: "string", name: "", type: "string" }],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [
-            { internalType: "uint256", name: "tokenId", type: "uint256" },
-          ],
-          name: "nftDetails",
-          outputs: [
-            {
-              components: [
-                { internalType: "string", name: "uri", type: "string" },
-                { internalType: "uint256", name: "maxSupply", type: "uint256" },
-                {
-                  internalType: "uint256",
-                  name: "currentSupply",
-                  type: "uint256",
-                },
-                { internalType: "address", name: "creator", type: "address" },
-                { internalType: "uint256", name: "price", type: "uint256" },
-                {
-                  internalType: "uint256",
-                  name: "royaltyPercentage",
-                  type: "uint256",
-                },
-              ],
-              internalType: "struct ICollection.NFTDetails",
-              name: "",
-              type: "tuple",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "owner",
-          outputs: [{ internalType: "address", name: "", type: "address" }],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "renounceOwnership",
-          outputs: [],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
-        {
-          inputs: [
-            { internalType: "address", name: "from", type: "address" },
-            { internalType: "address", name: "to", type: "address" },
-            { internalType: "uint256[]", name: "ids", type: "uint256[]" },
-            { internalType: "uint256[]", name: "amounts", type: "uint256[]" },
-            { internalType: "bytes", name: "data", type: "bytes" },
-          ],
-          name: "safeBatchTransferFrom",
-          outputs: [],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
-        {
-          inputs: [
-            { internalType: "address", name: "from", type: "address" },
-            { internalType: "address", name: "to", type: "address" },
-            { internalType: "uint256", name: "id", type: "uint256" },
-            { internalType: "uint256", name: "amount", type: "uint256" },
-            { internalType: "bytes", name: "data", type: "bytes" },
-          ],
-          name: "safeTransferFrom",
-          outputs: [],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
-        {
-          inputs: [
-            { internalType: "address", name: "operator", type: "address" },
-            { internalType: "bool", name: "approved", type: "bool" },
-          ],
-          name: "setApprovalForAll",
-          outputs: [],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
-        {
-          inputs: [
-            { internalType: "uint256", name: "_startTime", type: "uint256" },
-          ],
-          name: "setStartTime",
-          outputs: [],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "startTime",
-          outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [
-            { internalType: "bytes4", name: "interfaceId", type: "bytes4" },
-          ],
-          name: "supportsInterface",
-          outputs: [{ internalType: "bool", name: "", type: "bool" }],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [
-            { internalType: "address", name: "newOwner", type: "address" },
-          ],
-          name: "transferOwnership",
-          outputs: [],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
-        {
-          inputs: [
-            { internalType: "uint256", name: "tokenId", type: "uint256" },
-          ],
-          name: "uri",
-          outputs: [{ internalType: "string", name: "", type: "string" }],
-          stateMutability: "view",
-          type: "function",
-        },
-      ];
-      const contract = new ethers.Contract(contractAddress, contractABI, signer);
+      const contractABI = nftDrop_Abi;
+      const contract = new ethers.Contract(
+        contractAddress,
+        contractABI,
+        signer
+      );
+
       const tx = await contract.createNFT(
-        "img1", // Replace with actual image URI
-        supply,
-        price * (10 ** 3), // Price (scaling if needed)
-        royalty * 10 // Royalties (scaling if needed)
+        metadata.name,
+        metadata.description,
+        metadataURI,
+        supply
       );
 
       console.log("Transaction sent:", tx.hash);
@@ -535,49 +146,90 @@ const NFTCreationForm = () => {
       if (nftCreatedEvent) {
         const newId = nftCreatedEvent.args.tokenId.toString();
         console.log("New Token ID:", newId);
-        // alert("NFT created successfully!");
 
         // Call the API to store the collection
-
-        await handleApiCall(newId, contractAddress,tx.hash, signerAddress);
+        await handleApiCall(newId, contractAddress, tx.hash);
       } else {
         console.error("NFTCreated event not found in receipt.");
-        alert("NFT created, but failed to retrieve token ID.");
+        toast.error("NFT created, but failed to retrieve token ID.");
       }
     } catch (error) {
       console.error("Error:", error);
-      alert(`Error: ${error.message}`);
+      toast.error(`Error: ${error.message}`);
     } finally {
       setIsLoading(false);
     }
   };
 
-  const handleApiCall = async (tokenId, contractAddress,hash, signer) => {
+  // Function to upload the image to Pinata
+  const uploadImageToPinata = async (imageFile) => {
+    const formData = new FormData();
+    formData.append("file", imageFile);
+
+    const headers = {
+      pinata_api_key: PINATA_API_KEY,
+      pinata_secret_api_key: PINATA_SECRET_KEY,
+    };
+
+    try {
+      const response = await axios.post(PINATA_API_URL, formData, { headers });
+      const imageURI = `https://gateway.pinata.cloud/ipfs/${response.data.IpfsHash}`;
+      console.log("Image uploaded to Pinata. URI:", imageURI);
+      return imageURI;
+    } catch (error) {
+      console.error("Error uploading image to Pinata:", error);
+      return null;
+    }
+  };
+
+  // Function to upload metadata to Pinata
+  const uploadMetadataToPinata = async (metadata) => {
+    const formData = new FormData();
+    const metadataBlob = new Blob([JSON.stringify(metadata)], {
+      type: "application/json",
+    });
+    formData.append("file", metadataBlob, "metadata.json");
+
+    const headers = {
+      pinata_api_key: PINATA_API_KEY,
+      pinata_secret_api_key: PINATA_SECRET_KEY,
+    };
+
+    try {
+      const response = await axios.post(PINATA_API_URL, formData, { headers });
+      const metadataURI = `https://gateway.pinata.cloud/ipfs/${response.data.IpfsHash}`;
+      console.log("Metadata uploaded to Pinata. URI:", metadataURI);
+      return metadataURI;
+    } catch (error) {
+      console.error("Error uploading metadata to Pinata:", error);
+      return null;
+    }
+  };
+  const handleApiCall = async (tokenId, contractAddress, hash) => {
     //debugger
     const formData = new FormData();
     formData.append("nftImg", sendImage);
     formData.append("name", contractName);
-    formData.append("contractAddress", "csdhjsad");
-    formData.append("transactionHash", "dcjhsdghkds");
+    formData.append("contractAddress", contractAddress);
+    formData.append("transactionHash", hash);
     formData.append("description", contractSymbol);
-    formData.append("category", category);
-    formData.append("royalty[percentage]", royalty);
-    formData.append("royalty[recipient]", 'hjsdsgysd'); // Send the signer address
-    formData.append("tokenId", 2);
+    formData.append("categoryId", categoryId);
+    formData.append("collectionId", collectionid);
+
+    // formData.append("royalty[percentage]", royalty);
+    // formData.append("royalty[recipient]", signer); // Send the signer address
+    formData.append("tokenId", tokenId);
     formData.append("quantity", supply);
     const token = localStorage.getItem("walletToken");
 
     try {
-      const response = await fetch(
-        "http://localhost:5000/api/nft/create",
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          body: formData,
-        }
-      );
+      const response = await fetch("https://nywnftbackend-production.up.railway.app/api/nft/create", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
+      });
 
       if (!response.ok) {
         const errorText = await response.text();
@@ -587,10 +239,10 @@ const NFTCreationForm = () => {
 
       const data = await response.json();
       console.log("Collection created successfully:", data);
-      alert("Contract created successfully!");
+      toast.success("Contract created successfully!");
     } catch (error) {
       console.error("Error creating contract:", error);
-      alert("An error occurred while creating the contract.");
+      toast.error("An error occurred while creating the contract.");
     }
   };
 
@@ -619,7 +271,7 @@ const NFTCreationForm = () => {
           </p>
           <input
             type="file"
-            accept="image/png, image/jpeg, image/webp, video/mp4, audio/mp3"
+            accept="image/png, image/jpeg, image/webp , image/jpg"
             onChange={handleImageChange}
             className="hidden"
             id="file-upload"
@@ -644,13 +296,16 @@ const NFTCreationForm = () => {
                 className="w-full p-4 border rounded-md text-black flex justify-between items-center"
                 onClick={() => setIsOpen(!isOpen)}
               >
-               {!collectinName?"Collection":collectinName }  
+                {!collectinName ? "Collection" : collectinName}
                 <span>{isOpen ? <SlArrowUp /> : <SlArrowDown />}</span>
               </button>
               {isOpen && (
                 <div className="absolute w-full bg-gray-800 text-white border border-gray-700 rounded-md mt-2">
                   <Link to="/drop?type=collection">
-                    <button className="w-full text-left p-4 hover:bg-blue-500 flex justify-between items-center border-b-[1px]" onClick={() => setIsOpen(false)}>
+                    <button
+                      className="w-full text-left p-4 hover:bg-blue-500 flex justify-between items-center border-b-[1px]"
+                      onClick={() => setIsOpen(false)}
+                    >
                       + Create a new collection
                     </button>
                   </Link>
@@ -659,7 +314,10 @@ const NFTCreationForm = () => {
                       key={item._id}
                       className="w-full text-left p-4 hover:bg-blue-500 flex justify-between items-center border-b-[1px]"
                       onClick={() => {
-                        setCollectionName(item.collectionName)
+                        console.log(item.collectionId);
+                        setColletionId(item.collectionId);
+                        setCollectionName(item.collectionName);
+
                         setContractAddress(item.contractAddress);
                         setIsOpen(false); // Close the dropdown after selection
                       }}
@@ -690,10 +348,17 @@ const NFTCreationForm = () => {
           <select
             className="w-full p-2 border rounded-md"
             value={category} // Set default value to the selected category
-            onChange={(e) => setCategory(e.target.value)}
+            onChange={(e) => {
+              const selectedCategory = categories.find(
+                (cat) => cat.categoryId === parseInt(e.target.value)
+              );
+              setCategory(selectedCategory?.name); // Set category name
+              setCategoryId(selectedCategory?.categoryId); // Set categoryId
+            }}
           >
+            {console.log(categories)}
             {categories.map((category) => (
-              <option key={category._id} value={category.name.toLowerCase()}>
+              <option key={category._id} value={category.categoryId}>
                 {category.name}
               </option>
             ))}
@@ -711,20 +376,21 @@ const NFTCreationForm = () => {
             className="w-full p-2 border rounded-md"
             onChange={(e) => setSupply(e.target.value)}
           />
-          <input
+          {/* <input
             type="text"
             placeholder="Royalties (e.g., 10%)"
             className="w-full p-2 border rounded-md"
             onChange={(e) => setRoyalty(e.target.value)}
-          />
+          /> */}
 
           <button
-            className={`w-full ${isLoading ? "bg-gray-500" : "bg-blue-900"} text-white py-3 rounded-md hover:bg-blue-800`}
-            onClick={handleApiCall}
-            // disabled={isLoading}
+            className={`w-full ${
+              isLoading ? "bg-gray-500" : "bg-blue-900"
+            } text-white py-3 rounded-md hover:bg-blue-800`}
+            onClick={handleCreateCollection}
+            disabled={isLoading}
           >
-            {/* {isLoading ? "Creating..." : "Create NFT"} */}
-            Calll
+            {isLoading ? "Creating..." : "Create NFT"}
           </button>
         </div>
       </div>
@@ -733,4 +399,3 @@ const NFTCreationForm = () => {
 };
 
 export default NFTCreationForm;
-

@@ -1,6 +1,6 @@
-import React from 'react';
 import { Heart, ShoppingCart } from 'lucide-react';
-
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 const NFTCard = ({ image, title, price }) => {
   return (
     <div className="bg-white rounded-xl shadow-sm overflow-hidden w-full">
@@ -77,17 +77,76 @@ const NFTCollection = () => {
       price: "1.2"
     }
   ];
+  const [collections, setCollections] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
+  useEffect(() => {
+    const fetchCollections = async () => {
+      try {
+        console.log("Fetching data from API...");
+        const response = await fetch("https://nywnftbackend-production.up.railway.app/api/nft/get");
+
+        if (!response.ok) {
+          throw new Error(`API request failed with status: ${response.status}`);
+        }
+
+        const result = await response.json();
+        console.log("API Response Data:", result);
+
+        if (result?.status === true && Array.isArray(result.data)) {
+          console.log(`Found ${result.data.length} collections`);
+          setCollections(result.data);
+        } else {
+          console.warn("API did not return expected data format:", result);
+          setError("Invalid data format received from API");
+          setCollections([]);
+        }
+      } catch (error) {
+        console.error("Error fetching collections:", error);
+        setError(`Failed to fetch collections: ${error.message}`);
+        setCollections([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCollections();
+  }, []);
+
+  // Loading state
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen w-screen">
+        <p className="text-xl font-semibold">Loading collections...</p>
+      </div>
+    );
+  }
+
+  // Error state
+  if (error) {
+    return (
+      <div className="flex flex-col justify-center items-center min-h-screen w-screen">
+        <p className="text-xl font-semibold text-red-600">Error: {error}</p>
+        <button
+          className="px-4 py-2 bg-blue-600 text-white rounded-lg mt-4"
+          onClick={() => window.location.reload()}
+        >
+          Retry
+        </button>
+      </div>
+    );
+  }
   return (
     <div className="max-w-6xl mx-auto p-4">
       <h2 className="text-xl font-semibold mb-4">More from this collection</h2>
       
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {nfts.map((nft) => (
+        {collections.map((nft) => (
           <NFTCard
             key={nft.id}
-            image={nft.image}
-            title={nft.title}
+            image={nft.imageUrl}
+            title={nft.collectionName}
             price={nft.price}
           />
         ))}
