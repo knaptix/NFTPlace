@@ -1,8 +1,9 @@
 import { ArrowLeft } from "lucide-react";
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { ethers } from "ethers";
 import { NftFactory, NftFactory_Abi } from "../../services/config";
+import { toast } from "react-hot-toast";
 
 const SmartContractForm = () => {
   const [contractName, setContractName] = useState("");
@@ -14,17 +15,17 @@ const SmartContractForm = () => {
   const [error, setError] = useState("");
   const [startTime, setStartTime] = useState(""); // New state for start time
   const [isLoading, setIsLoading] = useState(false); // State to track loading status
-
+  const navigate = useNavigate();
   const location = useLocation(); // This gives you the current location (URL)
   const queryParams = new URLSearchParams(location.search);
   const type = queryParams.get("type"); // This will give you 'collection' from 'type=collection'
-  const contractAddress = NftFactory;                                        
+  const contractAddress = NftFactory;
   const contractABI = NftFactory_Abi;
 
   const handleCreateCollection = async () => {
     console.log("call:::");
     if (!window.ethereum) {
-      alert("MetaMask is not installed!");
+      toast.success("MetaMask is not installed!");
       return;
     }
 
@@ -46,12 +47,13 @@ const SmartContractForm = () => {
 
       // Convert startTime to Unix timestamp
       const startTimeUnix = new Date(startTime).getTime();
+      const currentTime = new Date().getTime();
 
       const tx = await contract.createCollection(
         contractName,
         contractSymbol,
-        type === "collection" ? true : false,
-        type === "collection" ? 0: startTimeUnix 
+        type === "collection" ? false : true,
+        type === "collection" ? 0 : startTimeUnix
       );
 
       console.log("Transaction sent:", tx.hash);
@@ -68,25 +70,39 @@ const SmartContractForm = () => {
       if (collectionCreatedEvent) {
         const newContractAddress = collectionCreatedEvent.args.collection;
         console.log("New contract address:", newContractAddress);
-        handleApiCall(tx.hash, newContractAddress);
+      await handleApiCall(tx.hash, newContractAddress);
 
-        // alert("Collection created successfully!");
+        // toast.success("Collection created successfully!");
       } else {
         console.error("CollectionCreated event not found in receipt.");
-        alert("Collection created, but failed to retrieve contract address.");
+        toast.error(
+          "Collection created, but failed to retrieve contract address."
+        );
       }
     } catch (error) {
       console.error("Error:", error);
-      alert(`Error: ${error.message}`);
+     // toast.error(`Error: ${error.message}`);
     } finally {
       // Set loading to false when the process is done
       setIsLoading(false);
     }
   };
 
+
+
   const handleImageChange = (e) => {
     const file = e.target.files[0];
+  
+    // Check if file is provided and it's an image (jpg, jpeg, png)
     if (file) {
+      const fileType = file.type;
+      const validTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+  
+      if (!validTypes.includes(fileType)) {
+        toast.error('Only JPG, JPEG, and PNG image files are allowed!');
+        return; // Return early to prevent setting invalid file
+      }
+  
       setSendImage(file);
       const reader = new FileReader();
       reader.onloadend = () => {
@@ -95,21 +111,30 @@ const SmartContractForm = () => {
       reader.readAsDataURL(file);
     }
   };
-
+  
   const handleSubmit = (e) => {
     // Validate required fields
-    if (!contractName || !contractSymbol || !blockchain || !startTime) {
+    if (!contractName || !contractSymbol || !blockchain) {
       setError("All fields are required.");
       return;
     }
+  
+    // If type is not "collection", check for startTime
+    if (type !== "collection" && !startTime) {
+      setError("Start time is required.");
+      return;
+    }
+  
+    // If no image is selected, show an error
     if (!selectedImage) {
       setError("Please upload an image.");
       return;
     }
-
+  
     // Call handleCreateCollection to deploy the contract
     handleCreateCollection();
   };
+  
 
   const handleApiCall = async (hash, contract) => {
     // Prepare FormData to handle both image and text fields
@@ -145,10 +170,11 @@ const SmartContractForm = () => {
 
       const data = await response.json(); // Parse the JSON response
       console.log("Collection created successfully:", data);
-      alert("Contract created successfully!");
+      toast.success("Collection created successfully!");
+      navigate("/create");
     } catch (error) {
       console.error("Error creating contract:", error);
-      alert("An error occurred while creating the contract.");
+      toast.error("An error occurred while creating the contract.");
     }
   };
 
@@ -265,17 +291,22 @@ const SmartContractForm = () => {
           </div>
 
           {/* Start Time Selection */}
-          <div className="mb-8">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Select Start Time
-            </label>
-            <input
-              type="datetime-local"
-              value={startTime}
-              onChange={(e) => setStartTime(e.target.value)}
-              className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            />
-          </div>
+
+          {type !== "collection" ? (
+            <div className="mb-8">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Select Start Time
+              </label>
+              <input
+                type="datetime-local"
+                value={startTime}
+                onChange={(e) => setStartTime(e.target.value)}
+                className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+            </div>
+          ) : (
+            ""
+          )}
 
           {/* Submit Button */}
           <div className="text-center">

@@ -53,7 +53,9 @@ const ProfilePage = () => {
         <div
           className="h-[250px] sm:h-[400px] bg-gradient-to-r from-green-800 to-green-900 relative overflow-hidden w-full rounded-3xl"
           style={{
-            backgroundImage: `url('https://res.cloudinary.com/dhuckmxa1/image/upload/v1741718337/zs62mc46og5vqx8vqcqd.png')`, // Profile Banner Image
+            backgroundImage: `url(${data?.profileBanner || "https://res.cloudinary.com/dhuckmxa1/image/upload/v1741718336/lxxctiugojhisrbioj5e.png"})`,
+
+            // backgroundImage: `url('https://res.cloudinary.com/dhuckmxa1/image/upload/v1741718337/zs62mc46og5vqx8vqcqd.png')`, // Profile Banner Image
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}

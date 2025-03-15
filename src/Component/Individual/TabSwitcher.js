@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from 'recharts';
 
-const Overview = () => (
+const Overview = ({description}) => (
     <div className="w-full p-4  bg-white shadow-sm">
       <div className="mb-6  ">
         <h2 className="text-lg font-semibold mb-2">Description</h2>
         <p className="text-gray-600 text-[24px] border rounded-lg pt-5 px-5 pr-10 py-5 ">
-        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text <br/> ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not <br/> only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the  <br/>release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker <br/> including versions of Lorem Ipsum.
+          {description}
         </p>
       </div>
   
-      <div className="mb-10 pb-6  ">
+      {/* <div className="mb-10 pb-6  ">
       
         <h2 className="text-lg font-semibold mb-4">Traits</h2>
         <div className="space-y-2 border rounded-xl">
@@ -29,7 +29,7 @@ const Overview = () => (
         </div>
         
           
-      </div>
+      </div> */}
   
       <div>
         <h2 className="text-lg font-semibold mb-3">Details</h2>
@@ -54,10 +54,10 @@ const Overview = () => (
             <span className="text-gray-600">Last Updated</span>
             <span>9 hours ago</span>
           </div>
-          <div className="flex justify-between">
+          {/* <div className="flex justify-between">
             <span className="text-gray-600">Creators Royalties</span>
             <span>5%</span>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
@@ -191,7 +191,8 @@ const Activity = () => {
   );
 };
 
-const TabSwitchers = () => {
+const TabSwitchers = ({description}) => {
+  console.log(description,"description")
   const [activeTab, setActiveTab] = useState('overview');
 
   return (
@@ -220,7 +221,7 @@ const TabSwitchers = () => {
           </button>
         </div>
       </div>
-      {activeTab === 'overview' ? <Overview /> : <Activity />}
+      {activeTab === 'overview' ? <Overview description={description}/> : <Activity />}
     </div>
   );
 };
