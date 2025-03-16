@@ -20,10 +20,10 @@ const NFTTab = React.memo(() => {
   };
 
   return (
-    <div className="mx-4 mt-6 md:mx-8 lg:mx-16">
+    <div className="mx-6 mt-6  justify-center md:mx-8 lg:mx-16">
       {/* Tab Navigation */}
       <div className="border-b border-gray-200 mb-4 overflow-x-auto">
-        <div className="flex gap-6 md:gap-8 whitespace-nowrap overflow-x-auto scrollbar-hide">
+        <div className="flex gap-4 md:gap-8 whitespace-nowrap overflow-x-auto scrollbar-hide justify-center sm:justify-start">
           {[
             { id: 'NFTs', label: 'NFTs' },
             { id: 'Collections', label: 'Collections' },
@@ -32,10 +32,10 @@ const NFTTab = React.memo(() => {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`pb-3 text-lg md:text-2xl font-bold ${
+              className={`px-4 py-2 text-sm sm:text-lg md:text-2xl font-bold transition-all duration-200 ${
                 activeTab === tab.id
                   ? 'text-black border-b-2 border-black'
-                  : 'text-gray-500'
+                  : 'text-gray-500 hover:text-black'
               }`}
             >
               {tab.label}
@@ -43,9 +43,11 @@ const NFTTab = React.memo(() => {
           ))}
         </div>
       </div>
-      
+
       {/* Tab Content */}
-      <div className="p-4 sm:p-6 bg-white rounded-lg shadow-md">{renderTabContent()}</div>
+      <div className="p-4 sm:p-6 bg-white rounded-lg shadow-md min-h-[300px]">
+        {renderTabContent()}
+      </div>
     </div>
   );
 });

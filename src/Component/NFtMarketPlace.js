@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
@@ -14,14 +13,14 @@ const NFTMarketplace = () => {
         const response = await fetch("https://nywnftbackend-1.onrender.com/api/nft/get");
 
         if (!response.ok) {
-          throw new Error(`API request failed with status: ${response.status}`);
+          throw new Error(API request failed with status: ${response.status});
         }
 
         const result = await response.json();
         console.log("API Response Data:", result);
 
         if (result?.status === true && Array.isArray(result.data)) {
-          console.log(`Found ${result.data.length} collections`);
+          console.log(Found ${result.data.length} collections);
           setCollections(result.data);
         } else {
           console.warn("API did not return expected data format:", result);
@@ -30,7 +29,7 @@ const NFTMarketplace = () => {
         }
       } catch (error) {
         console.error("Error fetching collections:", error);
-        setError(`Failed to fetch collections: ${error.message}`);
+        setError(Failed to fetch collections: ${error.message});
         setCollections([]);
       } finally {
         setLoading(false);
@@ -101,13 +100,13 @@ const NFTMarketplace = () => {
 
               {/* Conditional Rendering */}
               {collection.onSale ? (
-                <Link to={`/buy/id=${collection.tokenId}&contract=${collection.contractAddress}`}>
+                <Link to={/buy/id=${collection.tokenId}&contract=${collection.contractAddress}}>
                   <button className="w-full mt-3 py-2 bg-blue-600 text-white font-medium hover:bg-blue-700 transition-all rounded">
                     Buy
                   </button>
                 </Link>
               ) : (
-                // <Link to={`/details/${collection.tokenId}`}>
+                // <Link to={/details/${collection.tokenId}}>
                   <button className="w-full mt-3 py-2 bg-gray-400 text-white font-medium hover:bg-gray-500 transition-all rounded">
                   Not List
                   </button>
@@ -128,6 +127,4 @@ const NFTMarketplace = () => {
   );
 };
 
-export default NFTMarketplace;
-
-
+export default NFTMarketplace;

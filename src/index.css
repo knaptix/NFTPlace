@@ -3,3 +3,7 @@
 @tailwind utilities;
 
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap');
+html, body { /* Dark background & white text */
+    font-family: 'Overpass', sans-serif;
+  }
+  

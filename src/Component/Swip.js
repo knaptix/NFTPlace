@@ -1,20 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 
 const Swip = () => {
-  // const nfts = [
-  //   { id: 1, creator: "Felly Sweets", image: "https://cdn.prod.website-files.com/6615636a03a6003b067c36dd/661ffd0dbe9673d914edca2d_6423fc9ca8b5e94da1681a70_Screenshot%25202023-03-29%2520at%252010.53.43.jpeg", verified: true },
-  //   { id: 2, creator: "Felly Sweets", image: "https://cdn.prod.website-files.com/6615636a03a6003b067c36dd/661ffd0dbe9673d914edca2d_6423fc9ca8b5e94da1681a70_Screenshot%25202023-03-29%2520at%252010.53.43.jpeg", verified: true },
-  //   { id: 3, creator: "Felly Sweets", image: "https://cdn.prod.website-files.com/6615636a03a6003b067c36dd/661ffd0dbe9673d914edca2d_6423fc9ca8b5e94da1681a70_Screenshot%25202023-03-29%2520at%252010.53.43.jpeg", verified: true },
-  //   { id: 4, creator: "Felly Sweets", image: "https://cdn.prod.website-files.com/6615636a03a6003b067c36dd/661ffd0dbe9673d914edca2d_6423fc9ca8b5e94da1681a70_Screenshot%25202023-03-29%2520at%252010.53.43.jpeg", verified: true },
-  //   { id: 5, creator: "Felly Sweets", image: "https://cdn.prod.website-files.com/6615636a03a6003b067c36dd/661ffd0dbe9673d914edca2d_6423fc9ca8b5e94da1681a70_Screenshot%25202023-03-29%2520at%252010.53.43.jpeg", verified: true },
-  //   { id: 6, creator: "Felly Sweets", image: "https://cdn.prod.website-files.com/6615636a03a6003b067c36dd/661ffd0dbe9673d914edca2d_6423fc9ca8b5e94da1681a70_Screenshot%25202023-03-29%2520at%252010.53.43.jpeg", verified: true },
-  // ];
-const [collections, setCollections] = useState([]);
+  const [collections, setCollections] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -79,22 +70,22 @@ const [collections, setCollections] = useState([]);
 
   return (
     <div className="w-full py-10 bg-gray-50">
-      <div className="max-w-8xl mx-auto px-3">
-        <h2 className="text-3xl sm:text-4xl font-bold mb-8 text-center">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-8 text-center">
           Explore Trending NFTs
         </h2>
 
-        {/* Swiper with Larger Cards */}
+        {/* Swiper - Centered and Responsive */}
         <Swiper
           modules={[Autoplay, Pagination]}
           spaceBetween={15}
-
-          slidesPerView={1.2} // Default for mobile
+          slidesPerView={1} // Ensures centering on small screens
+          centeredSlides={true}
           breakpoints={{
-            480: { slidesPerView: 2 },   // Small phones
-            640: { slidesPerView: 3 },   // Tablets
-            1024: { slidesPerView: 4 },  // Laptops
-            1280: { slidesPerView: 3 },  // Large screens
+            480: { slidesPerView: 1.2, centeredSlides: true },
+            640: { slidesPerView: 2, centeredSlides: false },
+            1024: { slidesPerView: 3, centeredSlides: false },
+            1280: { slidesPerView: 4, centeredSlides: false },
           }}
           autoplay={{
             delay: 2500,
@@ -104,17 +95,18 @@ const [collections, setCollections] = useState([]);
           loop={true}
           className="relative w-full"
         >
-             {collections.map((collection,index) => (
-
+          {collections.map((collection, index) => (
             <SwiperSlide key={index} className="w-auto mt-6">
-              <div className="rounded-3xl overflow-hidden aspect-square relative shadow-lg max-w-[320px] sm:max-w-[350px] md:max-w-[400px] mx-auto">
+              <div className="rounded-2xl overflow-hidden aspect-[3/4] relative shadow-lg mx-auto max-w-[280px] sm:max-w-[320px] md:max-w-[380px]">
                 <img
                   src={collection.imageUrl}
                   alt={collection.name}
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 to-transparent">
-                  <span className="text-white text-lg font-semibold">{collection.name}</span>
+                <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/70 to-transparent">
+                  <span className="text-white text-base sm:text-lg font-semibold">
+                    {collection.name}
+                  </span>
                 </div>
               </div>
             </SwiperSlide>
