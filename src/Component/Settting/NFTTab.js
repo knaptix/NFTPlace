@@ -45,7 +45,7 @@ const NFTTab = React.memo(() => {
       </div>
 
       {/* Tab Content */}
-      <div className="p-4 sm:p-6 bg-white rounded-lg shadow-md min-h-[300px]">
+      <div className="p-4 sm:p-6 bg-white rounded-lg shadow-md min-h-[400px]">
         {renderTabContent()}
       </div>
     </div>
