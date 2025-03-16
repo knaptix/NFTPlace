@@ -3,12 +3,14 @@ import { ArrowLeft, Upload } from "lucide-react";
 import { getAllCategory, getCollectionByUserID } from "../../services/api";
 import { ethers } from "ethers";
 import { SlArrowDown, SlArrowUp } from "react-icons/sl";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { nftDrop_Abi } from "../../services/config";
 import { toast } from "react-hot-toast";
 import axios from "axios";
 
 const NFTCreationForm = () => {
+  const navigate = useNavigate();
+
   const [isOpen, setIsOpen] = useState(false);
   const [collection, setCollection] = useState([]);
   const [collectionid, setColletionId] = useState();
@@ -223,7 +225,7 @@ const NFTCreationForm = () => {
     const token = localStorage.getItem("walletToken");
 
     try {
-      const response = await fetch("https://nywnftbackend-production.up.railway.app/api/nft/create", {
+      const response = await fetch("https://nywnftbackend-1.onrender.com/api/nft/create", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -238,6 +240,7 @@ const NFTCreationForm = () => {
       }
 
       const data = await response.json();
+      navigate("/profilepage");
       console.log("Collection created successfully:", data);
       toast.success("Contract created successfully!");
     } catch (error) {

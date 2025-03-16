@@ -85,7 +85,7 @@ const NFTCollection = () => {
     const fetchCollections = async () => {
       try {
         console.log("Fetching data from API...");
-        const response = await fetch("https://nywnftbackend-production.up.railway.app/api/nft/get");
+        const response = await fetch("https://nywnftbackend-1.onrender.com/api/nft/get");
 
         if (!response.ok) {
           throw new Error(`API request failed with status: ${response.status}`);

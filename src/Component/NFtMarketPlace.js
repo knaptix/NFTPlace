@@ -11,7 +11,7 @@ const NFTMarketplace = () => {
     const fetchCollections = async () => {
       try {
         console.log("Fetching data from API...");
-        const response = await fetch("https://nywnftbackend-production.up.railway.app/api/nft/get");
+        const response = await fetch("https://nywnftbackend-1.onrender.com/api/nft/get");
 
         if (!response.ok) {
           throw new Error(`API request failed with status: ${response.status}`);
@@ -101,7 +101,7 @@ const NFTMarketplace = () => {
 
               {/* Conditional Rendering */}
               {collection.onSale ? (
-                <Link to={`/buy/${collection.tokenId}`}>
+                <Link to={`/buy/id=${collection.tokenId}&contract=${collection.contractAddress}`}>
                   <button className="w-full mt-3 py-2 bg-blue-600 text-white font-medium hover:bg-blue-700 transition-all rounded">
                     Buy
                   </button>

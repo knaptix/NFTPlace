@@ -70,7 +70,7 @@ const SmartContractForm = () => {
       if (collectionCreatedEvent) {
         const newContractAddress = collectionCreatedEvent.args.collection;
         console.log("New contract address:", newContractAddress);
-      await handleApiCall(tx.hash, newContractAddress);
+        await handleApiCall(tx.hash, newContractAddress);
 
         // toast.success("Collection created successfully!");
       } else {
@@ -81,28 +81,26 @@ const SmartContractForm = () => {
       }
     } catch (error) {
       console.error("Error:", error);
-     // toast.error(`Error: ${error.message}`);
+      // toast.error(`Error: ${error.message}`);
     } finally {
       // Set loading to false when the process is done
       setIsLoading(false);
     }
   };
 
-
-
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-  
+
     // Check if file is provided and it's an image (jpg, jpeg, png)
     if (file) {
       const fileType = file.type;
-      const validTypes = ['image/jpeg', 'image/png', 'image/jpg'];
-  
+      const validTypes = ["image/jpeg", "image/png", "image/jpg"];
+
       if (!validTypes.includes(fileType)) {
-        toast.error('Only JPG, JPEG, and PNG image files are allowed!');
+        toast.error("Only JPG, JPEG, and PNG image files are allowed!");
         return; // Return early to prevent setting invalid file
       }
-  
+
       setSendImage(file);
       const reader = new FileReader();
       reader.onloadend = () => {
@@ -111,36 +109,35 @@ const SmartContractForm = () => {
       reader.readAsDataURL(file);
     }
   };
-  
+
   const handleSubmit = (e) => {
     // Validate required fields
     if (!contractName || !contractSymbol || !blockchain) {
       setError("All fields are required.");
       return;
     }
-  
+
     // If type is not "collection", check for startTime
     if (type !== "collection" && !startTime) {
       setError("Start time is required.");
       return;
     }
-  
+
     // If no image is selected, show an error
     if (!selectedImage) {
       setError("Please upload an image.");
       return;
     }
-  
+
     // Call handleCreateCollection to deploy the contract
     handleCreateCollection();
   };
-  
 
   const handleApiCall = async (hash, contract) => {
     // Prepare FormData to handle both image and text fields
     const formData = new FormData();
     formData.append("field1", sendImage);
-    formData.append("field2", sendImage);
+    const startTimeUnix = new Date(startTime).getTime();
 
     formData.append("collectionName", contractName);
     formData.append("contractAddress", contract);
@@ -148,11 +145,17 @@ const SmartContractForm = () => {
     formData.append("collectionCreationHash", hash);
     formData.append("nftStandard", "ERC-1155");
 
+    formData.append("isDrop ", type === "collection" ? false : true);
+    formData.append(
+      "createdTimestamp",
+      type === "collection" ? 0 : startTimeUnix
+    );
+
     const token = localStorage.getItem("walletToken"); // Get the wallet token from localStorage
 
     try {
       const response = await fetch(
-        "https://nywnftbackend-production.up.railway.app/api/collection/create",
+        "https://nywnftbackend-1.onrender.com/api/collection/create",
         {
           method: "POST",
           headers: {

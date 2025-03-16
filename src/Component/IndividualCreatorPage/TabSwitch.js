@@ -10,9 +10,9 @@ const TabSwitch = () => {
   const renderTabContent = () => {
     switch (activeTab) {
       case 'owned':
-        return <Owned />;
-      case 'created':
         return <Created />;
+      case 'created':
+        return  <Owned />;
       case 'onsale':
         return <OnSale />;
       case 'collections':

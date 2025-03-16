@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Heart } from 'lucide-react';
 import { getCreatedNft, getOwnedNft } from '../../services/api';
 
-const NFTCard = ({ data, onList }) => (
+const NFTCard = ({ data }) => (
   <div className="bg-white rounded-xl overflow-hidden shadow-sm border p-3">
     <div className="relative">
       <img 
@@ -24,7 +24,7 @@ const NFTCard = ({ data, onList }) => (
       <div className="mt-3">
         <span className="text-xs text-gray-500">Status</span>
         <p className="text-sm font-semibold">
-          {data.isForSale ? "Listed" : "Not Listed"}
+          {data.onSale ? "Listed" : "Not Listed"}
         </p>
       </div>
    
@@ -39,7 +39,7 @@ const Created = () => {
   useEffect(() => {
     const fetchNfts = async () => {
       try {
-        const response = await getCreatedNft();
+        const response = await getOwnedNft();
         console.log(response);
         setNftList(response?.data);
       } catch (error) {

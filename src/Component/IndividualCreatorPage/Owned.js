@@ -32,11 +32,11 @@ const NFTCard = ({ data, onList }) => (
       <div className="mt-3">
         <span className="text-xs text-gray-500">Status</span>
         <p className="text-sm font-semibold">
-          {data.isForSale ? "Listed" : "Not Listed"}
+          {data.onSale ? "Listed" : "Not Listed"}
         </p>
       </div>
       {/* Display the button only if the NFT is not listed */}
-      {!data.isForSale && (
+      {!data.onSale && (
         <button
           className="mt-3 w-full bg-blue-600 text-white py-2 rounded-md"
           onClick={() => onList(data)} // Pass the whole nft data to onList function
@@ -154,7 +154,7 @@ const ListForSaleModal = ({ nft, onClose }) => {
         if (NFTListedEvent) {
           const newId = NFTListedEvent.args.tokenId.toString();
           console.log("New Token ID:", newId);
-          toast.success("NFT List successfully!");
+//toast.success("NFT List successfully!");
 
           // Call the API to store the collection
 
@@ -183,11 +183,12 @@ const ListForSaleModal = ({ nft, onClose }) => {
       transactionHash: hash,
       quantity: quantity,
     };
+    
 
     try {
       // Make API call
       const response = await fetch(
-        "https://nywnftbackend-production.up.railway.app/api/nft/list-for-sale",
+        "https://nywnftbackend-1.onrender.com/api/nft/list-for-sale",
         {
           method: "POST",
           headers: {
@@ -209,6 +210,7 @@ const ListForSaleModal = ({ nft, onClose }) => {
       const data = await response.json();
       console.log("NFT listed successfully:", data);
       toast.success("NFT listed successfully!");
+       onClose()
     } catch (error) {
       // Handle any errors that occur during the request
       console.error("Error creating contract:", error);
@@ -251,7 +253,7 @@ const ListForSaleModal = ({ nft, onClose }) => {
               value={price}
               onChange={(e) => setPrice(e.target.value)}
             />
-            <span className="p-2 text-sm bg-gray-200">NYWFNT</span>
+            <span className="p-2 text-sm bg-gray-200">NYFT</span>
           </div>
         </div>
         <div className="mt-4">

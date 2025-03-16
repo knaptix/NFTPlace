@@ -10,7 +10,7 @@ const ExploreMusic = () => {
         const fetchCollections = async () => {
             try {
                 console.log("Fetching data from API...");
-                const response = await fetch("https://nywnftbackend-production.up.railway.app/api/collection/all");
+                const response = await fetch("https://nywnftbackend-1.onrender.com/api/collection/all");
 
                 if (!response.ok) {
                     throw new Error(`API request failed with status: ${response.status}`);
@@ -46,7 +46,7 @@ const ExploreMusic = () => {
             return "https://via.placeholder.com/150"; // Fallback image
         }
 
-        const basePath = "https://nywnftbackend-production.up.railway.app/api/image?pathName=";
+        const basePath = "https://nywnftbackend-1.onrender.com/api/image?pathName=";
         const pathName = "NFT_IMAGE_PATH_COLLECTION"; // Ensure this is the correct path
         const imageUrl = `${basePath}${pathName}&imageName=${imageName}`;
 
