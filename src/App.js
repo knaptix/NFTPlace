@@ -37,8 +37,8 @@ const App = () => {
           <Route path="/drop" element={<ProtectedRoute><SmartContractForm /></ProtectedRoute>} />
           <Route path="/create" element={<ProtectedRoute><NFTCreationForm /></ProtectedRoute>} />
           <Route path="/cart" element={<ProtectedRoute><CartSummary /></ProtectedRoute>} />
-          <Route path="/buy/:id" element={<NFTDetailPage />} />
-          <Route path="/sale" element={<NFTDetailsSale />} />
+          <Route path="/buy/:id" element={<ProtectedRoute><NFTDetailPage /></ProtectedRoute>} />
+          <Route path="/sale" element={<ProtectedRoute><NFTDetailsSale /></ProtectedRoute>} />
           <Route path="/detail" element={<NFTDetailPage />} />
           <Route path="/collection" element={<NFTCollectionPage />} />
           <Route path="/profilepage" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />

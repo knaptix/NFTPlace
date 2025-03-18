@@ -1,12 +1,17 @@
 "use client"
 
-import { Link } from "react-router-dom"
-import { useState } from "react"
-import { BsTelegram, BsTwitterX } from "react-icons/bs"
-import { MdOutlineEmail } from "react-icons/md"
+import { Link, useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { BsTelegram, BsTwitterX } from "react-icons/bs";
+import { MdOutlineEmail } from "react-icons/md";
 
 export default function Footer() {
-  const [email, setEmail] = useState("")
+  const [email, setEmail] = useState("");
+  const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
 
   return (
     <footer className="bg-gray-200 text-black">
@@ -115,18 +120,6 @@ export default function Footer() {
           </div>
         </div>
       </div>
-
-      {/* Footer bottom */}
-      <div className="border-t border-black mx-4 sm:mx-6 lg:mx-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row justify-between items-center text-center">
-          <p className="text-sm">&copy; 2024 NYWNFT. All rights reserved.</p>
-          <p className="text-sm">Wink Media</p>
-          <div className="flex space-x-6">
-            <Link to="/privacy-polices" className="text-sm hover:underline">Privacy Policy</Link>
-            <Link to="/terms-services" className="text-sm hover:underline">Terms of Service</Link>
-          </div>
-        </div>
-      </div>
     </footer>
-  )
+  );
 }
