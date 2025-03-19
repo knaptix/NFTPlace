@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const NewYorkWorldSection = () => {
   return (
@@ -24,16 +25,16 @@ const NewYorkWorldSection = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-            <a href='https://t.me/+YUAQVX-sDoM1NTdh'>
+            <Link to='https://t.me/+YUAQVX-sDoM1NTdh'>
               <button className="bg-[#1A202C] text-white text-[18px] sm:text-[20px] px-6 sm:px-8 py-3 rounded-full font-sans transition-all duration-300 hover:bg-[#374151]">
                 Join Community
               </button>
-            </a>
-            <a href='#'>
+            </Link>
+            <Link to='https://nywnft-organization.gitbook.io/nywnft/~/changes/1/getting-started/get-started'>
               <button className="bg-[#EBF2FE] text-[#1A202C] text-[18px] sm:text-[20px] px-6 sm:px-8 py-3 rounded-full font-medium border border-[#E2E8F0] transition-all duration-300 hover:bg-[#DCE6F8]">
                 Whitepaper
               </button>
-            </a>
+            </Link>
           </div>
         </div>
 
