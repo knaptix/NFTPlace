@@ -38,7 +38,6 @@ export default function AuctionCards() {
         className="flex items-center gap-2 text-2xl sm:text-3xl font-bold font-sans hover:text-gray-600 mb-8"
       >
         <ArrowLeft className="w-6 h-6 sm:w-8 sm:h-8 text-gray-800" />
-        Back
       </button>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6 mb-12">

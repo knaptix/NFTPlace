@@ -45,7 +45,7 @@ const ProfilePage = () => {
         className="flex items-center gap-2 text-2xl sm:text-4xl font-bold font-sans pt-4 pb-4 hover:text-gray-600"
       >
         <ArrowLeft className="w-8 sm:w-10 h-8 sm:h-10 text-gray-800" />
-        Back
+    
       </button>
 
       {/* Cover Image */}
