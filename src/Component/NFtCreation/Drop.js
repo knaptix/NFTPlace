@@ -190,7 +190,7 @@ const SmartContractForm = () => {
           className="flex items-center gap-2 ml-7 text-4xl font-bold font-sans pt-6 pb-4 hover:text-gray-600"
         >
           <ArrowLeft className="w-10 h-10 scale-100 text-gray-800" />
-          Back
+    
         </button>
       </div>
 

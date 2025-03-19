@@ -1,11 +1,22 @@
-import React from "react";
-import { ArrowRight } from "lucide-react"; // Import Right Arrow Icon
+import React, { useState, useEffect } from "react";
+import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const NFTCreation = () => {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % 3); // 3 images
+    }, 3000); // Change image every 3 seconds
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className="w-screen h-screen flex items-center bg-gray-100 mb-32 overflow-hidden">
       <div className="w-full h-full bg-white rounded-none md:rounded-3xl shadow-2xl grid grid-cols-1 md:grid-cols-2 overflow-hidden">
+        
         {/* Left Section */}
         <div className="p-8 md:p-12 flex flex-col justify-center bg-gradient-to-b from-blue-100 to-white md:rounded-l-3xl">
           <h1 className="text-3xl md:text-[72px] font-sans font-extrabold text-gray-900">
@@ -22,11 +33,7 @@ const NFTCreation = () => {
             {/* Drop Card */}
             <div className="p-5 md:p-6 border rounded-2xl shadow-lg hover:shadow-xl cursor-pointer flex justify-between items-center">
               <div className="flex items-center gap-3">
-                <img
-                  src="icons/icon10.png"
-                  alt="Drop Icon"
-                  className="w-8 h-8"
-                />
+                <img src="/icons/icon10.png" alt="Drop Icon" className="w-8 h-8" />
                 <div className="flex flex-col">
                   <h3 className="text-lg md:text-xl font-semibold">Drop</h3>
                   <p className="text-gray-500 text-sm md:text-md">
@@ -44,11 +51,7 @@ const NFTCreation = () => {
             {/* Collection or NFT Card */}
             <div className="p-5 md:p-6 border rounded-2xl shadow-lg hover:shadow-xl cursor-pointer flex justify-between items-center">
               <div className="flex items-center gap-3">
-                <img
-                  src="icons/vector.png"
-                  alt="Collection Icon"
-                  className="w-8 h-8"
-                />
+                <img src="/icons/vector.png" alt="Collection Icon" className="w-8 h-8" />
                 <div className="flex flex-col">
                   <h3 className="text-lg md:text-xl font-semibold">Collection or NFT</h3>
                   <p className="text-gray-500 text-sm md:text-md">
@@ -58,18 +61,38 @@ const NFTCreation = () => {
                   </p>
                 </div>
               </div>
-              <Link to="/create">   <ArrowRight className="w-10 h-10 text-black" /></Link>
+              <Link to="/create">
+                <ArrowRight className="w-10 h-10 text-black" />
+              </Link>
             </div>
           </div>
         </div>
 
-        {/* Right Section */}
-        <div className="hidden md:flex flex-col items-center justify-center md:rounded-r-3xl">
-          {/* <img
-            src="Pic.png"
-            alt="NFT"
-            className="w-full h-full object-cover rounded-3xl"
-          /> */}
+        {/* Right Section - Hardcoded Image Swiper */}
+        <div className="hidden md:flex flex-col items-center justify-center  relative w-full h-full overflow-hidden">
+          <div className="w-full h-full relative">
+            <img
+              src="3image.jpg"
+              alt="NFT 1"
+              className={`absolute w-full h-full object-cover  transition-opacity duration-1000 ${
+                currentImageIndex === 0 ? "opacity-100" : "opacity-0"
+              }`}
+            />
+            <img
+              src="2image.jpg"
+              alt="NFT 2"
+              className={`absolute w-full h-full object-cover  transition-opacity duration-1000 ${
+                currentImageIndex === 1 ? "opacity-100" : "opacity-0"
+              }`}
+            />
+            <img
+              src="1image.jpg"
+              alt="NFT 3"
+              className={`absolute w-full h-full object-cover transition-opacity duration-1000 ${
+                currentImageIndex === 2 ? "opacity-100" : "opacity-0"
+              }`}
+            />
+          </div>
         </div>
       </div>
     </div>

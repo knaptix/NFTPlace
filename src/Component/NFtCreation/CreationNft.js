@@ -255,7 +255,7 @@ const NFTCreationForm = () => {
         onClick={() => window.history.back()}
         className="flex items-center gap-2 ml-7 text-2xl font-bold pt-6 pb-4 hover:text-gray-600"
       >
-        <ArrowLeft className="w-6 h-6 text-gray-800" /> Back
+        <ArrowLeft className="w-6 h-6 text-gray-800" />
       </button>
 
       <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
