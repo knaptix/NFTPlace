@@ -56,10 +56,10 @@ export default function Footer() {
           <div>
             <h3 className="text-xl font-semibold mb-3">Need help?</h3>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link to="/setting" className="bg-black px-6 py-3 rounded-md font-medium text-white text-center hover:bg-gray-800 transition">
+              <Link to="/settings" className="bg-black px-6 py-3 rounded-md font-medium text-white text-center hover:bg-gray-800 transition">
                 Contact Support
               </Link>
-              <Link to="/setting" className="bg-gray-900 text-white px-6 py-3 rounded-md hover:bg-black transition text-center">Raise a ticket</Link>
+              <Link to="/settings" className="bg-gray-900 text-white px-6 py-3 rounded-md hover:bg-black transition text-center">Raise a ticket</Link>
             </div>
           </div>
         </div>
@@ -104,7 +104,7 @@ export default function Footer() {
           <div>
             <h3 className="text-lg font-semibold mb-3">Help & Support</h3>
             <ul className="space-y-2">
-              <li><Link to="/contact-support" className="text-sm hover:underline">Contact Support</Link></li>
+              <li><Link to="/settings" className="text-sm hover:underline">Contact Support</Link></li>
             </ul>
           </div>
 
