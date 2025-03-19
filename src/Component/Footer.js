@@ -59,7 +59,7 @@ export default function Footer() {
               <Link to="/setting" className="bg-black px-6 py-3 rounded-md font-medium text-white text-center hover:bg-gray-800 transition">
                 Contact Support
               </Link>
-              <Link to="/setting" className="bg-gray-900 text-white px-6 py-3 rounded-md hover:bg-black transition">Raise a ticket</Link>
+              <Link to="/setting" className="bg-gray-900 text-white px-6 py-3 rounded-md hover:bg-black transition text-center">Raise a ticket</Link>
             </div>
           </div>
         </div>
