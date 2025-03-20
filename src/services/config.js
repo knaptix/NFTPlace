@@ -1,4 +1,4 @@
-export const NftMarketPlace = "0xadCb2A935Bfb586403f54BC67DdA74D02Ddc9a83";
+export const NftMarketPlace = "0x9129349e305461423f01C220589701B4895e875A";
 export const NftMarketPlace_Abi = [
   {
     inputs: [
@@ -962,8 +962,7 @@ export const NftMarketPlace_Abi = [
     type: "function",
   },
 ];
-
-export const NftFactory = "0xb0AfF86c5da1080b4E568F17007cF0F5BA420006";
+export const NftFactory = "0xCbb89d72Bf986DD87050Cd0Be0B5E6F6919cc397";
 
 export const NftFactory_Abi = [
   {
@@ -1123,7 +1122,7 @@ export const NftFactory_Abi = [
   },
 ];
 
-export const nftDrop = "0xb0AfF86c5da1080b4E568F17007cF0F5BA420006"; //creaetNft
+export const nftDrop = "0xCbb89d72Bf986DD87050Cd0Be0B5E6F6919cc397"; //creaetNft
 
 export const nftDrop_Abi = [
   {
@@ -1826,7 +1825,7 @@ export const nft_Abi = [
   },
 ];
 
-export const nwfntToken = "0x344B69572A103953e54f208E318405Ee05a432cD"; //creaetNft
+export const nwfntToken = "0x26cAFCfc1B820a74B0e069c2C65b816d2AF241cD"; //creaetNft
 
 export const nwfntToken_Abi = [
   {
