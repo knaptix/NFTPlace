@@ -62,7 +62,7 @@ const AboutPage = () => {
                         <div className="rounded-2xl overflow-hidden shadow-2xl transform hover:scale-[1.02] transition duration-500">
                             <img
                                 src="about.jpeg"
-                                alt="NYWNFT Team Member"
+                        
                                 className="w-full h-auto"
                             />
                         </div>
