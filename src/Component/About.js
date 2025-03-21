@@ -61,7 +61,7 @@ const AboutPage = () => {
                     <div className="order-1 lg:order-2 flex flex-col gap-8">
                         <div className="rounded-2xl overflow-hidden shadow-2xl transform hover:scale-[1.02] transition duration-500">
                             <img
-                                src="about.jpeg"
+                                src="https://res.cloudinary.com/de4ks8mkh/image/upload/v1742563935/about_xsjmnq.jpg"
                         
                                 className="w-full h-auto"
                             />
