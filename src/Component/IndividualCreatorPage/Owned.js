@@ -253,7 +253,7 @@ const ListForSaleModal = ({ nft, onClose }) => {
               value={price}
               onChange={(e) => setPrice(e.target.value)}
             />
-            <span className="p-2 text-sm bg-gray-200">NYFT</span>
+            <span className="p-2 text-sm bg-gray-200">NYW</span>
           </div>
         </div>
         <div className="mt-4">
