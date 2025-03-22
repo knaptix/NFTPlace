@@ -11,7 +11,7 @@ const HelpAndSupport = () => {
           <h2 className="text-lg font-semibold text-gray-900 mb-2">General Help</h2>
           <p className="text-sm text-gray-600">
             Visit our{' '}
-            <a href="#" className="text-blue-600 hover:underline">Help & Support page</a>
+            Help & Support page
             {' '}to learn how to get started with buying, selling, and creating.
           </p>
         </div>
@@ -22,7 +22,7 @@ const HelpAndSupport = () => {
           <p className="text-sm text-gray-600">
             Can't find the answers you're looking for?<br />
             You can{' '}
-            <a href="#" className="text-blue-600 hover:underline">Raise a ticket</a>
+            Raise a ticket
             {' '}here.
           </p>
         </div>
@@ -31,9 +31,8 @@ const HelpAndSupport = () => {
         <div className="border-b pb-6">
           <h2 className="text-lg font-semibold text-gray-900 mb-2">Help with a Compromised Account</h2>
           <p className="text-sm text-gray-600 mb-4">
-            If you believe your account has been compromised, let us know and we can lock your account. 
-            This will disable items in your wallet from being bought, sold, or transferred using OpenSea.{' '}
-            <a href="#" className="text-blue-600 hover:underline">Learn more</a>.
+            If you believe your account has been compromised, let us know and we can lock your account.
+            This will disable items in your wallet from being bought, sold, or transferred using NYWNFT.
           </p>
 
           {/* Text Area */}
@@ -68,7 +67,7 @@ const HelpAndSupport = () => {
           <p className="text-sm text-gray-600 mb-4">
             This method saves gas compared to cancelling an individual listing or offer.
           </p>
-          
+
           <button className="w-full sm:w-auto px-6 py-2 bg-red-50 text-red-600 rounded-lg text-sm hover:bg-red-100 transition-colors">
             Cancel
           </button>

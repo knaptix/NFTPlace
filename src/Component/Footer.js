@@ -32,7 +32,7 @@ export default function Footer() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
-              <button className="bg-black text-white px-4 py-2 rounded-r-md font-medium hover:bg-gray-800 transition">Sign up</button>
+              <button className="bg-black text-white px-4 py-2 rounded-r-md font-medium hover:bg-gray-800 transition">subscribe</button>
             </div>
           </div>
 
@@ -73,7 +73,7 @@ export default function Footer() {
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-8 text-left">
           {/* NYWNFT */}
           <div>
-            <h3 className="text-lg font-semibold mb-3">NYWNFT</h3>
+            <Link to="/" className="text-lg font-semibold mb-3">NYWNFT</Link>
             <p className="text-sm">
               NYWNFT bridges Blockchain and AI, allowing you to own a piece of the action. Generate and mint NFTs easily.
             </p>
@@ -85,7 +85,6 @@ export default function Footer() {
             <ul className="space-y-2">
               <li><Link to="/about" className="text-sm hover:underline">About</Link></li>
               <li><Link to="/venture" className="text-sm hover:underline">Ventures</Link></li>
-              <li><Link to="/documentation" className="text-sm hover:underline">Documentation</Link></li>
             </ul>
           </div>
 
@@ -96,7 +95,7 @@ export default function Footer() {
               <li><Link to="/blogs" className="text-sm hover:underline">Blogs</Link></li>
               <li><Link to="/partnerships" className="text-sm hover:underline">Partners</Link></li>
               <li><Link to="/community-standards" className="text-sm hover:underline">Community Standards</Link></li>
-              <li><Link to="/nywnft-documentation" className="text-sm hover:underline">NYWNFT Documentation</Link></li>
+              <li><Link to="https://nywnft-organization.gitbook.io/nywnft/~/changes/1/getting-started/get-started" className="text-sm hover:underline">NYWNFT Documentation</Link></li>
             </ul>
           </div>
 

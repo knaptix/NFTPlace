@@ -58,7 +58,7 @@ const AboutPage = () => {
                             </Link>
                         </div>
                     </div>
-                    <div className="order-1 lg:order-2 flex flex-col gap-8">
+                    <div className="order-1 lg:order-2 flex flex-col gap-4 items-center">
                         <div className="rounded-2xl overflow-hidden shadow-2xl transform hover:scale-[1.02] transition duration-500">
                             <img
                                 src="https://res.cloudinary.com/de4ks8mkh/image/upload/v1742563935/about_xsjmnq.jpg"
@@ -66,6 +66,7 @@ const AboutPage = () => {
                                 className="w-full h-auto"
                             />
                         </div>
+                        <p className="text-lg font-semibold text-gray-700">Marlon Pascal</p>
                     </div>
                 </div>
             </div>
