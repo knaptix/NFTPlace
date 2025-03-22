@@ -8,7 +8,7 @@ export default function AuctionCards() {
         "https://media.istockphoto.com/id/1365200314/photo/crypto-virtual-museum.jpg?s=612x612&w=0&k=20&c=d81dk8Zp23A5S8Hk6RoPsAfaelRdQqidFsrmS5Zc53k=",
       title: "Corrupted angel",
       collection: "Gods Unchained",
-      bid: "1.21 ETH",
+      bid: "1.21 NYW",
       timeRemaining: "02:12:50",
     },
     {
@@ -17,7 +17,7 @@ export default function AuctionCards() {
         "https://media.istockphoto.com/id/1365200314/photo/crypto-virtual-museum.jpg?s=612x612&w=0&k=20&c=d81dk8Zp23A5S8Hk6RoPsAfaelRdQqidFsrmS5Zc53k=",
       title: "Corrupted angel",
       collection: "Gods Unchained",
-      bid: "1.21 ETH",
+      bid: "1.21 NYW",
       timeRemaining: "02:12:50",
     },
     {
@@ -26,7 +26,7 @@ export default function AuctionCards() {
         "https://media.istockphoto.com/id/1365200314/photo/crypto-virtual-museum.jpg?s=612x612&w=0&k=20&c=d81dk8Zp23A5S8Hk6RoPsAfaelRdQqidFsrmS5Zc53k=",
       title: "Corrupted angel",
       collection: "Gods Unchained",
-      bid: "1.21 ETH",
+      bid: "1.21 NYW",
       timeRemaining: "02:12:50",
     },
   ];
@@ -63,10 +63,10 @@ export default function AuctionCards() {
               </h3>
               <h2 className="text-lg font-semibold">{item.title}</h2>
               <div className="space-y-2">
-                <p className="text-gray-500 bg-gray-100 text-center py-2.5 rounded-lg">
+                <p className="text-white bg-gray-600 text-center py-2.5 rounded-lg">
                   Highest bid – {item.bid}
                 </p>
-                <p className="bg-indigo-100 text-indigo-800 text-center py-2.5 rounded-lg font-semibold">
+                <p className="bg-gray-900 text-white text-center py-2.5 rounded-lg font-semibold">
                   Your bid – {item.bid}
                 </p>
               </div>

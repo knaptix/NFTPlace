@@ -69,16 +69,16 @@ const Navbar = ({ darkMode, setDarkMode }) => {
 
   return (
     <>
-      <nav className={` ${darkMode ? "bg-gray-800 text-white" : "bg-white text-black"}`}>
+      <nav className={`sticky top-0 z-50 ${darkMode ? "bg-gray-800 text-white" : "bg-white text-black"}`}>
         <div className="max-w-[1440px] mx-auto px-4 py-3">
           <div className="flex items-center justify-between">
             {/* Logo Section */}
-            <div className="flex items-center space-x-2">
+            <Link herf="/" className="flex items-center space-x-2">
               <div className={`w-8 h-8 ${darkMode ? "bg-gray-700" : "bg-[#1B1A1E]"} rounded-lg flex items-center justify-center`}>
                 <img src="log.png" alt="Logo" className="w-6 h-6" />
               </div>
               <span className="font-extrabold text-[24px]">NYWNFT</span>
-            </div>
+            </Link>
 
             {/* Search Bar */}
             <div className="hidden md:block flex-1 max-w-[440px] mx-8">
@@ -102,15 +102,15 @@ const Navbar = ({ darkMode, setDarkMode }) => {
               <Link to="/CurrentBid" className="text-sm font-medium hover:text-gray-400 ">Current Bids</Link>
 
               <Link to="/cart" className="flex items-center text-sm font-medium hover:text-gray-400">
-      <LuShoppingCart className="w-10 h-10 mr-1" />
-     
-    </Link>
+                <LuShoppingCart className="w-10 h-10 mr-1" />
+
+              </Link>
             </div>
 
             {/* Action Buttons */}
             <div className="flex items-center space-x-4">
               {/* Dark Mode Toggle Button */}
-              
+
 
 
               <Link to="https://pancakeswap.finance/?chain=eth&outputCurrency=0x26cafcfc1b820a74b0e069c2c65b816d2af241cd" className="text-sm font-medium hover:text-gray-400 ">
@@ -130,7 +130,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
                   : "bg-[#F3F3F3] text-black hover:bg-gray-200"
                   } transition-colors duration-200`}
               >
-                
+
                 {/* <span className="text-sm">
                   {isWalletConnected ? `Disconnect (${walletAddress.slice(0, 6)}...)` : "Connect Wallet"}
                 </span> */}
@@ -140,7 +140,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
               </button>
 
               {/* Cart Icon */}
-             
+
 
               {/* Profile Menu */}
               <div className="relative" ref={profileMenuRef}>
@@ -205,15 +205,15 @@ const Navbar = ({ darkMode, setDarkMode }) => {
                 <Link to="/CurrentBid" className="text-sm font-medium hover:text-gray-400 ">Current Bids</Link>
                 <Link to="https://pancakeswap.finance/?chain=eth&outputCurrency=0x26cafcfc1b820a74b0e069c2c65b816d2af241cd" className="text-sm font-medium hover:text-gray-400 ">NYWNFT/WETH</Link>
                 <Link to="/cart" className="flex items-center text-sm font-medium hover:text-gray-400">
-      <LuShoppingCart className="w-10 h-10 mr-1" />
-     
-    </Link>
+                  <LuShoppingCart className="w-10 h-10 mr-1" />
+
+                </Link>
                 <button
                   onClick={handleWalletButtonClick}
                   className={`flex items-center justify-center space-x-2 px-4 rounded-full py-3 w-full ${darkMode ? "bg-gray-700 hover:bg-gray-600" : "bg-[#F3F3F3] hover:bg-gray-200"
                     } transition-colors duration-200`}
                 >
-                  
+
                   <span className="text-base">
                     {isWalletConnected ? "Disconnect Wallet" : "Connect Wallet"}
                   </span>

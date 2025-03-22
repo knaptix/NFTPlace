@@ -1,3 +1,4 @@
+import { ShoppingCart } from "lucide-react";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
@@ -68,7 +69,7 @@ const NFTMarketplace = () => {
   }
 
   return (
-    <div className="w-full min-h-screen flex flex-col items-center px-4">
+    <div className="w-full min-h-screen flex flex-col items-center">
       {/* Header */}
       <h2 className="text-4xl font-bold my-6 text-center text-gray-900">
         Discover Marketplace
@@ -77,8 +78,8 @@ const NFTMarketplace = () => {
         Browse, collect, and own digital assets from the best creators.
       </p>
 
-      {/* NFT Grid - First Row (5 Cards) */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 max-w-6xl w-full">
+      {/* NFT Grid - First Row (4 Cards) */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full">
         {firstRow.map((collection) => (
           <div
             key={collection._id}
@@ -97,16 +98,24 @@ const NFTMarketplace = () => {
                 Category: {collection.categoryName}
               </p>
               <p className="text-sm text-gray-600">
-                NFT Standard: ERC-1155
+                Price: {collection.price} NYW
               </p>
 
               {/* Conditional Rendering */}
               {collection.onSale ? (
-                <Link to={`/buy/id=${collection.tokenId}&contract=${collection.contractAddress}`}>
-                  <button className="w-full mt-3 py-2 bg-blue-600 text-white font-medium hover:bg-blue-700 transition-all rounded">
-                    Buy
+                <div className="flex items-center gap-2">
+                  <Link
+                    to={`/buy/id=${collection.tokenId}&contract=${collection.contractAddress}`}
+                    className="w-full"
+                  >
+                    <button className="w-full py-2 bg-gray-900 text-white font-medium transition-all rounded">
+                      Buy
+                    </button>
+                  </Link>
+                  <button className="w-12 h-12 flex items-center justify-center bg-gray-900 text-white font-medium transition-all rounded">
+                    <ShoppingCart />
                   </button>
-                </Link>
+                </div>
               ) : (
                 <Link to={`/details/${collection.tokenId}`}>
                   <button className="w-full mt-3 py-2 bg-gray-400 text-white font-medium hover:bg-gray-500 transition-all rounded">
@@ -121,11 +130,11 @@ const NFTMarketplace = () => {
 
       {/* NFT Grid - Second Row (Remaining Cards) */}
       {secondRow.length > 0 && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 max-w-6xl w-full mt-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full mt-6">
           {secondRow.map((collection) => (
             <div
               key={collection._id}
-              className="bg-white shadow-lg rounded-2xl overflow-hidden p-4 transform transition-all hover:scale-105 flex flex-col items-center"
+              className="bg-white shadow-lg rounded-2xl overflow-hidden p-4 flex flex-col items-center transform transition-all hover:scale-105"
             >
               <img
                 src={collection.imageUrl}
@@ -140,16 +149,25 @@ const NFTMarketplace = () => {
                   Category: {collection.categoryName}
                 </p>
                 <p className="text-sm text-gray-600">
-                  NFT Standard: ERC-1155
+                  Price: {collection.price} NYW
                 </p>
 
                 {/* Conditional Rendering */}
                 {collection.onSale ? (
-                  <Link to={`/buy/id=${collection.tokenId}&contract=${collection.contractAddress}`}>
-                    <button className="w-full mt-3 py-2 bg-blue-600 text-white font-medium hover:bg-blue-700 transition-all rounded">
-                      Buy
+                  <div className="flex items-center gap-2">
+                    <Link
+                      to={`/buy/id=${collection.tokenId}&contract=${collection.contractAddress}`}
+                      className="w-full"
+                    >
+                      <button className="w-full py-2 bg-gray-900 text-white font-medium transition-all rounded">
+                        Buy
+                      </button>
+                    </Link>
+                    <button className="w-12 h-12 flex items-center justify-center bg-gray-900 text-white font-medium transition-all rounded">
+                      <ShoppingCart />
                     </button>
-                  </Link>
+                  </div>
+
                 ) : (
                   <Link to={`/details/${collection.tokenId}`}>
                     <button className="w-full mt-3 py-2 bg-gray-400 text-white font-medium hover:bg-gray-500 transition-all rounded">
