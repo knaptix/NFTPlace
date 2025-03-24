@@ -70,7 +70,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
   return (
     <>
       <nav className={`sticky top-0 z-50 ${darkMode ? "bg-gray-800 text-white" : "bg-white text-black"}`}>
-        <div className="max-w-[1440px] mx-auto px-4 py-3">
+        <div className=" mx-auto px-4 py-3">
           <div className="flex items-center justify-between">
             {/* Logo Section */}
             <Link to="/" className="flex items-center space-x-2">
