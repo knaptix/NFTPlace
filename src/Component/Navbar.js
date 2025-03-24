@@ -70,10 +70,10 @@ const Navbar = ({ darkMode, setDarkMode }) => {
   return (
     <>
       <nav className={`sticky top-0 z-50 ${darkMode ? "bg-gray-800 text-white" : "bg-white text-black"}`}>
-        <div className="max-w-[1440px] mx-auto px-4 py-3">
+        <div className=" mx-auto px-4 py-3">
           <div className="flex items-center justify-between">
             {/* Logo Section */}
-            <Link herf="/" className="flex items-center space-x-2">
+            <Link to="/" className="flex items-center space-x-2">
               <div className={`w-8 h-8 ${darkMode ? "bg-gray-700" : "bg-[#1B1A1E]"} rounded-lg flex items-center justify-center`}>
                 <img src="log.png" alt="Logo" className="w-6 h-6" />
               </div>
@@ -113,7 +113,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
 
 
 
-              <Link to="https://pancakeswap.finance/?chain=eth&outputCurrency=0x26cafcfc1b820a74b0e069c2c65b816d2af241cd" className="text-sm font-medium hover:text-gray-400 ">
+              <Link to="https://pancakeswap.finance/swap?chain=eth&outputCurrency=0x26cAFCfc1B820a74B0e069c2C65b816d2AF241cD" className="text-sm font-medium hover:text-gray-400 ">
                 <button className={`hidden md:flex items-center space-x-2 px-4 rounded-full py-4 ${darkMode
                   ? "bg-gray-700 text-white hover:bg-gray-600"
                   : "text-[#F3F3F3] bg-black hover:bg-gray-200 hover:text-black"

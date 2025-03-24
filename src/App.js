@@ -23,6 +23,7 @@ import PrivacyPolices from "./Component/PrivacyPolices";
 import TermsServices from "./Component/TermsServices";
 import NFTDetailsSale from "./Component/Individual/NFTSale";
 import toast, { Toaster } from "react-hot-toast";
+import CommunityStandards from "./Component/CommunityStandars";
 
 const App = () => {
   return (
@@ -50,6 +51,7 @@ const App = () => {
           <Route path="/partnerships" element={<Partnerships />} />
           <Route path="/privacy-polices" element={<PrivacyPolices />} />
           <Route path="/terms-services" element={<TermsServices />} />
+          <Route path="/community-standards" element={<CommunityStandards />} />
         </Routes>
         <Footer />
         <Toaster />

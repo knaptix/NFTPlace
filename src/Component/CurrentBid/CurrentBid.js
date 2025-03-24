@@ -40,7 +40,7 @@ export default function AuctionCards() {
         <ArrowLeft className="w-6 h-6 sm:w-8 sm:h-8 text-gray-800" />
       </button>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6 mb-12">
+      {/* <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6 mb-12">
         {items.map((item) => (
           <div
             key={item.id}
@@ -73,7 +73,7 @@ export default function AuctionCards() {
             </div>
           </div>
         ))}
-      </div>
+      </div> */}
     </div>
   );
 }
