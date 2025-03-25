@@ -264,18 +264,25 @@ const SmartContractForm = () => {
                 onChange={(e) => setContractName(e.target.value)}
               />
             </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Contract symbol
-              </label>
-              <input
-                type="text"
-                className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                placeholder="MCN"
-                value={contractSymbol}
-                onChange={(e) => setContractSymbol(e.target.value)}
-              />
-            </div>
+            <div className="relative group">
+  <label className="block text-sm font-medium text-gray-700 mb-2">
+    Contract symbol
+  </label>
+  <input
+    type="text"
+    className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+    placeholder="MCN"
+    value={contractSymbol}
+    onChange={(e) => setContractSymbol(e.target.value)}
+  />
+  {/* Tooltip */}
+  <div className="absolute bottom-full left-0 mb-2 hidden w-60 bg-gray-900 text-white text-xs rounded-md p-2 group-hover:block">
+  The token symbol is the shorthand way to identify your contract, which is visible on chain. For example, Azuki uses AZUKI and Bored Ape Yacht Club uses BAYC as their respective token symbols.
+
+Token symbols cannot be changed after your contract is deployed.
+  </div>
+</div>
+
           </div>
 
           {/* Blockchain Selection */}

@@ -43,7 +43,7 @@ export default function Footer() {
               <Link to="https://t.me/+YUAQVX-sDoM1NTdh" className="text-black text-2xl p-2 rounded-md hover:bg-gray-300 transition">
                 <BsTelegram />
               </Link>
-              <Link to="#" className="text-black text-2xl p-2 rounded-md hover:bg-gray-300 transition">
+              <Link to="https://x.com/nywnft" className="text-black text-2xl p-2 rounded-md hover:bg-gray-300 transition">
                 <BsTwitterX />
               </Link>
               <Link to="mailto:nywnftinfo@gmail.com" className="text-black text-3xl p-2 rounded-md hover:bg-gray-300 transition">
@@ -94,7 +94,7 @@ export default function Footer() {
             <ul className="space-y-2">
               <li><Link to="/blogs" className="text-sm hover:underline">Blogs</Link></li>
               <li><Link to="/partnerships" className="text-sm hover:underline">Partners</Link></li>
-              <li><Link to="/community-standards" className="text-sm hover:underline">Community Standards</Link></li>
+              <li><Link to="/community-standard" className="text-sm hover:underline">Community Standards</Link></li>
               <li><Link to="https://nywnft-organization.gitbook.io/nywnft/~/changes/1/getting-started/get-started" className="text-sm hover:underline">NYWNFT Documentation</Link></li>
             </ul>
           </div>

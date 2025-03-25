@@ -3,7 +3,7 @@ import { BiSearch, BiShoppingBag, BiWallet, BiMenu, BiX, BiMoon, BiSun } from "r
 import { User, Heart, Globe, Settings, Headphones, LogOut } from 'lucide-react';
 import { Link, useNavigate } from "react-router-dom";
 import { LuShoppingCart } from "react-icons/lu";
-
+import { CgProfile } from "react-icons/cg";
 import WalletLogin from "./WalletModel";
 import { useWallet } from './walletContext'; // Fix: Import from local wallet context
 
@@ -95,11 +95,13 @@ const Navbar = ({ darkMode, setDarkMode }) => {
               </div>
             </div>
 
-            {/* Navigation Links */}
-            <div className="hidden md:flex items-center space-x-8">
-              <Link to="/" className="text-sm font-medium hover:text-gray-400 ">Marketplace</Link>
-              <Link to="/CreateNFt" className="text-sm font-medium hover:text-gray-400 ">Create</Link>
-              <Link to="/CurrentBid" className="text-sm font-medium hover:text-gray-400 ">Current Bids</Link>
+            {/* All right-aligned content in a single flex container */}
+            <div className="flex items-center ml-auto">
+              {/* Navigation Links */}
+              <div className="hidden md:flex items-center space-x-6 mr-6">
+                <Link to="/" className="text-sm font-medium hover:text-gray-400">Marketplace</Link>
+                <Link to="/CreateNFt" className="text-sm font-medium hover:text-gray-400">Create</Link>
+              </div>
 
               <Link to="/cart" className="flex items-center text-sm font-medium hover:text-gray-400">
                 <LuShoppingCart className="w-10 h-10 mr-1" />
@@ -122,37 +124,31 @@ const Navbar = ({ darkMode, setDarkMode }) => {
                 </button>
               </Link>
 
-              {/* Wallet Button - Conditional rendering */}
+              {/* Wallet Button */}
               <button
                 onClick={handleWalletButtonClick}
-                className={`hidden md:flex items-center space-x-2 px-4 rounded-full py-4 ${darkMode
+                className={`hidden md:flex items-center space-x-4 px-4 rounded-full py-2 mr-4 ${darkMode
                   ? "bg-gray-700 text-white hover:bg-gray-600"
                   : "bg-[#F3F3F3] text-black hover:bg-gray-200"
                   } transition-colors duration-200`}
               >
-
-                {/* <span className="text-sm">
-                  {isWalletConnected ? `Disconnect (${walletAddress.slice(0, 6)}...)` : "Connect Wallet"}
-                </span> */}
                 <span className="text-sm">
                   {isWalletConnected ? `Disconnect Wallet` : "Connect Wallet"}
                 </span>
               </button>
 
-              {/* Cart Icon */}
-
+              {/* Cart Button */}
+              <Link to="/cart" className="hidden md:flex space-x-6 items-center mr-4 hover:text-gray-400">
+                <LuShoppingCart className="w-8 h-8" />
+              </Link>
 
               {/* Profile Menu */}
-              <div className="relative" ref={profileMenuRef}>
+              <div className="relative mr-2" ref={profileMenuRef}>
                 <button
                   onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
-                  className="w-8 h-8 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-8 h-8   rounded-full overflow-hidden focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
-                  <img
-                    src="https://cdn-icons-png.flaticon.com/512/9203/9203764.png"
-                    alt="Profile"
-                    className="w-full h-full object-cover"
-                  />
+                  <CgProfile className="w-full h-full object-cover" />
                 </button>
 
                 {/* Profile Dropdown Menu */}
@@ -199,21 +195,19 @@ const Navbar = ({ darkMode, setDarkMode }) => {
                     }`}
                 />
               </div>
-              <div className="flex flex-col space-y-4">
+              <div className="flex flex-col space-y-4 ">
                 <Link to="/" className="text-sm font-medium hover:text-gray-400 ">Marketplace</Link>
                 <Link to="/CreateNFt" className="text-sm font-medium hover:text-gray-400 ">Create</Link>
                 <Link to="/CurrentBid" className="text-sm font-medium hover:text-gray-400 ">Current Bids</Link>
                 <Link to="https://pancakeswap.finance/?chain=eth&outputCurrency=0x26cafcfc1b820a74b0e069c2c65b816d2af241cd" className="text-sm font-medium hover:text-gray-400 ">NYWNFT/WETH</Link>
                 <Link to="/cart" className="flex items-center text-sm font-medium hover:text-gray-400">
                   <LuShoppingCart className="w-10 h-10 mr-1" />
-
                 </Link>
                 <button
                   onClick={handleWalletButtonClick}
                   className={`flex items-center justify-center space-x-2 px-4 rounded-full py-3 w-full ${darkMode ? "bg-gray-700 hover:bg-gray-600" : "bg-[#F3F3F3] hover:bg-gray-200"
                     } transition-colors duration-200`}
                 >
-
                   <span className="text-base">
                     {isWalletConnected ? "Disconnect Wallet" : "Connect Wallet"}
                   </span>

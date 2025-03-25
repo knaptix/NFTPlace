@@ -112,7 +112,7 @@ const NFTMarketplace = () => {
                       Buy
                     </button>
                   </Link>
-                  <button className="w-12 h-12 flex items-center justify-center bg-gray-900 text-white font-medium transition-all rounded">
+                  <button className="w-12 h-8 flex items-center justify-center bg-gray-900 text-white font-medium transition-all rounded">
                     <ShoppingCart />
                   </button>
                 </div>
@@ -163,7 +163,7 @@ const NFTMarketplace = () => {
                         Buy
                       </button>
                     </Link>
-                    <button className="w-12 h-12 flex items-center justify-center bg-gray-900 text-white font-medium transition-all rounded">
+                    <button className="w-12 h-8 flex items-center justify-center bg-gray-900 text-white font-medium transition-all rounded">
                       <ShoppingCart />
                     </button>
                   </div>

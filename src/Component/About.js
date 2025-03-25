@@ -66,7 +66,7 @@ const AboutPage = () => {
                                 className="w-full h-auto"
                             />
                         </div>
-                        <p className="text-lg font-semibold text-gray-700">Marlon Pascal</p>
+                        <p className="text-2xl font-semibold text-gray-700">Marlon Pascall</p>
                     </div>
                 </div>
             </div>
