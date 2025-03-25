@@ -90,16 +90,22 @@ const NFTMarketplace = () => {
               alt={collection.collectionName}
               className="w-full h-52 object-cover rounded-lg"
             />
-            <div className="mt-4 text-center w-full">
-              <h3 className="text-lg font-semibold text-gray-900">
+            <div className="mt-4  w-full">
+              <h3 className="text-lg font-semibold text-gray-900 uppercase">
                 {collection.collectionName}
               </h3>
-              <p className="text-sm text-gray-600">
+              <p className="text-md text-gray-600 font-bold">
                 Category: {collection.categoryName}
               </p>
-              <p className="text-sm text-gray-600">
-                Price: {collection.price} NYW
-              </p>
+              <div className="flex  justify-between bg-gray-100 rounded-lg p-2 mt-2 w-full mb-4">
+                  <div>
+
+                    <p className="text-lg ">Price {" "}
+                      <span className="font-bold">{collection.price} NYW</span></p>
+                  </div>
+
+                </div>
+
 
               {/* Conditional Rendering */}
               {collection.onSale ? (
@@ -118,7 +124,7 @@ const NFTMarketplace = () => {
                 </div>
               ) : (
                 <Link to={`/details/${collection.tokenId}`}>
-                  <button className="w-full mt-3 py-2 bg-gray-400 text-white font-medium hover:bg-gray-500 transition-all rounded">
+                  <button className="w-full mt-2 py-2 bg-gray-400 text-white font-medium hover:bg-gray-500 transition-all rounded">
                     Not Listed
                   </button>
                 </Link>
@@ -141,16 +147,21 @@ const NFTMarketplace = () => {
                 alt={collection.collectionName}
                 className="w-full h-52 object-cover rounded-lg"
               />
-              <div className="mt-4 text-center w-full">
-                <h3 className="text-lg font-semibold text-gray-900">
+              <div className="mt-4  w-full">
+                <h3 className="text-lg font-semibold text-gray-900 uppercase">
                   {collection.collectionName}
                 </h3>
-                <p className="text-sm text-gray-600">
+                <p className="text-md text-gray-600 font-bold">
                   Category: {collection.categoryName}
                 </p>
-                <p className="text-sm text-gray-600">
-                  Price: {collection.price} NYW
-                </p>
+                <div className="flex items-center  mt-2 justify-between bg-gray-100 rounded-lg p-2 w-full mb-4">
+                  <div>
+
+                    <p className="text-lg ">Price {" "}
+                      <span className="font-bold">{collection.price} NYW</span></p>
+                  </div>
+
+                </div>
 
                 {/* Conditional Rendering */}
                 {collection.onSale ? (
