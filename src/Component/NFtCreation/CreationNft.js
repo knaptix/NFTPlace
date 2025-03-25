@@ -292,7 +292,7 @@ const NFTCreationForm = () => {
             <div className="text-red-500">{validationError}</div>
           )}
 
-          <label className="block font-medium">Choose your collection *</label>
+          <label className="block  text-2xl font-bold">Choose your collection *</label>
           <div>
             <div className="relative w-full">
               <button

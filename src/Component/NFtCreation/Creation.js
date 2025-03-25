@@ -55,9 +55,7 @@ const NFTCreation = () => {
                 <div className="flex flex-col">
                   <h3 className="text-lg md:text-xl font-semibold">Collection or NFT</h3>
                   <p className="text-black mt-4  text-1xl md:text-md">
-                    A drop is the release of a new project. This usually happens
-                    on a specified date and time. Items will be revealed after
-                    they have been purchased.
+                  Create a new NFT collection or add an NFT to an existing one. Your items will display immediately. List for sale when you're ready.
                   </p>
                 </div>
               </div>

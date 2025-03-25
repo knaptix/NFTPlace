@@ -70,7 +70,7 @@ const Swip = () => {
 
   return (
     <div className="w-full py-10 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className=" mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-8 text-center">
           Explore Trending NFTs
         </h2>
@@ -85,7 +85,7 @@ const Swip = () => {
             480: { slidesPerView: 1.2, centeredSlides: true },
             640: { slidesPerView: 2, centeredSlides: false },
             1024: { slidesPerView: 3, centeredSlides: false },
-            1280: { slidesPerView: 4, centeredSlides: false },
+            1280: { slidesPerView: 6, centeredSlides: false },
           }}
           autoplay={{
             delay: 2500,

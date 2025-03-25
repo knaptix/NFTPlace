@@ -285,7 +285,7 @@ const NFTDetailsPage = () => {
             {/* Current Price */}
             <div className="space-y-2">
               <div className="text-sm text-gray-600"> Price</div>
-              <div className="text-xl font-bold">{nft?.data?.price} NYFT</div>
+              <div className="text-xl font-bold">{nft?.data?.price} NYW</div>
               {/* <div className="text-sm text-gray-600">≈ $740</div> */}
             </div>
 

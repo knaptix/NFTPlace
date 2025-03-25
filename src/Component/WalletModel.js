@@ -86,7 +86,7 @@ const WalletLogin = ({ isOpen, onClose, darkMode }) => {
         <div className="space-y-4">
           <button
             onClick={connectMetaMask}
-            className="flex items-center justify-center space-x-2 w-full p-3 rounded-lg border hover:bg-gray-100 dark:hover:bg-gray-700"
+            className="w-full flex items-center p-3 rounded-lg  bg-gray-800   hover:bg-gray-500 text-white"
           >
             {/* <img src="/metamask.png" alt="MetaMask" className="w-8 h-8" /> */}
             <FaEthereum className="w-8 h-8 mr-3 text-orange-500" />

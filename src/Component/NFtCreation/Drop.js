@@ -251,9 +251,9 @@ const SmartContractForm = () => {
           {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
 
           {/* Form Inputs */}
-          <div className="grid grid-cols-2 gap-6 mb-8">
+          <div className="grid grid-cols-2 gap-6 mb-8 mt-5">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block  text-sm font-bold text-gray-700 mb-2">
                 Contract name
               </label>
               <input
@@ -265,7 +265,7 @@ const SmartContractForm = () => {
               />
             </div>
             <div className="relative group">
-  <label className="block text-sm font-medium text-gray-700 mb-2">
+  <label className="block text-sm font-bold text-gray-700 mb-2">
     Contract symbol
   </label>
   <input
@@ -287,7 +287,7 @@ Token symbols cannot be changed after your contract is deployed.
 
           {/* Blockchain Selection */}
           <div className="mb-8">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-bold text-gray-700 mb-2">
               Select Blockchain
             </label>
             <select
@@ -304,7 +304,7 @@ Token symbols cannot be changed after your contract is deployed.
 
           {type !== "collection" ? (
             <div className="mb-8">
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-bold text-gray-700 mb-2">
                 Select Start Time
               </label>
               <input
@@ -322,7 +322,7 @@ Token symbols cannot be changed after your contract is deployed.
           <div className="text-center">
             <button
               onClick={handleSubmit}
-              className={`bg-blue-900 text-white px-8 py-3 rounded-md hover:bg-blue-800 transition-colors ${
+              className={`bg-black text-white px-8 py-3 rounded-md  transition-colors ${
                 isLoading ? "cursor-wait" : ""
               }`}
               disabled={isLoading}

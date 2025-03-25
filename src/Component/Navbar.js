@@ -99,14 +99,11 @@ const Navbar = ({ darkMode, setDarkMode }) => {
             <div className="flex items-center ml-auto">
               {/* Navigation Links */}
               <div className="hidden md:flex items-center space-x-6 mr-6">
-                <Link to="/" className="text-sm font-medium hover:text-gray-400">Marketplace</Link>
-                <Link to="/CreateNFt" className="text-sm font-medium hover:text-gray-400">Create</Link>
+                <Link to="/" className="text-md  font-bold hover:text-gray-400">Marketplace</Link>
+                <Link to="/CreateNFt" className="text-md  font-bold hover:text-gray-400">Create</Link>
               </div>
 
-              <Link to="/cart" className="flex items-center text-sm font-medium hover:text-gray-400">
-                <LuShoppingCart className="w-10 h-10 mr-1" />
-
-              </Link>
+              
             </div>
 
             {/* Action Buttons */}
@@ -205,7 +202,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
                 </Link>
                 <button
                   onClick={handleWalletButtonClick}
-                  className={`flex items-center justify-center space-x-2 px-4 rounded-full py-3 w-full ${darkMode ? "bg-gray-700 hover:bg-gray-600" : "bg-[#F3F3F3] hover:bg-gray-200"
+                  className={`flex items-center justify-center space-x-2 px-4 rounded-full py-4 w-full ${darkMode ? "bg-gray-700 hover:bg-gray-600" : "bg-[#F3F3F3] hover:bg-gray-200"
                     } transition-colors duration-200`}
                 >
                   <span className="text-base">
