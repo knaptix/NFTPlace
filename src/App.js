@@ -51,7 +51,7 @@ const App = () => {
           <Route path="/partnerships" element={<Partnerships />} />
           <Route path="/privacy-polices" element={<PrivacyPolices />} />
           <Route path="/terms-services" element={<TermsServices />} />
-          <Route path="/community-standards" element={<CommunityStandards />} />
+          <Route path="/community-standard" element={<CommunityStandards />} />
         </Routes>
         <Footer />
         <Toaster />
