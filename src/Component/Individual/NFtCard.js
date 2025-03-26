@@ -1,7 +1,7 @@
 import { Heart, ShoppingCart } from 'lucide-react';
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-const NFTCard = ({ image, title, price }) => {
+const NFTCard = ({ image, title, price, name }) => {
   return (
     <div className="bg-white rounded-xl shadow-sm overflow-hidden w-full">
       {/* Image Container */}
@@ -20,7 +20,7 @@ const NFTCard = ({ image, title, price }) => {
       <div className="p-3 space-y-2">
         {/* Title and Verification */}
         <div className="flex items-center gap-1.5">
-          <span className="text-xs text-gray-600">Gods Unchained</span>
+          <span className="text-xs text-gray-600">{name}</span>
           <img
             src="/api/placeholder/14/14"
             alt="Verified"
@@ -34,7 +34,7 @@ const NFTCard = ({ image, title, price }) => {
         <div className="bg-gray-50 rounded-lg p-2 flex justify-between items-center">
           <div>
             <div className="text-xs text-gray-500">Price</div>
-            <div className="font-bold text-sm">{price} ETH</div>
+            <div className="font-bold text-sm">{price} NYW</div>
           </div>
           <button className="text-gray-600">
             <ShoppingCart className="w-4 h-4" />
@@ -51,32 +51,32 @@ const NFTCard = ({ image, title, price }) => {
 };
 
 const NFTCollection = () => {
-  const nfts = [
-    {
-      id: 1,
-      image: "https://cdn.prod.website-files.com/6615636a03a6003b067c36dd/661ffd0dbe9673d914edca2d_6423fc9ca8b5e94da1681a70_Screenshot%25202023-03-29%2520at%252010.53.43.jpeg",
-      title: "Corrupted angel",
-      price: "1.2"
-    },
-    {
-      id: 2,
-      image: "https://cdn.prod.website-files.com/6615636a03a6003b067c36dd/661ffd0dbe9673d914edca2d_6423fc9ca8b5e94da1681a70_Screenshot%25202023-03-29%2520at%252010.53.43.jpeg",
-      title: "Corrupted angel",
-      price: "1.2"
-    },
-    {
-      id: 3,
-      image: "https://cdn.prod.website-files.com/6615636a03a6003b067c36dd/661ffd0dbe9673d914edca2d_6423fc9ca8b5e94da1681a70_Screenshot%25202023-03-29%2520at%252010.53.43.jpeg",
-      title: "Corrupted angel",
-      price: "1.2"
-    },
-    {
-      id: 4,
-      image: "https://cdn.prod.website-files.com/6615636a03a6003b067c36dd/661ffd0dbe9673d914edca2d_6423fc9ca8b5e94da1681a70_Screenshot%25202023-03-29%2520at%252010.53.43.jpeg",
-      title: "Corrupted angel",
-      price: "1.2"
-    }
-  ];
+  // const nfts = [
+  //   {
+  //     id: 1,
+  //     image: "https://cdn.prod.website-files.com/6615636a03a6003b067c36dd/661ffd0dbe9673d914edca2d_6423fc9ca8b5e94da1681a70_Screenshot%25202023-03-29%2520at%252010.53.43.jpeg",
+  //     title: "Corrupted angel",
+  //     price: "1.2"
+  //   },
+  //   {
+  //     id: 2,
+  //     image: "https://cdn.prod.website-files.com/6615636a03a6003b067c36dd/661ffd0dbe9673d914edca2d_6423fc9ca8b5e94da1681a70_Screenshot%25202023-03-29%2520at%252010.53.43.jpeg",
+  //     title: "Corrupted angel",
+  //     price: "1.2"
+  //   },
+  //   {
+  //     id: 3,
+  //     image: "https://cdn.prod.website-files.com/6615636a03a6003b067c36dd/661ffd0dbe9673d914edca2d_6423fc9ca8b5e94da1681a70_Screenshot%25202023-03-29%2520at%252010.53.43.jpeg",
+  //     title: "Corrupted angel",
+  //     price: "1.2"
+  //   },
+  //   {
+  //     id: 4,
+  //     image: "https://cdn.prod.website-files.com/6615636a03a6003b067c36dd/661ffd0dbe9673d914edca2d_6423fc9ca8b5e94da1681a70_Screenshot%25202023-03-29%2520at%252010.53.43.jpeg",
+  //     title: "Corrupted angel",
+  //     price: "1.2"
+  //   }
+  // ];
   const [collections, setCollections] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -138,16 +138,17 @@ const NFTCollection = () => {
     );
   }
   return (
-    <div className="max-w-6xl mx-auto p-4">
+    <div className=" mx-auto p-4">
       <h2 className="text-xl font-semibold mb-4">More from this collection</h2>
       
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-4">
         {collections.map((nft) => (
           <NFTCard
             key={nft.id}
             image={nft.imageUrl}
             title={nft.collectionName}
             price={nft.price}
+            name={nft.name}
           />
         ))}
       </div>

@@ -202,6 +202,26 @@ const NFTDetailsPage = () => {
       toast.error("An error occurred while creating the contract.");
     }
   };
+
+  const handleShare = async () => {
+    const shareData = {
+      url: window.location.href
+    };
+
+    try {
+      if (navigator.share) {
+        await navigator.share(shareData);
+      } else {
+        // Fallback to copying to clipboard
+        await navigator.clipboard.writeText(window.location.href);
+        toast.success('Link copied to clipboard!');
+      }
+    } catch (error) {
+      console.error('Error sharing:', error);
+      toast.error('Failed to share');
+    }
+  };
+
   return (
     <>
       <div className="max-w-7xl mx-auto p-6">
@@ -237,11 +257,11 @@ const NFTDetailsPage = () => {
                   className="w-5 h-5"
                 /> */}
               </div>
-              <h1 className="text-2xl font-bold">{nft?.data?.name}</h1>
+              <h1 className="text-2xl font-bold uppercase">{nft?.data?.name}</h1>
             </div>
 
             {/* Creator Info */}
-            <div className="flex items-center gap-6">
+            <div className="flex items-center gap-6 font-bold">
               <div className="flex items-center gap-2">
                 <div className="text-sm">Created by</div>
                 <img
@@ -249,7 +269,7 @@ const NFTDetailsPage = () => {
                   alt="Creator"
                   className="w-8 h-8 rounded-full"
                 />
-                <span className="font-medium">{nft?.creatorname}</span>
+                <span className="font-bold">{nft?.creatorname}</span>
               </div>
               <div className="flex items-center gap-2">
                 <div className="text-sm">Owned by</div>
@@ -258,19 +278,19 @@ const NFTDetailsPage = () => {
                   alt="Owner"
                   className="w-8 h-8 rounded-full"
                 />
-                <span className="font-medium">{nft?.ownerName}</span>
+                <span className="font-bold">{nft?.ownerName}</span>
               </div>
             </div>
 
             {/* Stats */}
             <div className="flex items-center gap-6 text-sm text-gray-600">
-              <div className="flex items-center gap-1">
-                <span>Quantity</span>
-                <span>{nft?.data?.quantity}</span>
-              </div>
-              <div className="flex items-center gap-1">
-                <span>Category</span>
-                <span>{nft?.data?.categoryName}</span>
+              {/* <div className="flex items-center gap-1">
+                <span></span>
+                
+              </div> */}
+              <div className="flex items-center gap-1 font-bold text-gray-800 text-lg">
+              <span>Quantity: {nft?.data?.quantity}</span>
+                <span>Category: {nft?.data?.categoryName}</span>
               </div>
               {/* <div className="flex items-center gap-1">
               <span>❤️</span>
@@ -283,11 +303,20 @@ const NFTDetailsPage = () => {
             </div>
 
             {/* Current Price */}
-            <div className="space-y-2">
-              <div className="text-sm text-gray-600"> Price</div>
-              <div className="text-xl font-bold">{nft?.data?.price} NYW</div>
-              {/* <div className="text-sm text-gray-600">≈ $740</div> */}
-            </div>
+            <div className="bg-gray-300 rounded-lg p-4 space-y-4 w-1/2">
+              <div className="space-y-2 flex items-center gap-4">
+
+                <div className="text-xl font-bold">Price: {nft?.data?.price} NYW</div>
+                <button 
+                onClick={handleShare}
+                className="flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-blue-600 transition-colors space-y-2"
+              >
+                <Share2 size={20} />
+                {/* <span>Share</span> */}
+              </button>
+              </div>
+             
+            
 
             {/* Action Buttons */}
             <div className="flex gap-4">
@@ -322,6 +351,7 @@ const NFTDetailsPage = () => {
             <button className="border border-gray-300 p-3 rounded-xl">
               🛒
             </button> */}
+            </div>
             </div>
           </div>
         </div>

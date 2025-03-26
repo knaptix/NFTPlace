@@ -91,10 +91,13 @@ const NFTMarketplace = () => {
               className="w-full h-52 object-cover rounded-lg"
             />
             <div className="mt-4  w-full">
+            <p className="text-md text-gray-600 font-bold">
+                  Name: {collection.name}
+                </p>
               <h3 className="text-lg font-semibold text-gray-900 uppercase">
                 {collection.collectionName}
               </h3>
-              <p className="text-md text-gray-600 font-bold">
+              <p className="text-md text-gray-600">
                 Category: {collection.categoryName}
               </p>
               <div className="flex  justify-between bg-gray-100 rounded-lg p-2 mt-2 w-full mb-4">
@@ -148,10 +151,13 @@ const NFTMarketplace = () => {
                 className="w-full h-52 object-cover rounded-lg"
               />
               <div className="mt-4  w-full">
+              <p className="text-md text-gray-600 font-bold">
+                  Name: {collection.name}
+                </p>
                 <h3 className="text-lg font-semibold text-gray-900 uppercase">
                   {collection.collectionName}
                 </h3>
-                <p className="text-md text-gray-600 font-bold">
+                <p className="text-md text-gray-600 ">
                   Category: {collection.categoryName}
                 </p>
                 <div className="flex items-center  mt-2 justify-between bg-gray-100 rounded-lg p-2 w-full mb-4">
