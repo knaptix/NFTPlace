@@ -19,6 +19,28 @@ const ProfileSettings = () => {
 
   const [isLoading, setIsLoading] = useState(false);
 
+  const handleDeleteProfilePicture = () => {
+    setProfile(prev => ({
+      ...prev,
+      profilePicture: null
+    }));
+    // Clear the file input
+    const fileInput = document.querySelector('input[name="profilePicture"]');
+    if (fileInput) fileInput.value = '';
+    toast.success('Profile picture removed');
+  };
+
+  const handleDeleteBannerImage = () => {
+    setProfile(prev => ({
+      ...prev,
+      bannerImage: null
+    }));
+    // Clear the file input
+    const fileInput = document.querySelector('input[name="bannerImage"]');
+    if (fileInput) fileInput.value = '';
+    toast.success('Banner image removed');
+  };
+
   // Handle input changes
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -169,8 +191,8 @@ const ProfileSettings = () => {
                 <h2 className="text-base font-medium">Profile Picture</h2>
                 <p className="text-sm text-gray-500">PNG file (max. 2MB)</p>
               </div>
-              <div className="flex space-x-3">
-                <label className="text-sm text-gray-600 hover:text-gray-900 flex items-center cursor-pointer">
+              <div className="flex justify-between sm:justify-start w-full sm:w-auto space-x-4">
+                <label className="text-sm text-gray-600 hover:text-gray-900 flex justify-between items-center cursor-pointer">
                   <input
                     type="file"
                     accept="image/*"
@@ -178,11 +200,16 @@ const ProfileSettings = () => {
                     onChange={handleFileChange}
                     className="hidden"
                   />
-                  📤 Upload
+                                                    <span className="px-6 py-3.5 text-[#02082B] bg-white border-[1px] rounded-2xl font-medium shadow-sm transition-colors">Upload</span>
+  
                 </label>
-                {/* <button className="text-sm text-gray-600 hover:text-gray-900 flex items-center">
+                <button 
+                  type="button"
+                  onClick={handleDeleteProfilePicture}
+                  className="px-4 py-2 text-sm text-red-600 hover:text-red-800 flex items-center"
+                >
                   ❌ Delete
-                </button> */}
+                </button>
               </div>
             </div>
 
@@ -208,11 +235,16 @@ const ProfileSettings = () => {
                     onChange={handleFileChange}
                     className="hidden"
                   />
-                  📤 Upload
+                                    <span className="px-6 py-3.5 text-[#02082B] bg-white border-[1px] rounded-2xl font-medium shadow-sm transition-colors">Upload</span>
+  
                 </label>
-                {/* <button className="text-sm text-gray-600 hover:text-gray-900 flex items-center">
+                <button 
+                  type="button"
+                  onClick={handleDeleteBannerImage}
+                  className="px-4 py-2 text-sm text-red-600 hover:text-red-800 flex items-center"
+                >
                   ❌ Delete
-                </button> */}
+                </button>
               </div>
             </div>
           </div>
