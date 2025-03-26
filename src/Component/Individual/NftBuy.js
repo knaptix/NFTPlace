@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Share2 } from "lucide-react";
+import { FaShareAlt } from "react-icons/fa";
 import NFTCollection from "./NFtCard";
 
 import TabSwitchers from "./TabSwitcher";
@@ -303,15 +303,15 @@ const NFTDetailsPage = () => {
             </div>
 
             {/* Current Price */}
-            <div className="bg-gray-300 rounded-lg p-4 space-y-4 w-1/2">
-              <div className="space-y-2 flex items-center gap-4">
+            <div className="bg-[#F3F3F3] rounded-lg p-4 space-y-4 w-2/4">
+              <div className=" flex items-center gap-8">
 
                 <div className="text-xl font-bold">Price: {nft?.data?.price} NYW</div>
                 <button 
                 onClick={handleShare}
                 className="flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-blue-600 transition-colors space-y-2"
               >
-                <Share2 size={20} />
+                <FaShareAlt size={30} />
                 {/* <span>Share</span> */}
               </button>
               </div>
@@ -327,7 +327,7 @@ const NFTDetailsPage = () => {
                 Buy now
               </button> */}
               <button
-                className={`mt-4 w-64 bg-blue-600 py-2 rounded-md ${
+                className={`mt-4 w-64 bg-black py-2 rounded-md ${
                   isLoading
                     ? "bg-gray-400 cursor-not-allowed"
                     : "bg-black text-white"
