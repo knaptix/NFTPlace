@@ -69,6 +69,21 @@ const Navbar = ({ darkMode, setDarkMode }) => {
 
   return (
     <>
+     <div className="w-full h-20 bg-blue-600 text-white py-2 overflow-hidden relative">
+  <div className="absolute whitespace-nowrap animate-marquee text-xl font-semibold">
+    This market is best suited on the Chrome platform. Use it there for better performance.
+  </div>
+</div>
+
+<style>{`
+  @keyframes marquee {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+  .animate-marquee {
+    animation: marquee 10s linear infinite;
+  }
+`}</style>
       <nav className={`sticky top-0 z-50 ${darkMode ? "bg-gray-800 text-white" : "bg-white text-black"}`}>
         <div className=" mx-auto px-4 py-3">
           <div className="flex items-center justify-between">
@@ -103,7 +118,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
                 <Link to="/CreateNFt" className="text-md  font-bold hover:text-gray-400">Create</Link>
               </div>
 
-              
+
             </div>
 
             {/* Action Buttons */}
