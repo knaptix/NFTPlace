@@ -69,11 +69,12 @@ const Navbar = ({ darkMode, setDarkMode }) => {
 
   return (
     <>
-     <div className="w-full h-20 bg-blue-600 text-white py-2 overflow-hidden relative">
-  <div className="absolute whitespace-nowrap animate-marquee text-xl font-semibold">
+   <div className="w-full h-12 bg-white text-black py-1 overflow-hidden relative border-b">
+  <div className="absolute whitespace-nowrap animate-marquee text-lg font-medium">
     This market is best suited on the Chrome platform. Use it there for better performance.
   </div>
 </div>
+
 
 <style>{`
   @keyframes marquee {
