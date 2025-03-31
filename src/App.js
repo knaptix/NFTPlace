@@ -42,7 +42,7 @@ const App = () => {
           {/* <Route path="/buy/:id" element={<NFTDetailPage />} /> */}
 
           <Route path="/sale" element={<ProtectedRoute><NFTDetailsSale /></ProtectedRoute>} />
-          <Route path="/detail" element={<NFTDetailPage />} />
+          {/* <Route path="/detail" element={<NFTDetailPage />} /> */}
           <Route path="/collection" element={<NFTCollectionPage />} />
           <Route path="/profilepage" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
           {/* <Route path="/profilepage" element={<ProfilePage />} /> */}

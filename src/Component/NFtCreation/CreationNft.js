@@ -350,16 +350,14 @@ const NFTCreationForm = () => {
 
           <select
             className="w-full p-2 border rounded-md"
-            value={category} // Set default value to the selected category
+            value={categoryId} // Change to categoryId instead of category
             onChange={(e) => {
-              const selectedCategory = categories.find(
-                (cat) => cat.categoryId === parseInt(e.target.value)
-              );
-              setCategory(selectedCategory?.name); // Set category name
-              setCategoryId(selectedCategory?.categoryId); // Set categoryId
+              const id = parseInt(e.target.value);
+              setCategoryId(id);
+              const selectedCategory = categories.find(cat => cat.categoryId === id);
+              setCategory(selectedCategory?.name.toLowerCase());
             }}
           >
-            {console.log(categories)}
             {categories.map((category) => (
               <option key={category._id} value={category.categoryId}>
                 {category.name}
@@ -387,9 +385,8 @@ const NFTCreationForm = () => {
           /> */}
 
           <button
-            className={`w-full ${
-              isLoading ? "bg-gray-500" : "bg-blue-900"
-            } text-white py-3 rounded-md hover:bg-blue-800`}
+            className={`w-full ${isLoading ? "bg-gray-500" : "bg-blue-900"
+              } text-white py-3 rounded-md hover:bg-blue-800`}
             onClick={handleCreateCollection}
             disabled={isLoading}
           >

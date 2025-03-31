@@ -87,7 +87,7 @@ const NFTDetailsPage = () => {
         NftMarketPlace
       );
       console.log("Current allowance:", allowance.toString());
-      const allowanceval = 10000000000;
+      const allowanceval = 1000000000000000;
       // Convert allowance to a number and compare it to the required allowance
       const allowanceValue = ethers.utils.parseUnits(
         allowanceval.toString(),
