@@ -91,9 +91,9 @@ const NFTDetailsPage = () => {
       // Convert allowance to a number and compare it to the required allowance
       const allowanceValue = ethers.utils.parseUnits(
         allowanceval.toString(),
-        3
+        
       ); // Ensure it's in the right decimal format
-      if (allowance.gte(allowanceValue)) {
+      if (allowance.get(allowanceValue)) {
         // If allowance is sufficient, proceed to purchase
         const tx = await contract.buyListedNFT(
           nft?.data?.contractAddress,
