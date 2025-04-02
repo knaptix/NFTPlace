@@ -133,18 +133,21 @@ const ProfileSettings = () => {
       console.log("Profile updated successfully:", response.data.status);
 
       if (response.data.status) {
-        //navigate("/profilepage");
-        toast.error(response.data.message); // Show success toast
+        navigate("/profilepage");
+        toast.success(response.data.message); // Show success toast
 
       }else{
         toast.error(response.data.message); // Show success toast
 
       }
-      // navigate("/profilepage");
     } catch (error) {
       setIsLoading(false); // Hide loader
-      toast.error("Error updating profile. Please try again!"); // Show error toast
-      console.error("Error updating profile:", error);
+      if (error.response && error.response.data && error.response.data.message) {
+        toast.error(error.response.data.message); // Show API error message
+      } else {
+        toast.error("Error updating profile. Please try again!"); // Generic fallback message
+      }
+    
     }
   };
 

@@ -52,113 +52,100 @@ const NFTDetailsPage = () => {
     fetchNft();
   }, [id]); // Thi
   const handleCreateCollection = async () => {
-    // Validation
-
     if (!window.ethereum) {
       toast.error("MetaMask is not installed!");
       return;
     }
-
+  
     try {
       setIsLoading(true);
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       await provider.send("eth_requestAccounts", []);
       const signer = provider.getSigner();
-
-      const useAddress = await signer.getAddress();
-      console.log("User Address:", useAddress, nft?.data?.walletAddress);
-      if (useAddress.toLowerCase() === nft?.data?.walletAddress.toLowerCase()) {
+      const userAddress = await signer.getAddress();
+  
+      if (userAddress.toLowerCase() === nft?.data?.walletAddress.toLowerCase()) {
         toast.error("You can't buy your own NFT!");
-
+        setIsLoading(false);
         return;
       }
+  
       const contractABI = NftMarketPlace_Abi;
-      const TokenABI = nwfntToken_Abi;
+      const tokenABI = nwfntToken_Abi;
       const contract = new ethers.Contract(NftMarketPlace, contractABI, signer);
-      const nwfntTokenContract = new ethers.Contract(
-        nwfntToken,
-        TokenABI,
-        signer
-      );
-
-      // Get allowance
-      const allowance = await nwfntTokenContract.allowance(
-        useAddress,
-        NftMarketPlace
-      );
-      console.log("Current allowance:", allowance.toString());
-      const allowanceval = 1000000000000000;
-      // Convert allowance to a number and compare it to the required allowance
-      const allowanceValue = ethers.utils.parseUnits(
-        allowanceval.toString(),
-        
-      ); // Ensure it's in the right decimal format
-      if (allowance.get(allowanceValue)) {
-        // If allowance is sufficient, proceed to purchase
-        const tx = await contract.buyListedNFT(
-          nft?.data?.contractAddress,
-          nft?.data?.tokenId,
-          nft?.data?.walletAddress,
-          nft?.data?.quantity
-        );
-
-        console.log("Transaction sent:", tx.hash);
-        const receipt = await tx.wait();
-        console.log("Transaction confirmed:", receipt);
-
-        const NFTListedEvent = receipt.events.find(
-          (event) => event.event === "NFTSold"
-        );
-
-        if (NFTListedEvent) {
-          const newId = NFTListedEvent.args.tokenId.toString();
-          console.log("New Token ID:", newId);
-          //toast.success("NFT Listed successfully!");
-          await handleApiCall(newId, nft?.data?.contractAddress, tx.hash);
-        } else {
-          console.error("NFTSold event not found in receipt.");
-          toast.error("NFT created, but failed to retrieve token ID.");
-        }
-      } else {
-        // If allowance is not sufficient, set approval
-        const approvalTx = await nwfntTokenContract.approve(
-          NftMarketPlace,
-          allowanceValue
-        );
-        const approvalReceipt = await approvalTx.wait();
-        toast.success("Approval successful!");
-
-        const tx = await contract.buyListedNFT(
-          nft?.data?.contractAddress,
-          nft?.data?.tokenId,
-          nft?.data?.walletAddress,
-          nft?.data?.quantity
-        );
-        console.log("Transaction sent:", tx.hash);
-        const listReceipt = await tx.wait();
-        console.log("Transaction confirmed:", listReceipt);
-
-        const NFTListedEvent = listReceipt.events.find(
-          (event) => event.event === "NFTSold"
-        );
-
-        if (NFTListedEvent) {
-          const newId = NFTListedEvent.args.tokenId.toString();
-          console.log("New Token ID:", newId);
-         // toast.success("NFT Listed successfully!");
-          await handleApiCall(newId, nft?.data?.contractAddress, tx.hash);
-        } else {
-          console.error("NFTListed event not found in receipt.");
-          toast.error("NFT created, but failed to retrieve token ID.");
-        }
+      const tokenContract = new ethers.Contract(nwfntToken, tokenABI, signer);
+  
+      // Check ETH balance for gas fees
+      const ethBalance = await provider.getBalance(userAddress);
+      const minEthRequired = ethers.utils.parseEther("0.0011"); // Adjust minimum ETH required
+  
+      if (ethBalance.lt(minEthRequired)) {
+        toast.error("Insufficient ETH balance for gas fees!");
+        setIsLoading(false);
+        return;
       }
+  
+      // Check token balance
+      const tokenBalance = await tokenContract.balanceOf(userAddress);
+      const formattedTokenBalance = ethers.utils.formatUnits(tokenBalance, 3);
+  
+      const price = ethers.utils.parseUnits(nft?.data?.price?.toString() || "0", 18);
+  
+      console.log("Token Balance:", formattedTokenBalance);
+      console.log("NFT Price:", ethers.utils.formatUnits(price, 18));
+  
+      if (parseFloat(formattedTokenBalance) < parseFloat(ethers.utils.formatUnits(price, 18))) {
+        toast.error("Insufficient token balance to purchase NFT!");
+        setIsLoading(false);
+        return;
+      }
+  
+      // Check allowance
+      const allowance = await tokenContract.allowance(userAddress, NftMarketPlace);
+      if (allowance.lt(price)) {
+        toast.loading("Approving token spend...");
+        const approvalTx = await tokenContract.approve(NftMarketPlace, price);
+        await approvalTx.wait();
+        toast.dismiss(); // Remove loading toast
+        toast.success("Token approval successful!");
+      }
+  
+      // Proceed with NFT purchase
+      toast.loading("Processing purchase...");
+      const tx = await contract.buyListedNFT(
+        nft?.data?.contractAddress,
+        nft?.data?.tokenId,
+        nft?.data?.walletAddress,
+        nft?.data?.quantity
+      );
+  
+      console.log("Transaction sent:", tx.hash);
+      const receipt = await tx.wait();
+      toast.dismiss(); // Remove loading toast
+      console.log("Transaction confirmed:", receipt);
+  
+      const NFTSoldEvent = receipt.events.find(event => event.event === "NFTSold");
+  
+      if (NFTSoldEvent) {
+        const newId = NFTSoldEvent.args.tokenId.toString();
+        console.log("New Token ID:", newId);
+        toast.success("NFT purchased successfully!");
+        await handleApiCall(newId, nft?.data?.contractAddress, tx.hash);
+      } else {
+        console.error("NFTSold event not found in receipt.");
+        toast.error("NFT purchased, but failed to retrieve token ID.");
+      }
+  
     } catch (error) {
       console.error("Error:", error);
-      alert(`Error: ${error.message}`);
+      toast.dismiss(); // Remove loading toast if an error occurs
+      toast.error(`Transaction failed: ${error.message}`);
     } finally {
       setIsLoading(false);
     }
   };
+  
+  
 
   const handleApiCall = async (tokenId, contractAddress, hash) => {
     // Fetch token from localStorage
