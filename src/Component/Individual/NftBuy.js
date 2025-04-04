@@ -62,7 +62,7 @@ const NFTDetailsPage = () => {
         toast.error("Enter quantity  !")
         return;
       }
-      if (quantity > 1) {
+      if (quantity <  1) {
         toast.error("quantity must be greater than 1 !")
         return;
       }
@@ -328,7 +328,7 @@ const NFTDetailsPage = () => {
               {/* Action Buttons */}
               <div className=" gap-4">
                 <input
-                  type="text"
+                  type="number"
                   placeholder="Enter quantity to buy"
                   className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   onChange={(e) => setQuantity(e.target.value)}
