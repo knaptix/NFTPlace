@@ -8,12 +8,12 @@ const NewYorkWorldSection = () => {
         {/* Left Content Section */}
         <div className="text-center lg:text-left w-full lg:w-1/2">
           <div className="mb-4 sm:mb-6">
-            <h2 className="text-[#000C2D] font-sans font-extrabold text-[24px] sm:text-[32px] md:text-[40px] leading-tight">
+            <h2 className="text-[#000C2D] text-black font-sans font-extrabold text-[24px] sm:text-[32px] md:text-[40px] leading-tight">
               Diversity & Technology
             </h2>
 
-            <h1 className="text-[32px] sm:text-[42px] md:text-[56px] font-sans font-extrabold text-[#1A202C] leading-tight mt-2">
-              NEW YORK WORLD
+            <h1 className="text-[32px] sm:text-[42px] md:text-[56px] font-sans text-black font-extrabold text-[#1A202C] leading-tight mt-2">
+              NEW YORK WORLD NFT
             </h1>
           </div>
 
@@ -26,16 +26,25 @@ const NewYorkWorldSection = () => {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
             <Link to='https://t.me/+YUAQVX-sDoM1NTdh'>
-              <button className="bg-[#1A202C] text-white text-[18px] sm:text-[20px] px-6 sm:px-8 py-3 rounded-full font-sans transition-all duration-300 hover:bg-[#374151]">
+              <button className="bg-black text-white text-[18px] sm:text-[20px] px-6 sm:px-8 py-3 rounded-full font-sans transition-all duration-300 hover:bg-[#374151]">
                 Join Community
               </button>
             </Link>
             <Link to='https://nywnft-organization.gitbook.io/nywnft/~/changes/1/getting-started/get-started'>
-              <button className="bg-[#EBF2FE] text-[#1A202C] text-[18px] sm:text-[20px] px-6 sm:px-8 py-3 rounded-full font-medium border border-[#E2E8F0] transition-all duration-300 hover:bg-[#DCE6F8]">
+              <button className="text-black  text-[18px] sm:text-[20px] px-6 sm:px-8 py-3 rounded-full font-bold border border-[#E2E8F0] transition-all duration-300 ">
                 Whitepaper
               </button>
             </Link>
+           
+            
           </div>
+          <div className="flex flex-col sm:flex-row gap-4  mt-5 justify-center lg:justify-start">
+          <Link to='https://pancakeswap.finance/swap?chain=eth&outputCurrency=0x26cAFCfc1B820a74B0e069c2C65b816d2AF241cD'>
+              <button className="bg-black  text-white text-[18px] sm:text-[20px] px-6 sm:px-8 py-3 rounded-full font-sans transition-all duration-300 hover:bg-[#374151]">
+                Get started with NYWNFT COINS
+              </button>
+            </Link>
+        </div>
         </div>
 
         {/* Right Image Section */}
