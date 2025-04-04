@@ -105,6 +105,8 @@ const NFTDetailsPage = () => {
         const totalPrice = (parseFloat(nft?.data?.price || "0") * (parseFloat(quantity) + 1)).toString();
 
         const price = ethers.utils.parseUnits(totalPrice, 18);
+        console.log("Token Address:",           nft?.data?.contractAddress,    Number(quantity)
+        );
 
         console.log("Token Balance:", formattedTokenBalance);
         console.log("NFT Price:", ethers.utils.formatUnits(price, 18));
@@ -131,7 +133,7 @@ const NFTDetailsPage = () => {
           nft?.data?.contractAddress,
           nft?.data?.tokenId,
           nft?.data?.walletAddress,
-          nft?.data?.quantity
+          Number(quantity)
         );
 
         console.log("Transaction sent:", tx.hash);
