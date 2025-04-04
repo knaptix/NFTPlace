@@ -89,8 +89,9 @@ const NFTDetailsPage = () => {
       const tokenBalance = await tokenContract.balanceOf(userAddress);
       const formattedTokenBalance = ethers.utils.formatUnits(tokenBalance, 3);
   
-      const price = ethers.utils.parseUnits(nft?.data?.price?.toString() || "0", 18);
-  
+      const totalPrice = (parseFloat(nft?.data?.price || "0") * parseFloat(nft?.data?.quantity || "1")).toString();
+      const price = ethers.utils.parseUnits(totalPrice, 18);
+        
       console.log("Token Balance:", formattedTokenBalance);
       console.log("NFT Price:", ethers.utils.formatUnits(price, 18));
   
