@@ -69,14 +69,14 @@ const Navbar = ({ darkMode, setDarkMode }) => {
 
   return (
     <>
-   <div className="w-full h-12 bg-white text-black py-1 overflow-hidden relative border-b">
-  <div className="absolute whitespace-nowrap animate-marquee text-lg font-medium">
-    This market is best suited on the Chrome platform. Use it there for better performance.
-  </div>
-</div>
+      <div className="w-full h-12 bg-white text-black py-1 overflow-hidden relative border-b">
+        <div className="absolute whitespace-nowrap animate-marquee text-lg font-medium">
+          This market is best suited on the Chrome platform. Use it there for better performance.
+        </div>
+      </div>
 
 
-<style>{`
+      <style>{`
   @keyframes marquee {
     0% { transform: translateX(-100%); }
     100% { transform: translateX(100%); }
@@ -90,10 +90,10 @@ const Navbar = ({ darkMode, setDarkMode }) => {
           <div className="flex items-center justify-between">
             {/* Logo Section */}
             <Link to="/" className="flex items-center space-x-2">
-              <div className={`w-8 h-8 ${darkMode ? "bg-gray-700" : "bg-[#1B1A1E]"} rounded-lg flex items-center justify-center`}>
-                <img src="log.png" alt="Logo" className="w-6 h-6" />
+              <div className={`w-16 h-16 ${darkMode ? "bg-gray-700" : "bg-[#1B1A1E]"} rounded-lg flex items-center justify-center`}>
+                <img src="log.png" alt="Logo" className="w-12 h-12" />
               </div>
-              <span className="font-extrabold text-[24px]">NYWNFT</span>
+              <span className="font-extrabold text-[28px]">NYWNFT</span>
             </Link>
 
             {/* Search Bar */}
@@ -125,7 +125,11 @@ const Navbar = ({ darkMode, setDarkMode }) => {
             {/* Action Buttons */}
             <div className="flex items-center space-x-4">
               {/* Dark Mode Toggle Button */}
-
+              {/* Cart Button */}
+              <Link to="/cart" className="hidden md:flex space-x-6 items-center mr-4 hover:text-gray-400 font-bold">
+                {/* <LuShoppingCart className="w-8 h-8" /> */}
+                Cart
+              </Link>
 
 
               <Link to="https://pancakeswap.finance/swap?chain=eth&outputCurrency=0x26cAFCfc1B820a74B0e069c2C65b816d2AF241cD" className="text-sm font-medium hover:text-gray-400 ">
@@ -140,29 +144,40 @@ const Navbar = ({ darkMode, setDarkMode }) => {
               {/* Wallet Button */}
               <button
                 onClick={handleWalletButtonClick}
-                className={`hidden md:flex items-center space-x-4 px-4 rounded-full py-2 mr-4 ${darkMode
+                className={`hidden md:flex items-center space-x-4 px-4 py-4 rounded-full mr-4 ${darkMode
                   ? "bg-gray-700 text-white hover:bg-gray-600"
                   : "bg-[#F3F3F3] text-black hover:bg-gray-200"
                   } transition-colors duration-200`}
               >
-                <span className="text-sm">
+                <span className="text-sm ">
                   {isWalletConnected ? `Disconnect Wallet` : "Connect Wallet"}
                 </span>
               </button>
 
-              {/* Cart Button */}
-              <Link to="/cart" className="hidden md:flex space-x-6 items-center mr-4 hover:text-gray-400">
-                <LuShoppingCart className="w-8 h-8" />
-              </Link>
+
 
               {/* Profile Menu */}
               <div className="relative mr-2" ref={profileMenuRef}>
-                <button
+                {/* <button
                   onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
                   className="w-8 h-8   rounded-full overflow-hidden focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
                   <CgProfile className="w-full h-full object-cover" />
+                </button> */}
+
+                {/* <Link to="https://pancakeswap.finance/swap?chain=eth&outputCurrency=0x26cAFCfc1B820a74B0e069c2C65b816d2AF241cD" className="text-sm font-medium hover:text-gray-400 "> */}
+                <button className={`hidden md:flex items-center space-x-2 px-4 rounded-full py-4 ${darkMode
+                  ? "bg-gray-700 text-white "
+                  : "text-[#F3F3F3] bg-black"
+                  } transition-colors duration-200`}
+                  onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
+                >
+                  <CgProfile className="w-6 h-full object-cover text-white" />
+                  <span className="text-sm ">
+                    PROFILE
+                  </span>
                 </button>
+                {/* </Link> */}
 
                 {/* Profile Dropdown Menu */}
                 {isProfileMenuOpen && (
