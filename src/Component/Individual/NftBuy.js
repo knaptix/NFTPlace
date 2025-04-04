@@ -19,6 +19,7 @@ const NFTDetailsPage = () => {
 
   const [nft, setNft] = useState({});
   const location = useLocation();
+  const [quantity, setQuantity] = useState(0);
 
   // Extract the query string portion from the URL (remove '/buy/')
   const queryString = location.pathname.split("/buy/")[1];
@@ -52,101 +53,119 @@ const NFTDetailsPage = () => {
     fetchNft();
   }, [id]); // Thi
   const handleCreateCollection = async () => {
-    if (!window.ethereum) {
-      toast.error("MetaMask is not installed!");
-      return;
-    }
-  
-    try {
-      setIsLoading(true);
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      await provider.send("eth_requestAccounts", []);
-      const signer = provider.getSigner();
-      const userAddress = await signer.getAddress();
-  
-      if (userAddress.toLowerCase() === nft?.data?.walletAddress.toLowerCase()) {
-        toast.error("You can't buy your own NFT!");
-        setIsLoading(false);
+    if (quantity <= nft?.data?.quantity) {
+      if (!window.ethereum) {
+        toast.error("MetaMask is not installed!");
         return;
       }
-  
-      const contractABI = NftMarketPlace_Abi;
-      const tokenABI = nwfntToken_Abi;
-      const contract = new ethers.Contract(NftMarketPlace, contractABI, signer);
-      const tokenContract = new ethers.Contract(nwfntToken, tokenABI, signer);
-  
-      // Check ETH balance for gas fees
-      const ethBalance = await provider.getBalance(userAddress);
-      const minEthRequired = ethers.utils.parseEther("0.0011"); // Adjust minimum ETH required
-  
-      if (ethBalance.lt(minEthRequired)) {
-        toast.error("Insufficient ETH balance for gas fees!");
-        setIsLoading(false);
+      if (!quantity) {
+        toast.error("Enter quantity  !")
         return;
       }
-  
-      // Check token balance
-      const tokenBalance = await tokenContract.balanceOf(userAddress);
-      const formattedTokenBalance = ethers.utils.formatUnits(tokenBalance, 3);
-  
-      const totalPrice = (parseFloat(nft?.data?.price || "0") * parseFloat(nft?.data?.quantity || "1")).toString();
-      const price = ethers.utils.parseUnits(totalPrice, 18);
-        
-      console.log("Token Balance:", formattedTokenBalance);
-      console.log("NFT Price:", ethers.utils.formatUnits(price, 18));
-  
-      if (parseFloat(formattedTokenBalance) < parseFloat(ethers.utils.formatUnits(price, 18))) {
-        toast.error("Insufficient token balance to purchase NFT!");
-        setIsLoading(false);
+      if (quantity > 1) {
+        toast.error("quantity must be greater than 1 !")
         return;
       }
-  
-      // Check allowance
-      const allowance = await tokenContract.allowance(userAddress, NftMarketPlace);
-      if (allowance.lt(price)) {
-        toast.loading("Approving token spend...");
-        const approvalTx = await tokenContract.approve(NftMarketPlace, price);
-        await approvalTx.wait();
+      if (!Number.isInteger(Number(quantity))) {
+        toast.error("Quantity must be a whole number!");
+        return;
+      }
+      try {
+        setIsLoading(true);
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        await provider.send("eth_requestAccounts", []);
+        const signer = provider.getSigner();
+        const userAddress = await signer.getAddress();
+
+        if (userAddress.toLowerCase() === nft?.data?.walletAddress.toLowerCase()) {
+          toast.error("You can't buy your own NFT!");
+          setIsLoading(false);
+          return;
+        }
+
+        const contractABI = NftMarketPlace_Abi;
+        const tokenABI = nwfntToken_Abi;
+        const contract = new ethers.Contract(NftMarketPlace, contractABI, signer);
+        const tokenContract = new ethers.Contract(nwfntToken, tokenABI, signer);
+
+        // Check ETH balance for gas fees
+        const ethBalance = await provider.getBalance(userAddress);
+        const minEthRequired = ethers.utils.parseEther("0.0011"); // Adjust minimum ETH required
+
+        if (ethBalance.lt(minEthRequired)) {
+          toast.error("Insufficient ETH balance for gas fees!");
+          setIsLoading(false);
+          return;
+        }
+
+        // Check token balance
+        const tokenBalance = await tokenContract.balanceOf(userAddress);
+        const formattedTokenBalance = ethers.utils.formatUnits(tokenBalance, 3);
+
+        const totalPrice = (parseFloat(nft?.data?.price || "0") * (parseFloat(quantity) + 1)).toString();
+
+        const price = ethers.utils.parseUnits(totalPrice, 18);
+
+        console.log("Token Balance:", formattedTokenBalance);
+        console.log("NFT Price:", ethers.utils.formatUnits(price, 18));
+
+        if (parseFloat(formattedTokenBalance) < parseFloat(ethers.utils.formatUnits(price, 18))) {
+          toast.error("Insufficient token balance to purchase NFT!");
+          setIsLoading(false);
+          return;
+        }
+
+        // Check allowance
+        const allowance = await tokenContract.allowance(userAddress, NftMarketPlace);
+        if (allowance.lt(price)) {
+          toast.loading("Approving token spend...");
+          const approvalTx = await tokenContract.approve(NftMarketPlace, price);
+          await approvalTx.wait();
+          toast.dismiss(); // Remove loading toast
+          toast.success("Token approval successful!");
+        }
+
+        // Proceed with NFT purchase
+        toast.loading("Processing purchase...");
+        const tx = await contract.buyListedNFT(
+          nft?.data?.contractAddress,
+          nft?.data?.tokenId,
+          nft?.data?.walletAddress,
+          nft?.data?.quantity
+        );
+
+        console.log("Transaction sent:", tx.hash);
+        const receipt = await tx.wait();
         toast.dismiss(); // Remove loading toast
-        toast.success("Token approval successful!");
+        console.log("Transaction confirmed:", receipt);
+
+        const NFTSoldEvent = receipt.events.find(event => event.event === "NFTSold");
+
+        if (NFTSoldEvent) {
+          const newId = NFTSoldEvent.args.tokenId.toString();
+          console.log("New Token ID:", newId);
+          toast.success("NFT purchased successfully!");
+          await handleApiCall(newId, nft?.data?.contractAddress, tx.hash);
+        } else {
+          console.error("NFTSold event not found in receipt.");
+          toast.error("NFT purchased, but failed to retrieve token ID.");
+        }
+
+      } catch (error) {
+        console.error("Error:", error);
+        toast.dismiss(); // Remove loading toast if an error occurs
+        toast.error(`Transaction failed: ${error.message}`);
+      } finally {
+        setIsLoading(false);
       }
-  
-      // Proceed with NFT purchase
-      toast.loading("Processing purchase...");
-      const tx = await contract.buyListedNFT(
-        nft?.data?.contractAddress,
-        nft?.data?.tokenId,
-        nft?.data?.walletAddress,
-        nft?.data?.quantity
-      );
-  
-      console.log("Transaction sent:", tx.hash);
-      const receipt = await tx.wait();
-      toast.dismiss(); // Remove loading toast
-      console.log("Transaction confirmed:", receipt);
-  
-      const NFTSoldEvent = receipt.events.find(event => event.event === "NFTSold");
-  
-      if (NFTSoldEvent) {
-        const newId = NFTSoldEvent.args.tokenId.toString();
-        console.log("New Token ID:", newId);
-        toast.success("NFT purchased successfully!");
-        await handleApiCall(newId, nft?.data?.contractAddress, tx.hash);
-      } else {
-        console.error("NFTSold event not found in receipt.");
-        toast.error("NFT purchased, but failed to retrieve token ID.");
-      }
-  
-    } catch (error) {
-      console.error("Error:", error);
-      toast.dismiss(); // Remove loading toast if an error occurs
-      toast.error(`Transaction failed: ${error.message}`);
-    } finally {
-      setIsLoading(false);
+
+    } else {
+      toast.error("invalid quantity !")
     }
+
   };
-  
-  
+
+  console.log(quantity, "quantity")
 
   const handleApiCall = async (tokenId, contractAddress, hash) => {
     // Fetch token from localStorage
@@ -277,7 +296,7 @@ const NFTDetailsPage = () => {
                 
               </div> */}
               <div className="flex items-center gap-1 font-bold text-gray-800 text-lg">
-              <span>Quantity: {nft?.data?.quantity}</span>
+                <span>Quantity: {nft?.data?.quantity}</span>
                 <span>Category: {nft?.data?.categoryName}</span>
               </div>
               {/* <div className="flex items-center gap-1">
@@ -295,51 +314,51 @@ const NFTDetailsPage = () => {
               <div className=" flex items-center gap-8">
 
                 <div className="text-xl font-bold">Price: {nft?.data?.price} NYW</div>
-                <button 
-                onClick={handleShare}
-                className="flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-blue-600 transition-colors space-y-2"
-              >
-                <FaShareAlt size={30} />
-                {/* <span>Share</span> */}
-              </button>
+                <button
+                  onClick={handleShare}
+                  className="flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-blue-600 transition-colors space-y-2"
+                >
+                  <FaShareAlt size={30} />
+                  {/* <span>Share</span> */}
+                </button>
               </div>
-             
-            
 
-            {/* Action Buttons */}
-            <div className="flex gap-4">
-              {/* <button
-                className="w-64 bg-blue-600 text-white py-3 rounded-xl font-medium"
-                onClick={handleCreateCollection}
-              >
-                Buy now
-              </button> */}
-              <button
-                className={`mt-4 w-64 bg-black py-2 rounded-md ${
-                  isLoading
-                    ? "bg-gray-400 cursor-not-allowed"
-                    : "bg-black text-white"
-                }`}
-                onClick={handleCreateCollection}
-                disabled={isLoading} // Disable the button while loading
-              >
-                {isLoading ? (
-                  <div className="flex justify-center items-center space-x-2">
-                    <div className="w-5 h-5 border-4 border-t-4 border-white border-solid rounded-full animate-spin"></div>
-                    <span>Processing...</span>
-                  </div>
-                ) : (
-                  "  Buy now"
-                )}
-              </button>
 
-              {/* <button className="flex-1 border border-gray-300 py-3 rounded-xl font-medium">
+
+              {/* Action Buttons */}
+              <div className=" gap-4">
+                <input
+                  type="text"
+                  placeholder="Enter quantity to buy"
+                  className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  onChange={(e) => setQuantity(e.target.value)}
+                />
+
+                <button
+                  className={`mt-4 w-64 bg-black py-2 rounded-md ${isLoading
+                      ? "bg-gray-400 cursor-not-allowed"
+                      : "bg-black text-white"
+                    }`}
+                  onClick={handleCreateCollection}
+                  disabled={isLoading} // Disable the button while loading
+                >
+                  {isLoading ? (
+                    <div className="flex justify-center items-center space-x-2">
+                      <div className="w-5 h-5 border-4 border-t-4 border-white border-solid rounded-full animate-spin"></div>
+                      <span>Processing...</span>
+                    </div>
+                  ) : (
+                    "  Buy now"
+                  )}
+                </button>
+
+                {/* <button className="flex-1 border border-gray-300 py-3 rounded-xl font-medium">
               Make offer
             </button>
             <button className="border border-gray-300 p-3 rounded-xl">
               🛒
             </button> */}
-            </div>
+              </div>
             </div>
           </div>
         </div>
