@@ -40,9 +40,13 @@ const NFTMarketplace = () => {
     fetchCollections();
   }, []);
 
-  // Split the collections for layout
-  const firstRow = collections.slice(0, 5);
-  const secondRow = collections.slice(5);
+  // Filter collections to only include items with onSale: true
+  const filteredCollections = collections.filter((collection) => collection.onSale);
+
+  // Split the filtered collections for layout
+  // const firstRow = filteredCollections.slice(0, 5);
+  // const secondRow = filteredCollections.slice(5);
+  const secondRow = filteredCollections.slice(24);
 
   // Loading state
   if (loading) {
@@ -79,39 +83,33 @@ const NFTMarketplace = () => {
       </p>
 
       {/* NFT Grid - First Row (4 Cards) */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full">
+      {/* <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full">
         {firstRow.map((collection) => (
-          <div
-            key={collection._id}
-            className="bg-white shadow-lg rounded-2xl overflow-hidden p-4 transform transition-all hover:scale-105 flex flex-col items-center"
-          >
-            <img
-              src={collection.imageUrl}
-              alt={collection.collectionName}
-              className="w-full h-52 object-cover rounded-lg"
-            />
-            <div className="mt-4  w-full">
-            <p className="text-md text-gray-600 font-bold">
+          <div key={collection._id}>
+            <div className="bg-white shadow-lg rounded-2xl overflow-hidden p-4 transform transition-all hover:scale-105 flex flex-col items-center">
+              <img
+                src={collection.imageUrl}
+                alt={collection.collectionName}
+                className="w-full h-52 object-cover rounded-lg"
+              />
+              <div className="mt-4 w-full">
+                <p className="text-md text-gray-600 font-bold">
                   Name: {collection.name}
                 </p>
-              <h3 className="text-lg font-semibold text-gray-900 uppercase">
-                {collection.collectionName}
-              </h3>
-              <p className="text-md text-gray-600">
-                Category: {collection.categoryName}
-              </p>
-              <div className="flex  justify-between bg-gray-100 rounded-lg p-2 mt-2 w-full mb-4">
+                <h3 className="text-lg font-semibold text-gray-900 uppercase">
+                  {collection.collectionName}
+                </h3>
+                <p className="text-md text-gray-600">
+                  Category: {collection.categoryName}
+                </p>
+                <div className="flex justify-between bg-gray-100 rounded-lg p-2 mt-2 w-full mb-4">
                   <div>
-
-                    <p className="text-lg ">Price {" "}
-                      <span className="font-bold">{collection.price} NYW</span></p>
+                    <p className="text-lg">
+                      Price:{"   "}
+                      <span className="font-bold">{collection.price} NYW</span>
+                    </p>
                   </div>
-
                 </div>
-
-
-              {/* Conditional Rendering */}
-              {collection.onSale ? (
                 <div className="flex items-center gap-2">
                   <Link
                     to={`/buy/id=${collection.tokenId}&contract=${collection.contractAddress}`}
@@ -125,17 +123,11 @@ const NFTMarketplace = () => {
                     <ShoppingCart />
                   </button>
                 </div>
-              ) : (
-                <Link to={`/details/${collection.tokenId}`}>
-                  <button className="w-full mt-2 py-2 bg-gray-400 text-white font-medium hover:bg-gray-500 transition-all rounded">
-                    Not Listed
-                  </button>
-                </Link>
-              )}
+              </div>
             </div>
           </div>
         ))}
-      </div>
+      </div> */}
 
       {/* NFT Grid - Second Row (Remaining Cards) */}
       {secondRow.length > 0 && (
@@ -150,48 +142,37 @@ const NFTMarketplace = () => {
                 alt={collection.collectionName}
                 className="w-full h-52 object-cover rounded-lg"
               />
-              <div className="mt-4  w-full">
-              <p className="text-md text-gray-600 font-bold">
+              <div className="mt-4 w-full">
+                <p className="text-md text-gray-600 font-bold">
                   Name: {collection.name}
                 </p>
                 <h3 className="text-lg font-semibold text-gray-900 uppercase">
                   {collection.collectionName}
                 </h3>
-                <p className="text-md text-gray-600 ">
+                <p className="text-md text-gray-600">
                   Category: {collection.categoryName}
                 </p>
-                <div className="flex items-center  mt-2 justify-between bg-gray-100 rounded-lg p-2 w-full mb-4">
+                <div className="flex justify-between bg-gray-100 rounded-lg p-2 mt-2 w-full mb-4">
                   <div>
-
-                    <p className="text-lg ">Price {" "}
-                      <span className="font-bold">{collection.price} NYW</span></p>
+                    <p className="text-lg">
+                      Price:{"   "}
+                      <span className="font-bold">{collection.price} NYW</span>
+                    </p>
                   </div>
-
                 </div>
-
-                {/* Conditional Rendering */}
-                {collection.onSale ? (
-                  <div className="flex items-center gap-2">
-                    <Link
-                      to={`/buy/id=${collection.tokenId}&contract=${collection.contractAddress}`}
-                      className="w-full"
-                    >
-                      <button className="w-full py-2 bg-gray-900 text-white font-medium transition-all rounded">
-                        Buy
-                      </button>
-                    </Link>
-                    <button className="w-12 h-10 flex items-center justify-center bg-gray-900 text-white font-medium transition-all rounded">
-                      <ShoppingCart />
-                    </button>
-                  </div>
-
-                ) : (
-                  <Link to={`/details/${collection.tokenId}`}>
-                    <button className="w-full mt-3 py-2 bg-gray-400 text-white font-medium hover:bg-gray-500 transition-all rounded">
-                      Not Listed
+                <div className="flex items-center gap-2">
+                  <Link
+                    to={`/buy/id=${collection.tokenId}&contract=${collection.contractAddress}`}
+                    className="w-full"
+                  >
+                    <button className="w-full py-2 bg-gray-900 text-white font-medium transition-all rounded">
+                      Buy
                     </button>
                   </Link>
-                )}
+                  <button className="w-12 h-10 flex items-center justify-center bg-gray-900 text-white font-medium transition-all rounded">
+                    <ShoppingCart />
+                  </button>
+                </div>
               </div>
             </div>
           ))}
@@ -199,7 +180,7 @@ const NFTMarketplace = () => {
       )}
 
       {/* No Collections Found */}
-      {collections.length === 0 && (
+      {filteredCollections.length === 0 && (
         <div className="text-center p-10 bg-gray-100 rounded-lg mt-10 w-full max-w-lg">
           <p className="text-gray-500 text-lg">No collections found.</p>
         </div>
