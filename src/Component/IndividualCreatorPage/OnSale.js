@@ -30,7 +30,7 @@ const NFTCard = ({ data}) => (
       <div className="mt-3 flex justify-between items-center">
         <div>
           <span className="text-xs text-gray-500">Price</span>
-          <p className="text-sm text-gray-900">{data?.price} NYFT</p>
+          <p className="text-sm text-gray-900">{data?.price} NYW</p>
         </div>
         <button className="bg-black text-white px-3 py-1.5 rounded-lg text-xs flex items-center gap-1 hover:bg-gray-900">
           <ShoppingCart className="w-4 h-4" /> On sale
