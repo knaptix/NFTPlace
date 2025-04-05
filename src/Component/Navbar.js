@@ -69,14 +69,14 @@ const Navbar = ({ darkMode, setDarkMode }) => {
 
   return (
     <>
-   <div className="w-full h-12 bg-white text-black py-1 overflow-hidden relative border-b">
-  <div className="absolute whitespace-nowrap animate-marquee text-lg font-medium">
-    This market is best suited on the Chrome platform. Use it there for better performance.
-  </div>
-</div>
+      <div className="w-full h-12 text-black py-1 overflow-hidden relative border-b bg-[#ecf7ff]">
+        <div className="absolute whitespace-nowrap animate-marquee text-lg font-bold ">
+          This market is best suited on the Chrome platform. Use it there for better performance.
+        </div>
+      </div>
 
 
-<style>{`
+      <style>{`
   @keyframes marquee {
     0% { transform: translateX(-100%); }
     100% { transform: translateX(100%); }
@@ -90,8 +90,8 @@ const Navbar = ({ darkMode, setDarkMode }) => {
           <div className="flex items-center justify-between">
             {/* Logo Section */}
             <Link to="/" className="flex items-center space-x-2">
-              <div className={`w-8 h-8 ${darkMode ? "bg-gray-700" : "bg-[#1B1A1E]"} rounded-lg flex items-center justify-center`}>
-                <img src="log.png" alt="Logo" className="w-6 h-6" />
+              <div className={`w-16 h-16 ${darkMode ? "bg-gray-700" : "bg-[#1B1A1E]"} rounded-lg flex items-center justify-center`}>
+                <img src="log.png" alt="Logo" className="w-11 h-11" />
               </div>
               <span className="font-extrabold text-[24px]">NYWNFT</span>
             </Link>
@@ -119,7 +119,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
                 <Link to="/CreateNFt" className="text-md  font-bold hover:text-gray-400">Create</Link>
                 <Link to="/cart" className="text-md  font-bold hover:text-gray-400">
                   Cart
-              </Link>
+                </Link>
 
               </div>
 
