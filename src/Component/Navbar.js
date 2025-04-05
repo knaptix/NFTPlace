@@ -93,7 +93,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
               <div className={`md:w-16 w-10 md:h-16 h-10 ${darkMode ? "bg-gray-700" : "bg-[#1B1A1E]"} rounded-lg flex items-center justify-center`}>
                 <img src="log.png" alt="Logo" className="md:w-11 w-8 md:h-11 h-8" />
               </div>
-              <span className="font-extrabold text-[24px]">NYWNFT</span>
+              <span className="font-extrabold text-xl md:text-[24px]">NYWNFT</span>
             </Link>
 
             {/* Search Bar */}
