@@ -29,9 +29,7 @@ const NFTMarketplace = () => {
 
           // Extract cards 31, 32, and 33
           const cards = [
-            filteredCollections[32] || null, // Card 31 (index 30)
-            filteredCollections[33] || null, // Card 32 (index 31)
-            filteredCollections[34] || null  // Card 33 (index 32)
+            filteredCollections[35] || null,
           ].filter(card => card !== null);
 
           setSelectedCards(cards);
