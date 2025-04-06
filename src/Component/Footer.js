@@ -46,7 +46,7 @@ export default function Footer() {
               <Link to="https://x.com/nywnft" className="text-black text-2xl p-2 rounded-md hover:bg-gray-300 transition">
                 <BsTwitterX />
               </Link>
-              <Link to="mailto:nywnftinfo@gmail.com" className="text-black text-3xl p-2 rounded-md hover:bg-gray-300 transition">
+              <Link to="mailto:info@nywnft.com" className="text-black text-3xl p-2 rounded-md hover:bg-gray-300 transition">
                 <MdOutlineEmail />
               </Link>
             </div>
