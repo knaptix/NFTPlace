@@ -46,7 +46,7 @@ const NFTMarketplace = () => {
   // Split the filtered collections for layout
   // const firstRow = filteredCollections.slice(0, 5);
   // const secondRow = filteredCollections.slice(5);
-  const secondRow = filteredCollections.slice(27);
+  const secondRow = filteredCollections.slice(24);
 
   // Loading state
   if (loading) {
