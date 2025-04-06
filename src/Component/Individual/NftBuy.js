@@ -180,7 +180,7 @@ const NFTDetailsPage = () => {
       transactionHash: hash,
       contractAddress: contractAddress,
       price: nft?.data?.price,
-      quantity: nft?.data?.quantity,
+      quantity:   Number(quantity),
     };
 
     try {
