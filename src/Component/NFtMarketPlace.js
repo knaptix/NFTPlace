@@ -1,11 +1,12 @@
-import { ShoppingCart } from "lucide-react";
 import React, { useState, useEffect } from "react";
+import { ShoppingCart } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const NFTMarketplace = () => {
   const [collections, setCollections] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [selectedCards, setSelectedCards] = useState([]);
 
   useEffect(() => {
     const fetchCollections = async () => {
@@ -22,16 +23,25 @@ const NFTMarketplace = () => {
 
         if (result?.status === true && Array.isArray(result.data)) {
           console.log(`Found ${result.data.length} collections`);
-          setCollections(result.data);
+          // Filter collections to only include items with onSale: true
+          // const filteredCollections = result.data.filter(collection => collection.onSale);
+          const filteredCollections = result.data;
+
+          // Extract cards 31, 32, and 33
+          const cards = [
+            filteredCollections[32] || null, // Card 31 (index 30)
+            filteredCollections[33] || null, // Card 32 (index 31)
+            filteredCollections[34] || null  // Card 33 (index 32)
+          ].filter(card => card !== null);
+
+          setSelectedCards(cards);
         } else {
           console.warn("API did not return expected data format:", result);
           setError("Invalid data format received from API");
-          setCollections([]);
         }
       } catch (error) {
         console.error("Error fetching collections:", error);
         setError(`Failed to fetch collections: ${error.message}`);
-        setCollections([]);
       } finally {
         setLoading(false);
       }
@@ -40,19 +50,11 @@ const NFTMarketplace = () => {
     fetchCollections();
   }, []);
 
-  // Filter collections to only include items with onSale: true
-  const filteredCollections = collections.filter((collection) => collection.onSale);
-
-  // Split the filtered collections for layout
-  // const firstRow = filteredCollections.slice(0, 5);
-  // const secondRow = filteredCollections.slice(5);
-  const secondRow = filteredCollections.slice(24);
-
   // Loading state
   if (loading) {
     return (
-      <div className="flex justify-center items-center min-h-screen w-screen">
-        <p className="text-xl font-semibold">Loading collections...</p>
+      <div className="flex justify-center items-center min-h-screen">
+        <p className="text-xl font-semibold">Loading selected cards...</p>
       </div>
     );
   }
@@ -60,7 +62,7 @@ const NFTMarketplace = () => {
   // Error state
   if (error) {
     return (
-      <div className="flex flex-col justify-center items-center min-h-screen w-screen text-center">
+      <div className="flex flex-col justify-center items-center min-h-screen text-center">
         <p className="text-xl font-semibold text-red-600">Error: {error}</p>
         <button
           className="px-4 py-2 bg-blue-600 text-white rounded-lg mt-4"
@@ -72,8 +74,17 @@ const NFTMarketplace = () => {
     );
   }
 
+  // No cards found
+  if (selectedCards.length === 0) {
+    return (
+      <div className="text-center p-10 bg-gray-100 rounded-lg mt-10 max-w-lg mx-auto">
+        <p className="text-gray-500 text-lg">Cards 31, 32, and 33 not found.</p>
+      </div>
+    );
+  }
+
   return (
-    <div className="w-full min-h-screen flex flex-col items-center">
+    <div className="w-full flex flex-col items-center">
       {/* Header */}
       <h2 className="text-4xl font-bold my-6 text-center text-gray-900">
         Discover Marketplace
@@ -82,109 +93,54 @@ const NFTMarketplace = () => {
         Browse, collect, and own digital assets from the best creators.
       </p>
 
-      {/* NFT Grid - First Row (4 Cards) */}
-      {/* <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full">
-        {firstRow.map((collection) => (
-          <div key={collection._id}>
-            <div className="bg-white shadow-lg rounded-2xl overflow-hidden p-4 transform transition-all hover:scale-105 flex flex-col items-center">
-              <img
-                src={collection.imageUrl}
-                alt={collection.collectionName}
-                className="w-full h-52 object-cover rounded-lg"
-              />
-              <div className="mt-4 w-full">
-                <p className="text-md text-gray-600 font-bold">
-                  Name: {collection.name}
-                </p>
-                <h3 className="text-lg font-semibold text-gray-900 uppercase">
-                  {collection.collectionName}
-                </h3>
-                <p className="text-md text-gray-600">
-                  Category: {collection.categoryName}
-                </p>
-                <div className="flex justify-between bg-gray-100 rounded-lg p-2 mt-2 w-full mb-4">
-                  <div>
-                    <p className="text-lg">
-                      Price:{"   "}
-                      <span className="font-bold">{collection.price} NYW</span>
-                    </p>
-                  </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 w-full">
+        {selectedCards.map((collection, index) => (
+          <div
+            key={collection._id}
+            className="bg-white shadow-lg rounded-2xl overflow-hidden p-4 flex flex-col items-center transform transition-all hover:scale-105"
+          >
+            {/* <div className="bg-gray-200 text-gray-800 px-3 py-1 rounded-lg absolute top-2 right-2">
+              Card #{31 + index}
+            </div> */}
+            <img
+              src={collection.imageUrl}
+              alt={collection.collectionName}
+              className="w-full h-52 object-cover rounded-lg"
+            />
+            <div className="mt-4 w-full">
+              <p className="text-md text-gray-600 font-bold">
+                Name: {collection.name}
+              </p>
+              <h3 className="text-lg font-semibold text-gray-900 uppercase">
+                {collection.collectionName}
+              </h3>
+              <p className="text-md text-gray-600">
+                Category: {collection.categoryName}
+              </p>
+              <div className="flex justify-between bg-gray-100 rounded-lg p-2 mt-2 w-full mb-4">
+                <div>
+                  <p className="text-lg">
+                    Price: <span className="font-bold">{collection.price} NYW</span>
+                  </p>
                 </div>
-                <div className="flex items-center gap-2">
-                  <Link
-                    to={`/buy/id=${collection.tokenId}&contract=${collection.contractAddress}`}
-                    className="w-full"
-                  >
-                    <button className="w-full py-2 bg-gray-900 text-white font-medium transition-all rounded">
-                      Buy
-                    </button>
-                  </Link>
-                  <button className="w-12 h-10 flex items-center justify-center bg-gray-900 text-white font-medium transition-all rounded">
-                    <ShoppingCart />
+              </div>
+              <div className="flex items-center gap-2">
+                <Link
+                  to={`/buy/id=${collection.tokenId}&contract=${collection.contractAddress}`}
+                  className="w-full"
+                >
+                  <button className="w-full py-2 bg-gray-900 text-white font-medium transition-all rounded">
+                    Buy
                   </button>
-                </div>
+                </Link>
+                <button className="w-12 h-10 flex items-center justify-center bg-gray-900 text-white font-medium transition-all rounded">
+                  <ShoppingCart />
+                </button>
               </div>
             </div>
           </div>
         ))}
-      </div> */}
-
-      {/* NFT Grid - Second Row (Remaining Cards) */}
-      {secondRow.length > 0 && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full mt-6">
-          {secondRow.map((collection) => (
-            <div
-              key={collection._id}
-              className="bg-white shadow-lg rounded-2xl overflow-hidden p-4 flex flex-col items-center transform transition-all hover:scale-105"
-            >
-              <img
-                src={collection.imageUrl}
-                alt={collection.collectionName}
-                className="w-full h-52 object-cover rounded-lg"
-              />
-              <div className="mt-4 w-full">
-                <p className="text-md text-gray-600 font-bold">
-                  Name: {collection.name}
-                </p>
-                <h3 className="text-lg font-semibold text-gray-900 uppercase">
-                  {collection.collectionName}
-                </h3>
-                <p className="text-md text-gray-600">
-                  Category: {collection.categoryName}
-                </p>
-                <div className="flex justify-between bg-gray-100 rounded-lg p-2 mt-2 w-full mb-4">
-                  <div>
-                    <p className="text-lg">
-                      Price:{"   "}
-                      <span className="font-bold">{collection.price} NYW</span>
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Link
-                    to={`/buy/id=${collection.tokenId}&contract=${collection.contractAddress}`}
-                    className="w-full"
-                  >
-                    <button className="w-full py-2 bg-gray-900 text-white font-medium transition-all rounded">
-                      Buy
-                    </button>
-                  </Link>
-                  <button className="w-12 h-10 flex items-center justify-center bg-gray-900 text-white font-medium transition-all rounded">
-                    <ShoppingCart />
-                  </button>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
-
-      {/* No Collections Found */}
-      {filteredCollections.length === 0 && (
-        <div className="text-center p-10 bg-gray-100 rounded-lg mt-10 w-full max-w-lg">
-          <p className="text-gray-500 text-lg">No collections found.</p>
-        </div>
-      )}
+      </div>
     </div>
   );
 };
