@@ -21,8 +21,9 @@ const Created = () => {
         console.log("API Response Data:", result);
 
         if (result?.status === true && Array.isArray(result.data)) {
-          console.log(`Found ${result.data.length} collections`);
-          setCollections(result.data);
+          const filtered = result.data.filter(item => item.onSale); // Only on sale
+          console.log(`Found ${filtered.length} on-sale collections`);
+          setCollections(filtered);
         } else {
           console.warn("API did not return expected data format:", result);
           setError("Invalid data format received from API");
@@ -40,11 +41,9 @@ const Created = () => {
     fetchCollections();
   }, []);
 
-  // Split the collections for layout
   const firstRow = collections.slice(0, 5);
   const secondRow = collections.slice(5);
 
-  // Loading state
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-screen w-screen">
@@ -53,7 +52,6 @@ const Created = () => {
     );
   }
 
-  // Error state
   if (error) {
     return (
       <div className="flex flex-col justify-center items-center min-h-screen w-screen text-center">
@@ -70,7 +68,6 @@ const Created = () => {
 
   return (
     <div className="w-full min-h-screen flex flex-col items-center">
-      {/* Header */}
       <h2 className="text-4xl font-bold my-6 text-center text-gray-900">
         Discover Marketplace
       </h2>
@@ -78,7 +75,7 @@ const Created = () => {
         Browse, collect, and own digital assets from the best creators.
       </p>
 
-      {/* NFT Grid - First Row (4 Cards) */}
+      {/* First Row */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full">
         {firstRow.map((collection) => (
           <div
@@ -90,28 +87,75 @@ const Created = () => {
               alt={collection.collectionName}
               className="w-full h-52 object-cover rounded-lg"
             />
-            <div className="mt-4  w-full">
-            <p className="text-md text-gray-600 font-bold">
-                  Name: {collection.name}
-                </p>
+            <div className="mt-4 w-full">
+              <p className="text-md text-gray-600 font-bold">
+                Name: {collection.name}
+              </p>
               <h3 className="text-lg font-semibold text-gray-900 uppercase">
                 {collection.collectionName}
               </h3>
               <p className="text-md text-gray-600">
                 Category: {collection.categoryName}
               </p>
-              <div className="flex  justify-between bg-gray-100 rounded-lg p-2 mt-2 w-full mb-4">
+              <div className="flex justify-between bg-gray-100 rounded-lg p-2 mt-2 w-full mb-4">
+                <div>
+                  <p className="text-lg">
+                    Price{" "}
+                    <span className="font-bold">{collection.price} NYW</span>
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <Link
+                  to={`/buy/id=${collection.tokenId}&contract=${collection.contractAddress}`}
+                  className="w-full"
+                >
+                  <button className="w-full py-2 bg-gray-900 text-white font-medium transition-all rounded">
+                    Buy
+                  </button>
+                </Link>
+                <button className="w-12 h-10 flex items-center justify-center bg-gray-900 text-white font-medium transition-all rounded">
+                  <ShoppingCart />
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Second Row */}
+      {secondRow.length > 0 && (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full mt-6">
+          {secondRow.map((collection) => (
+            <div
+              key={collection._id}
+              className="bg-white shadow-lg rounded-2xl overflow-hidden p-4 flex flex-col items-center transform transition-all hover:scale-105"
+            >
+              <img
+                src={collection.imageUrl}
+                alt={collection.collectionName}
+                className="w-full h-52 object-cover rounded-lg"
+              />
+              <div className="mt-4 w-full">
+                <p className="text-md text-gray-600 font-bold">
+                  Name: {collection.name}
+                </p>
+                <h3 className="text-lg font-semibold text-gray-900 uppercase">
+                  {collection.collectionName}
+                </h3>
+                <p className="text-md text-gray-600">
+                  Category: {collection.categoryName}
+                </p>
+                <div className="flex items-center mt-2 justify-between bg-gray-100 rounded-lg p-2 w-full mb-4">
                   <div>
-
-                    <p className="text-lg ">Price {" "}
-                      <span className="font-bold">{collection.price} NYW</span></p>
+                    <p className="text-lg">
+                      Price{" "}
+                      <span className="font-bold">{collection.price} NYW</span>
+                    </p>
                   </div>
-
                 </div>
 
-
-              {/* Conditional Rendering */}
-              {collection.onSale ? (
                 <div className="flex items-center gap-2">
                   <Link
                     to={`/buy/id=${collection.tokenId}&contract=${collection.contractAddress}`}
@@ -125,83 +169,16 @@ const Created = () => {
                     <ShoppingCart />
                   </button>
                 </div>
-              ) : (
-                <Link to={`/details/${collection.tokenId}`}>
-                  <button className="w-full mt-2 py-2 bg-gray-400 text-white font-medium hover:bg-gray-500 transition-all rounded">
-                    Not Listed
-                  </button>
-                </Link>
-              )}
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* NFT Grid - Second Row (Remaining Cards) */}
-      {secondRow.length > 0 && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full mt-6">
-          {secondRow.map((collection) => (
-            <div
-              key={collection._id}
-              className="bg-white shadow-lg rounded-2xl overflow-hidden p-4 flex flex-col items-center transform transition-all hover:scale-105"
-            >
-              <img
-                src={collection.imageUrl}
-                alt={collection.collectionName}
-                className="w-full h-52 object-cover rounded-lg"
-              />
-              <div className="mt-4  w-full">
-              <p className="text-md text-gray-600 font-bold">
-                  Name: {collection.name}
-                </p>
-                <h3 className="text-lg font-semibold text-gray-900 uppercase">
-                  {collection.collectionName}
-                </h3>
-                <p className="text-md text-gray-600 ">
-                  Category: {collection.categoryName}
-                </p>
-                <div className="flex items-center  mt-2 justify-between bg-gray-100 rounded-lg p-2 w-full mb-4">
-                  <div>
-
-                    <p className="text-lg ">Price {" "}
-                      <span className="font-bold">{collection.price} NYW</span></p>
-                  </div>
-
-                </div>
-
-                {/* Conditional Rendering */}
-                {collection.onSale ? (
-                  <div className="flex items-center gap-2">
-                    <Link
-                      to={`/buy/id=${collection.tokenId}&contract=${collection.contractAddress}`}
-                      className="w-full"
-                    >
-                      <button className="w-full py-2 bg-gray-900 text-white font-medium transition-all rounded">
-                        Buy
-                      </button>
-                    </Link>
-                    <button className="w-12 h-10 flex items-center justify-center bg-gray-900 text-white font-medium transition-all rounded">
-                      <ShoppingCart />
-                    </button>
-                  </div>
-
-                ) : (
-                  <Link to={`/details/${collection.tokenId}`}>
-                    <button className="w-full mt-3 py-2 bg-gray-400 text-white font-medium hover:bg-gray-500 transition-all rounded">
-                      Not Listed
-                    </button>
-                  </Link>
-                )}
               </div>
             </div>
           ))}
         </div>
       )}
 
-      {/* No Collections Found */}
+      {/* No collections found */}
       {collections.length === 0 && (
         <div className="text-center p-10 bg-gray-100 rounded-lg mt-10 w-full max-w-lg">
-          <p className="text-gray-500 text-lg">No collections found.</p>
+          <p className="text-gray-500 text-lg">No listed collections found.</p>
         </div>
       )}
     </div>
