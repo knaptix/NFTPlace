@@ -53,7 +53,7 @@ const NFTDetailsPage = () => {
     fetchNft();
   }, [id]); // Thi
   const handleCreateCollection = async () => {
-    if (quantity <= nft?.data?.quantity) {
+    if (quantity <= (nft?.quantity === 0 ? nft?.data?.quantity : nft?.quantity)) {
       if (!window.ethereum) {
         toast.error("MetaMask is not installed!");
         return;
@@ -298,7 +298,7 @@ const NFTDetailsPage = () => {
                 
               </div> */}
               <div className="flex items-center gap-1 font-bold text-gray-800 text-lg">
-                <span>Quantity: {nft?.data?.quantity}</span>
+                <span>Quantity: {nft?.quantity==0?nft?.data?.quantity:nft?.quantity}</span>
                 <span>Category: {nft?.data?.categoryName}</span>
               </div>
               {/* <div className="flex items-center gap-1">
