@@ -26,15 +26,10 @@ const Swip = () => {
 
         if (result?.status === true && Array.isArray(result.data)) {
           console.log(`Found ${result.data.length} collections`);
-          // Filter collections to only include items with onSale: true
+          // Filter collections and slice from index 35
           const filteredCollections = result.data;
-
-          // Extract specific card
-          const cards = [
-            filteredCollections[34] || null,
-          ].filter(card => card !== null);
-
-          setCollections(cards);
+          const selectedCollections = filteredCollections.slice(35);
+          setCollections(selectedCollections);
         } else {
           console.warn("API did not return expected data format:", result);
           setError("Invalid data format received from API");
