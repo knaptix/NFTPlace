@@ -9,7 +9,10 @@ const Collections = () => {
         fetch('https://nywnftbackend-1.onrender.com/api/collection/all')
             .then(response => response.json())
             .then(data => {
-                setCollections(Array.isArray(data.data) ? data.data : []);
+                // Apply filter to show only collections from index 27
+                const allCollections = Array.isArray(data.data) ? data.data : [];
+                const filteredCollections = allCollections.slice(5);
+                setCollections(filteredCollections);
                 setLoading(false);
             })
             .catch(err => {
@@ -25,10 +28,10 @@ const Collections = () => {
     return (
         <div className=" mx-auto px-4 py-6">
             {/* Top Navigation Tabs */}
-           
+
 
             {/* Filters and Sorting */}
-           
+
             {/* Table for Collections */}
             <div className="overflow-x-auto mt-6">
                 <table className="w-full border border-gray-300 text-gray-700">
