@@ -27,7 +27,7 @@ const NFTTab = React.memo(() => {
           {[
             { id: 'NFTs', label: 'NFTs' },
             { id: 'Collections', label: 'Collections' },
-            { id: 'Created', label: 'Created' },
+            // { id: 'Created', label: 'Created' },
           ].map((tab) => (
             <button
               key={tab.id}
