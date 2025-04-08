@@ -137,7 +137,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
                   ? "bg-gray-700 text-white hover:bg-gray-600"
                   : "text-[#F3F3F3] bg-black hover:bg-gray-200 hover:text-black"
                   } transition-colors duration-200`}>
-                  NYWNFT/WETH
+                  NYWNFT/WETH DESKTOP
                 </button>
               </Link>
 
