@@ -24,7 +24,7 @@ const NewYorkWorldSection = () => {
             heart of the world.
           </p>
           <div className="flex flex-col sm:flex-row gap-4  mb-5 justify-center lg:justify-start">
-            <Link to='https://pancakeswap.finance/swap?chain=eth&outputCurrency=0x26cAFCfc1B820a74B0e069c2C65b816d2AF241cD'>
+            <Link to='https://metamask-nywnft-guide-awr31yq.gamma.site/'>
               <button className="bg-black  text-white text-[18px] sm:text-[20px] px-6 sm:px-8 py-3 rounded-full font-sans transition-all duration-300 hover:bg-[#374151]">
                 Buy Coins Here and then Buy NFT
               </button>
