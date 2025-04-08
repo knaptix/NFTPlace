@@ -28,7 +28,7 @@ const Swip = () => {
           console.log(`Found ${result.data.length} collections`);
           // Filter collections and slice from index 35
           const filteredCollections = result.data;
-          const selectedCollections = filteredCollections.slice(35);
+          const selectedCollections = filteredCollections.slice(31);
           setCollections(selectedCollections);
         } else {
           console.warn("API did not return expected data format:", result);
