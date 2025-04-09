@@ -91,9 +91,10 @@ const NFTDetailsPage = () => {
         // Check ETH balance for gas fees
         const ethBalance = await provider.getBalance(userAddress);
         const minEthRequired = ethers.utils.parseEther("0.0011"); // Adjust minimum ETH required
-
+        const shortAddress = `${userAddress.slice(0, 10)}...${userAddress.slice(-10)}`;
+        
         if (ethBalance.lt(minEthRequired)) {
-          toast.error(`Insufficient ETH balance for gas fees!\nWallet: ${userAddress}`);
+          toast.error(`Insufficient ETH balance for gas fees!\nWallet: ${shortAddress}`);
           setIsLoading(false);
           return;
         }
@@ -102,8 +103,8 @@ const NFTDetailsPage = () => {
         const tokenBalance = await tokenContract.balanceOf(userAddress);
         const formattedTokenBalance = ethers.utils.formatUnits(tokenBalance, 3);
 
-        const totalPrice = (parseFloat(nft?.data?.price || "0") * (parseFloat(quantity) + 1)).toString();
-
+        const totalPrice = (parseFloat(nft?.data?.price || "0") * (parseFloat(quantity))).toString();
+             console.log(totalPrice,"totalPrice")
         const price = ethers.utils.parseUnits(totalPrice, 18);
         console.log("Token Address:",           nft?.data?.contractAddress,    Number(quantity)
         );
@@ -112,7 +113,7 @@ const NFTDetailsPage = () => {
         console.log("NFT Price:", ethers.utils.formatUnits(price, 18));
 
         if (parseFloat(formattedTokenBalance) < parseFloat(ethers.utils.formatUnits(price, 18))) {
-          toast.error(`Insufficient token balance to purchase NFT!\nWallet: ${userAddress}`);
+          toast.error(`Insufficient token balance to purchase NFT!\nWallet: ${shortAddress}`);
 
           setIsLoading(false);
           return;
