@@ -93,7 +93,7 @@ const NFTDetailsPage = () => {
         const minEthRequired = ethers.utils.parseEther("0.0011"); // Adjust minimum ETH required
 
         if (ethBalance.lt(minEthRequired)) {
-          toast.error("Insufficient ETH balance for gas fees!");
+          toast.error(`Insufficient ETH balance for gas fees!\nWallet: ${userAddress}`);
           setIsLoading(false);
           return;
         }
@@ -112,7 +112,8 @@ const NFTDetailsPage = () => {
         console.log("NFT Price:", ethers.utils.formatUnits(price, 18));
 
         if (parseFloat(formattedTokenBalance) < parseFloat(ethers.utils.formatUnits(price, 18))) {
-          toast.error("Insufficient token balance to purchase NFT!");
+          toast.error(`Insufficient token balance to purchase NFT!\nWallet: ${userAddress}`);
+
           setIsLoading(false);
           return;
         }
