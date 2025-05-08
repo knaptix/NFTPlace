@@ -46,7 +46,7 @@ const SmartContractForm = () => {
       );
 
       // Convert startTime to Unix timestamp
-      const startTimeUnix = new Date(startTime).getTime();
+      const startTimeUnix = Math.floor(new Date(startTime).getTime() / 1000);
       const currentTime = new Date().getTime();
 
       const tx = await contract.createCollection(
