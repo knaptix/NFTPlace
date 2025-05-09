@@ -125,7 +125,7 @@ const Partnerships = () => {
                         Collaborating with industry leaders to build the future of digital art and ownership in the New York World.
                     </p>
                     <div className="flex flex-wrap gap-4">
-                        <Link to="mailto:nywnftinfo@nywnft.com" className="bg-white text-black px-6 py-3 rounded-full font-medium hover:bg-opacity-90 transition">
+                        <Link to="mailto:info@nywnft.com" className="bg-white text-black px-6 py-3 rounded-full font-medium hover:bg-opacity-90 transition">
                             Become a Partner
                         </Link>
 
@@ -200,7 +200,7 @@ const Partnerships = () => {
                         {/* <button className="bg-white text-purple-900 px-8 py-4 rounded-full font-medium hover:bg-opacity-90 transition">
                             Apply for Partnership
                         </button> */}
-                        <Link to="mailto:nywnftinfo@nywnft.com" className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-full font-medium hover:bg-white hover:bg-opacity-10 transition">
+                        <Link to="mailto:info@nywnft.com" className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-full font-medium hover:bg-white hover:bg-opacity-10 transition">
                             Contact Our Team
                         </Link>
                     </div>

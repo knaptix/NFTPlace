@@ -97,7 +97,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
             </Link>
 
             {/* Search Bar */}
-            <div className="hidden md:block flex-1 max-w-[440px] mx-8">
+            {/* <div className="hidden md:block flex-1 max-w-[440px] mx-8">
               <div className="relative">
                 <BiSearch className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
                 <input
@@ -109,7 +109,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
                     }`}
                 />
               </div>
-            </div>
+            </div> */}
 
             {/* All right-aligned content in a single flex container */}
             <div className="flex items-center ml-auto">

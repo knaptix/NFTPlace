@@ -124,9 +124,13 @@ const HelpCenter = () => {
       <p className="text-gray-600 text-sm sm:text-base mb-6">
         Need help? Find our official support email address to reach out for any queries, technical issues, or assistance. Our team is here to help and will respond as soon as possible.
       </p>
-      <button className="bg-[#000C2D] text-white px-4 py-2 rounded-lg flex items-center justify-center w-full sm:w-auto mx-auto">
-        <Mail className="w-5 h-5 mr-2" /> Mail us
-      </button>
+      <a href="mailto:info@nywnft.com?subject=Inquiry&body=Hi, I’d like to get in touch...">
+  <button className="bg-[#000C2D] text-white px-4 py-2 rounded-lg flex items-center justify-center w-full sm:w-auto mx-auto">
+    <Mail className="w-5 h-5 mr-2" />
+    Mail us
+  </button>
+</a>
+
     </div>
 
     {/* Ticket Support Card */}
@@ -135,9 +139,12 @@ const HelpCenter = () => {
       <p className="text-gray-600 text-sm sm:text-base mb-6">
         Need help? Find our official support email address to reach out for any queries, technical issues, or assistance. Our team is here to help and will respond as soon as possible.
       </p>
-      <button className="bg-[#000C2D] text-white px-4 py-2 rounded-lg flex items-center justify-center w-full sm:w-auto mx-auto">
-        <Ticket className="w-5 h-5 mr-2" /> Raise ticket
-      </button>
+        <a href="mailto:info@nywnft.com?subject=Inquiry&body=Hi, I’d like to get in touch...">
+  <button className="bg-[#000C2D] text-white px-4 py-2 rounded-lg flex items-center justify-center w-full sm:w-auto mx-auto">
+    <Mail className="w-5 h-5 mr-2" />
+    Mail us
+  </button>
+</a>
     </div>
   </div>
 </section>

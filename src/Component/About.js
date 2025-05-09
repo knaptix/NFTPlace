@@ -279,13 +279,13 @@ const AboutPage = () => {
                     </p>
                     <div className="flex flex-wrap justify-center gap-4">
                         <Link
-                            to="/join-community"
+                            to="https://t.me/+YUAQVX-sDoM1NTdh"
                             className="px-8 py-3 bg-white text-black font-medium rounded-full hover:bg-gray-100 transition duration-300"
                         >
                             Join Community
                         </Link>
                         <Link
-                            to="/whitepaper"
+                            to="https://nywnft-organization.gitbook.io/nywnft/~/changes/1/getting-started/get-started"
                             className="px-8 py-3 bg-transparent border-2 border-white font-medium rounded-full hover:bg-white hover:text-black transition duration-300"
                         >
                             Read Whitepaper
