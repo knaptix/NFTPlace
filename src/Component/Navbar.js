@@ -204,7 +204,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
           {/* Mobile Menu */}
           {isMenuOpen && (
             <div className="md:hidden mt-4 pb-4 space-y-4 border-t pt-4">
-              <div className="relative mb-4">
+              {/* <div className="relative mb-4">
                 <BiSearch className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
                 <input
                   type="text"
@@ -212,7 +212,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
                   className={`w-full pl-10 pr-4 py-2 rounded-full focus:outline-none ${darkMode ? "bg-gray-700 text-white" : "bg-[#F3F3F3]"
                     }`}
                 />
-              </div>
+              </div> */}
               <div className="flex flex-col space-y-4 ">
                 <Link to="/" className="text-sm font-medium hover:text-gray-400 ">Marketplace</Link>
                 <Link to="/CreateNFt" className="text-sm font-medium hover:text-gray-400 ">Create</Link>
