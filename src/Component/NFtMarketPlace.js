@@ -49,11 +49,9 @@ const NFTMarketplace = () => {
     try {
       setSearching(true);
       console.log(`Searching for: ${query}`);
-      
-      // Make sure we have a valid query parameter
       const searchUrl = `https://nywnftbackend-1.onrender.com/api/nft/search?q=${encodeURIComponent(query)}`;
       console.log(`Making request to: ${searchUrl}`);
-      
+
       const response = await fetch(searchUrl);
 
       if (!response.ok) {
@@ -61,14 +59,26 @@ const NFTMarketplace = () => {
       }
 
       const result = await response.json();
-      console.log("Search Response Data:", result);
+      console.log("Search Response Data (Full):", JSON.stringify(result, null, 2));
 
-      if (result?.status === true && Array.isArray(result.data)) {
-        console.log(`Found ${result.data.length} search results`);
-        setCollections(result.data);
+      if (result?.success === true && Array.isArray(result.data.nft)) {
+        console.log(`Found ${result.data.nft.length} search results`);
+        // Map data to ensure consistent structure
+        const mappedCollections = result.data.nft.map((item) => ({
+          _id: item._id || item.id || `temp-${Math.random()}`, // Fallback ID
+          imageUrl: item.imageUrl || item.image || "https://via.placeholder.com/150",
+          collectionName: item.collectionName || item.collection || "Unknown",
+          name: item.name || "N/A",
+          categoryName: item.categoryName || item.category || "N/A",
+          price: item.price || 0,
+          tokenId: item.tokenId || "",
+          contractAddress: item.contractAddress || "",
+          onSale: item.onSale ?? true, // Default to true if undefined
+        }));
+        setCollections(mappedCollections);
+        console.log("Mapped collections:", mappedCollections);
       } else {
         console.warn("Search API did not return expected data format:", result);
-        // Don't set error here, just show empty results
         setCollections([]);
       }
     } catch (error) {
@@ -85,20 +95,28 @@ const NFTMarketplace = () => {
     fetchCollections();
   }, []);
 
+  // Debug state changes
+  useEffect(() => {
+    console.log("Collections:", collections);
+    console.log("Filtered Collections:", filteredCollections);
+  }, [collections]);
+
   const handleSearchSubmit = (e) => {
     if (e) e.preventDefault();
-    
+
     if (!searchQuery.trim()) {
-      // If search is empty, just fetch all collections
+      // If search is empty, fetch all collections
       fetchCollections();
       return;
     }
-    
+
     searchCollections(searchQuery);
   };
 
-  // Filter collections to only include items with onSale: true
-  const filteredCollections = collections.filter((collection) => collection.onSale);
+  // Filter collections: bypass onSale filter for search results
+  const filteredCollections = searchQuery
+    ? collections // No filter for search results
+    : collections.filter((collection) => collection.onSale);
 
   // Loading state
   if (loading) {
@@ -116,7 +134,10 @@ const NFTMarketplace = () => {
         <p className="text-xl font-semibold text-red-600">Error: {error}</p>
         <button
           className="px-4 py-2 bg-blue-600 text-white rounded-lg mt-4"
-          onClick={() => window.location.reload()}
+          onClick={() => {
+            setError(null);
+            searchQuery ? searchCollections(searchQuery) : fetchCollections();
+          }}
         >
           Retry
         </button>
@@ -127,22 +148,24 @@ const NFTMarketplace = () => {
   // Simulate Link component
   const BuyLink = ({ to, children }) => (
     <div className="w-full">
-      <div 
-        onClick={() => console.log(`Navigating to: ${to}`)} 
+      <div
+        onClick={() => console.log(`Navigating to: ${to}`)}
         className="cursor-pointer"
       >
         {children}
       </div>
     </div>
   );
- {console.log(filteredCollections,"ddddddd")}
+
+  console.log("Rendering filteredCollections:", filteredCollections);
+
   return (
     <div className="w-full min-h-screen flex flex-col items-center">
       {/* Header */}
       <h2 className="text-4xl font-bold my-6 text-center text-gray-900">
         Discover Marketplace
       </h2>
-      
+
       {/* Search Bar */}
       <div className="w-full max-w-2xl mb-8">
         <div className="relative">
@@ -152,14 +175,14 @@ const NFTMarketplace = () => {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             onKeyPress={(e) => {
-              if (e.key === 'Enter') {
+              if (e.key === "Enter") {
                 e.preventDefault();
                 handleSearchSubmit();
               }
             }}
             className="w-full p-4 pr-12 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           />
-          <button 
+          <button
             onClick={handleSearchSubmit}
             className="absolute right-3 top-1/2 transform -translate-y-1/2 p-2 bg-gray-900 text-white rounded-lg"
             disabled={searching}
@@ -168,7 +191,7 @@ const NFTMarketplace = () => {
           </button>
         </div>
       </div>
-      
+
       <p className="text-center text-gray-600 mb-8 max-w-xl">
         Browse, collect, and own digital assets from the best creators.
       </p>
@@ -176,7 +199,9 @@ const NFTMarketplace = () => {
       {/* Search Status */}
       {searching && (
         <div className="w-full max-w-2xl mb-4 text-center">
-          <p className="text-blue-600">Searching...</p>
+          <p className="text-blue-600">
+            Searching... <span className="animate-spin">⏳</span>
+          </p>
         </div>
       )}
 
@@ -205,7 +230,7 @@ const NFTMarketplace = () => {
               <div className="flex justify-between bg-gray-100 rounded-lg p-2 mt-2 w-full mb-4">
                 <div>
                   <p className="text-lg">
-                    Price:{"   "}
+                    Price:{" "}
                     <span className="font-bold">{collection.price} NYW</span>
                   </p>
                 </div>
@@ -231,7 +256,9 @@ const NFTMarketplace = () => {
       {filteredCollections.length === 0 && (
         <div className="text-center p-10 bg-gray-100 rounded-lg mt-10 w-full max-w-lg">
           <p className="text-gray-500 text-lg">
-            {searchQuery ? `No results found for "${searchQuery}"` : "No collections found."}
+            {searchQuery
+              ? `No results found for "${searchQuery}"`
+              : "No collections found."}
           </p>
           {searchQuery && (
             <button
