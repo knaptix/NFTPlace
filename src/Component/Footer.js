@@ -60,6 +60,7 @@ export default function Footer() {
                 Contact Support
               </Link>
               <Link to="/settings" className="bg-gray-900 text-white px-6 py-3 rounded-md hover:bg-black transition text-center">Raise a ticket</Link>
+               
             </div>
           </div>
         </div>
@@ -85,6 +86,8 @@ export default function Footer() {
             <ul className="space-y-2">
               <li><Link to="/about" className="text-sm hover:underline">About</Link></li>
               <li><Link to="/venture" className="text-sm hover:underline">Ventures</Link></li>
+              <li><Link to="/terms-services" className="text-sm hover:underline">Terms and Conditions</Link></li>
+               <li><Link to="/privacy-polices" className="text-sm hover:underline">Privacy Polices </Link></li>
             </ul>
           </div>
 
@@ -95,6 +98,7 @@ export default function Footer() {
               <li><Link to="/blogs" className="text-sm hover:underline">Blogs</Link></li>
               <li><Link to="/partnerships" className="text-sm hover:underline">Partners</Link></li>
               <li><Link to="/community-standard" className="text-sm hover:underline">Community Standards</Link></li>
+             
               <li><Link to="https://nywnft-organization.gitbook.io/nywnft/~/changes/1/getting-started/get-started" className="text-sm hover:underline">NYWNFT Documentation</Link></li>
             </ul>
           </div>
