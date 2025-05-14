@@ -123,8 +123,8 @@ const PrivacyPolices = () => {
                     <h2 className="text-2xl font-semibold mb-4">Contact Us</h2>
                     <p className="text-gray-700 mb-4">
                         If you have any questions or concerns about this Privacy Policy, please contact us at{" "}
-                        <a href="mailto:nywnftinfo@nywnft.com" className="text-blue-600 hover:underline">
-                            nywnftinfo@nywnft.com
+                        <a href="mailto:info@nywnft.com" className="text-blue-600 hover:underline">
+                            info@nywnft.com
                         </a>
                         .
                     </p>

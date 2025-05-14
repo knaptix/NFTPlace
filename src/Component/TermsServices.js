@@ -362,8 +362,8 @@ const TermsOfServices = () => {
                     <h2 className="text-2xl font-semibold mb-4">Contact Information</h2>
                     <p className="text-gray-700 mb-4">
                         Questions about the Terms of Service should be sent to us at:{" "}
-                        <a href="mailto:nywnft@nywnft.com" className="text-blue-600 hover:underline">
-                            nywnft@nywnft.com
+                        <a href="mailto:info@nywnft.com" className="text-blue-600 hover:underline">
+                            info@nywnft.com
                         </a>
                     </p>
                 </section>
