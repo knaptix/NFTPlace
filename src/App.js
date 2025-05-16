@@ -24,6 +24,7 @@ import TermsServices from "./Component/TermsServices";
 import NFTDetailsSale from "./Component/Individual/NFTSale";
 import toast, { Toaster } from "react-hot-toast";
 import CommunityStandards from "./Component/CommunityStandars";
+import NotFoundPage from "./Component/404";
 
 const App = () => {
   return (
@@ -31,7 +32,8 @@ const App = () => {
       <div>
         <Navbar />
         <Routes>
-          <Route path="/" element={<Home />} />
+          {/* <Route path="/" element={<Home />} /> */}
+          <Route path="/" element={<NotFoundPage />} />
           <Route path="/CurrentBid" element={<ProtectedRoute> <AuctionCards /></ProtectedRoute>} />
           {/* Protected Routes */}
           <Route path="/CreateNFt" element={<ProtectedRoute><NFTCreation /></ProtectedRoute>} />
