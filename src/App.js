@@ -33,7 +33,7 @@ const App = () => {
         <Navbar />
         <Routes>
            <Route path="/" element={<Home />} />
-         {/* <Route path="/" element={<NotFoundPage />} /> */}
+          {/* <Route path="/" element={<NotFoundPage />} /> */}
           <Route path="/CurrentBid" element={<ProtectedRoute> <AuctionCards /></ProtectedRoute>} />
           {/* Protected Routes */}
           <Route path="/CreateNFt" element={<ProtectedRoute><NFTCreation /></ProtectedRoute>} />
