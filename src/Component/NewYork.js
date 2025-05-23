@@ -9,19 +9,21 @@ const NewYorkWorldSection = () => {
         <div className="text-center lg:text-left w-full lg:w-1/2">
           <div className="mb-4 sm:mb-6">
             <h2 className="text-[#000C2D] text-black font-sans font-extrabold text-[24px] sm:text-[32px] md:text-[40px] leading-tight">
-              Diversity & Technology
+              This platform is owned and developed by Xiorent Technologies private limited
             </h2>
 
-            <h1 className="text-[32px] sm:text-[42px] md:text-[56px] font-sans text-black font-extrabold text-[#1A202C] leading-tight mt-2">
-              NEW YORK WORLD NFT
-            </h1>
+            {/* <h1 className="text-[32px] sm:text-[42px] md:text-[56px] font-sans text-black font-extrabold text-[#1A202C] leading-tight mt-2">
+              This platform is owned and developed by Xiorent Technologies private limited
+            </h1> */}
           </div>
 
           <p className="text-[#314066] text-[14px] sm:text-[16px] md:text-[20px] font-sans leading-relaxed mb-6">
-            Ever dreamt of being part of the New York World? NYWNFTs, the bridge
+
+            {/* This platform is owned and developed by Xiorent Technologies private limited */}
+            {/* Ever dreamt of being part of the New York World? NYWNFTs, the bridge
             between Blockchain and AI, lets you own a piece of the action.
             Generate and mint NFTs, unlocking the future of creativity in the
-            heart of the world.
+            heart of the world. */}
           </p>
           <div className="flex flex-col sm:flex-row gap-4  mb-5 justify-center lg:justify-start">
             <Link to='https://metamask-nywnft-guide-awr31yq.gamma.site/'>
