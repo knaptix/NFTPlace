@@ -13,7 +13,7 @@ const NewYorkWorldSection = () => {
             </h2>
 
             <h1 className="text-[32px] sm:text-[42px] md:text-[56px] font-sans text-black font-extrabold text-[#1A202C] leading-tight mt-2">
-              NEW YORK WORLD NFT
+              NEW YORK WORLD NFT & NATIVE TOKENS
             </h1>
           </div>
 
