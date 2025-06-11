@@ -42,7 +42,8 @@ const SmartContractForm = () => {
       const contract = new ethers.Contract(
         contractAddress,
         contractABI,
-        signer
+        signer,
+        data
       );
 
       // Convert startTime to Unix timestamp
@@ -52,8 +53,7 @@ const SmartContractForm = () => {
       const tx = await contract.createCollection(
         contractName,
         contractSymbol,
-        type === "collection" ? false : true,
-        type === "collection" ? 0 : startTimeUnix
+        
       );
 
       console.log("Transaction sent:", tx.hash);
@@ -69,8 +69,7 @@ const SmartContractForm = () => {
 
       if (collectionCreatedEvent) {
         const newContractAddress = collectionCreatedEvent.args.collection;
-        console.log("New contract address:", newContractAddress);
-        await handleApiCall(tx.hash, newContractAddress);
+     
 
         // toast.success("Collection created successfully!");
       } else {
@@ -101,11 +100,7 @@ const SmartContractForm = () => {
         return; // Return early to prevent setting invalid file
       }
 
-      setSendImage(file);
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setSelectedImage(reader.result);
-      };
+   
       reader.readAsDataURL(file);
     }
   };
@@ -141,8 +136,7 @@ const SmartContractForm = () => {
 
     formData.append("collectionName", contractName);
     formData.append("contractAddress", contract);
-    formData.append("description", contractSymbol);
-    formData.append("collectionCreationHash", hash);
+   
     formData.append("nftStandard", "ERC-1155");
 
     formData.append("isDrop ", type === "collection" ? false : true);
@@ -155,7 +149,7 @@ const SmartContractForm = () => {
 
     try {
       const response = await fetch(
-        "https://nywnftbackend-1.onrender.com/api/collection/create",
+        "https://nywnftbackend-1.onrendeer.com/api/collection/creeate",
         {
           method: "POST",
           headers: {
@@ -235,7 +229,7 @@ const SmartContractForm = () => {
             <input
               type="file"
               accept="image/png, image/jpeg, image/gif"
-              onChange={handleImageChange}
+           
               className="hidden"
               id="file-upload"
             />

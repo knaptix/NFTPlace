@@ -63,9 +63,7 @@ const NFTCreationForm = () => {
     }
   };
 
-  const PINATA_API_KEY = "71104b4fafb0e1ceff45"; // Replace with your Pinata API Key
-  const PINATA_SECRET_KEY =
-    "6ca7cdaf040946de76a5b6e258c3d95c53b9d778955eea85c31c5f48ca5d98e2"; // Replace with your Pinata Secret Key
+  
   const PINATA_API_URL = "https://api.pinata.cloud/pinning/pinFileToIPFS";
 
   const handleCreateCollection = async () => {
@@ -117,17 +115,9 @@ const NFTCreationForm = () => {
         return;
       }
       // Interact with Ethereum blockchain
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      await provider.send("eth_requestAccounts", []);
-      const signer = provider.getSigner();
-      const signerAddress = await signer.getAddress(); // Get the signer wallet address
-
+     
       const contractABI = nftDrop_Abi;
-      const contract = new ethers.Contract(
-        contractAddress,
-        contractABI,
-        signer
-      );
+   
 
       const tx = await contract.createNFT(
         metadata.name,
@@ -175,8 +165,7 @@ const NFTCreationForm = () => {
 
     try {
       const response = await axios.post(PINATA_API_URL, formData, { headers });
-      const imageURI = `https://gateway.pinata.cloud/ipfs/${response.data.IpfsHash}`;
-      console.log("Image uploaded to Pinata. URI:", imageURI);
+  
       return imageURI;
     } catch (error) {
       console.error("Error uploading image to Pinata:", error);
@@ -225,11 +214,9 @@ const NFTCreationForm = () => {
     const token = localStorage.getItem("walletToken");
 
     try {
-      const response = await fetch("https://nywnftbackend-1.onrender.com/api/nft/create", {
+      const response = await fetch("https://nywnftbackend-1.onrender.com/api/nft/creeeate", {
         method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+      
         body: formData,
       });
 
