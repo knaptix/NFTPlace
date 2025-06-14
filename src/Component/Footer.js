@@ -104,12 +104,20 @@ export default function Footer() {
           </div>
 
           {/* Help & Support */}
-          <div>
-            <h3 className="text-lg font-semibold mb-3">Help & Support</h3>
-            <ul className="space-y-2">
-              <li><Link to="mailto:info@nywnft.com" className="text-sm hover:underline">Contact Support</Link></li>
-            </ul>
-          </div>
+         <div>
+  <h3 className="text-lg font-semibold mb-3">Help & Support</h3>
+  <ul className="space-y-2">
+    <li className="text-sm">Email: <a href="mailto:info@nywnft.com" className="hover:underline">info@nywnft.com</a></li>
+    <li>
+      <Link
+        to="mailto:info@nywnft.com"
+        className="text-sm hover:underline"
+      >
+        Contact Support
+      </Link>
+    </li>
+  </ul>
+</div>
 
           {/* Learn about NFTs */}
           <div>
